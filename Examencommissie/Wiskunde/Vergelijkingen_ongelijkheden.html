@@ -68,21 +68,29 @@ footer{text-align:center;padding:22px;color:var(--muted);font-size:.8rem}
 </style>
 
 <style>
-.learning-objectives{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.learning-objectives span{background:#e7f4f2;color:#087d80;padding:4px 10px;border-radius:99px;font-size:.8rem;font-weight:700}
+.ordering{display:grid;gap:8px;margin:12px 0}.order-row{display:flex;align-items:center;gap:10px;padding:9px;border:1px solid #cbd8e0;background:#f7f9fc;border-radius:8px;cursor:grab}.order-row span:nth-child(2){flex:1}.order-row button{margin:0;padding:5px 10px}.learning-objectives{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.learning-objectives span{background:#e7f4f2;color:#087d80;padding:4px 10px;border-radius:99px;font-size:.8rem;font-weight:700}
 .task .hint{background:#fff7e9;padding:10px;border-radius:8px;margin:8px 0}
 .task button.light{background:#e7f1f2;color:#076b71}
 .task .answer-feedback{white-space:pre-wrap}
 .pending{background:#fff7e9;border-left:4px solid #e9a14a;padding:16px;margin:20px 0}
 .step-card{border:1px solid #dce5ec;border-radius:12px;padding:16px;margin:15px 0}
 </style>
-</head><body>
+
+<style>
+.graph-controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:16px 0}
+.graph-controls label{display:block;padding:12px;border:1px solid #dce5ec;border-radius:10px;background:#f7f9fc;font-weight:650}
+.graph-controls output{float:right;color:#087f83;font-weight:800}
+.graph-controls input[type=range]{width:100%;margin:12px 0 0;accent-color:#087f83}
+@media(max-width:650px){.graph-controls{grid-template-columns:1fr}}
+</style>
+<style>.axis-widget{padding:16px;border:1px solid #dce5ec;border-radius:14px;background:#f8fbfd;margin:16px 0}.axis-options{display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin:12px 0}.axis-options label{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.axis-options input[type=number]{width:70px;padding:7px}.axis-options select{padding:7px;max-width:100%}.axis-result{font-weight:750;color:#075e68;font-size:1.1em}.axis-widget svg{user-select:none}.axis-widget button{margin:4px}</style></head><body>
 <header><div class="eyebrow">ASTREM LAB · WISKUNDE · ZELFSTUDIE</div><h1>Vergelijkingen en ongelijkheden</h1>
 <p>Interactief leerpad voor de Examencommissie tweede graad: theorie, voorbeelden, oefeningen en gerichte feedback.</p></header>
 <div id="authScreen"><div class="auth-card"><span class="auth-mark">ASTREM LAB · MIJN LEERPAD</span><h2>Welkom bij je leerpad!</h2><p>Meld je aan om je oefeningen te maken en je voortgang online te bewaren. Je kunt later verdergaan waar je gebleven was.</p><noscript>Schakel JavaScript in om je aan te melden.</noscript><div id="authFormMount"><div id="loginPanel"><p><label for="leerlingId">Leerling-ID</label><input id="leerlingId" autocomplete="username" placeholder="Vul je leerling-ID in"></p><p><label for="leerlingToken">Persoonlijke toegangscode</label><input id="leerlingToken" type="password" autocomplete="off" placeholder="Je persoonlijke toegangscode"></p><button type="button" id="loginButton">Aanmelden en verder leren →</button><button type="button" id="logoutButton">Afmelden</button><p id="loginStatus" aria-live="polite"></p></div></div><p style="font-size:.84rem">Je toegangscode wordt alleen tijdens deze browsersessie onthouden. Deel ze niet met anderen.</p></div></div>
 
 <div id="learningApp"><div id="sessionBar"><span id="sessionName"></span><button type="button" id="sessionLogout">Afmelden</button></div>
 <div class="layout"><aside><h3>Jouw leerpad</h3><div class="progress"><div id="progressbar"></div></div>
-<small id="progresslabel">0 van 1 beschikbaar onderdeel afgerond</small><nav id="nav"></nav>
+<small id="progresslabel">0 van 8 onderdelen afgerond</small><nav id="nav"></nav>
 <p class="muted" style="font-size:.8rem">Je voortgang wordt lokaal en online bewaard zodra de Worker dit leerpad ondersteunt.</p></aside>
 <main><section class="lesson active" id="s0" data-title="Starten"><div class="kicker">Welkom</div>
 <h2>Vergelijkingen en ongelijkheden</h2>
@@ -93,7 +101,7 @@ footer{text-align:center;padding:22px;color:var(--muted);font-size:.8rem}
 <p><label for="studentName">Voornaam (voor het rapport)</label><input id="studentName" placeholder="Bijvoorbeeld Olivia" autocomplete="given-name"></p>
 <button type="button" id="downloadReport">Download rapport (.json)</button>
 <button type="button" id="sendReport">Synchronisatie opnieuw proberen</button>
-<p id="reportStatus" aria-live="polite"></p></div><div class="note"><b>Opmerking:</b> Deel 1 is volledig uitgewerkt. De volgende onderdelen worden stapsgewijs toegevoegd.</div></section><section class="lesson" id="s1" data-title="Balansmethode">
+<p id="reportStatus" aria-live="polite"></p></div><div class="note"><b>Opmerking:</b> Deel 1 en deel 2 zijn volledig uitgewerkt. De volgende onderdelen worden stapsgewijs toegevoegd.</div></section><section class="lesson" id="s1" data-title="Balansmethode">
 <div class="kicker">Deel 1 · Zelfscan 106</div><h2>Gelijkheden en de balansmethode</h2>
 <div class="learning-objectives"><span>Vergelijking herkennen</span><span>Gelijkwaardige vergelijkingen</span><span>Oplossing controleren</span></div>
 <h3>1. Wat is een vergelijking?</h3><p>Een <b>vergelijking</b> is een gelijkheid waarin een onbekende voorkomt. Je zoekt de waarde van die onbekende waarvoor beide leden gelijk zijn.</p>
@@ -119,11 +127,73 @@ footer{text-align:center;padding:22px;color:var(--muted);font-size:.8rem}
 <h3>4. Uitgewerkt voorbeeld</h3><div class="example"><strong>Los op: \(3x-5=16\)</strong>
 <p>\(3x-5+5=16+5\)</p><p>\(3x=21\)</p><p>\(\boxed{x=7}\)</p>
 <p><b>Controle:</b> \(3\cdot7-5=16\). De oplossingsverzameling is \(V=\{7\}\).</p></div>
-<h3>5. Oefeningen</h3><p>Maak de acht oefeningen. Je kunt een hint openen en na je poging de uitwerking bekijken. Bij een fout antwoord mag je opnieuw proberen.</p>
+<h3>5. Oefeningen</h3><p>Maak de oefeningen. Je vindt hieronder ook meerkeuze-, juist-of-fout- en inzichtsvragen. Je kunt een hint openen en na je poging de uitwerking bekijken. Bij een fout antwoord mag je opnieuw proberen.</p>
 <div class="practice-bank" id="bank1"></div>
 <div class="subcheck" data-understand="deel1"><strong>Hoe goed begrijp je de balansmethode?</strong><button data-v="yes">✓ Ik snap dit</button><button data-v="no">? Ik heb nog hulp nodig</button></div>
 <p><label for="help1"><b>Welke vraag wil je tijdens de begeleiding bespreken?</b></label><textarea id="help1" placeholder="Bijvoorbeeld: ik weet niet wanneer ik moet delen of aftrekken."></textarea></p>
-</section><section class="lesson" id="s2" data-title="Eerstegraadsvergelijkingen"><div class="kicker">Deel 2 · Zelfscan 106–107</div><h2>Eerstegraadsvergelijkingen</h2><div class="pending"><b>Dit onderdeel wordt nog uitgewerkt.</b><p>Je kunt voorlopig verder oefenen in deel 1. Hier komen later theorie, voorbeelden, oefeningen en zelfinschatting.</p></div></section><section class="lesson" id="s3" data-title="Haakjes, breuken en bijzondere gevallen"><div class="kicker">Deel 3 · Zelfscan 106–107</div><h2>Haakjes, breuken en bijzondere gevallen</h2><div class="pending"><b>Dit onderdeel wordt nog uitgewerkt.</b><p>Je kunt voorlopig verder oefenen in deel 1. Hier komen later theorie, voorbeelden, oefeningen en zelfinschatting.</p></div></section><section class="lesson" id="s4" data-title="Eerstegraadsongelijkheden"><div class="kicker">Deel 4 · Zelfscan 108</div><h2>Eerstegraadsongelijkheden</h2><div class="pending"><b>Dit onderdeel wordt nog uitgewerkt.</b><p>Je kunt voorlopig verder oefenen in deel 1. Hier komen later theorie, voorbeelden, oefeningen en zelfinschatting.</p></div></section><section class="lesson" id="s5" data-title="Intervallen en oplossingsverzamelingen"><div class="kicker">Deel 5 · Zelfscan 53, 109</div><h2>Intervallen en oplossingsverzamelingen</h2><div class="pending"><b>Dit onderdeel wordt nog uitgewerkt.</b><p>Je kunt voorlopig verder oefenen in deel 1. Hier komen later theorie, voorbeelden, oefeningen en zelfinschatting.</p></div></section><section class="lesson" id="s6" data-title="Grafisch oplossen"><div class="kicker">Deel 6 · Zelfscan 111–113</div><h2>Grafisch oplossen</h2><div class="pending"><b>Dit onderdeel wordt nog uitgewerkt.</b><p>Je kunt voorlopig verder oefenen in deel 1. Hier komen later theorie, voorbeelden, oefeningen en zelfinschatting.</p></div></section><section class="lesson" id="s7" data-title="Vraagstukken"><div class="kicker">Deel 7 · Zelfscan 110</div><h2>Vraagstukken</h2><div class="pending"><b>Dit onderdeel wordt nog uitgewerkt.</b><p>Je kunt voorlopig verder oefenen in deel 1. Hier komen later theorie, voorbeelden, oefeningen en zelfinschatting.</p></div></section><section class="lesson" id="s8" data-title="Zelftest en examenvoorbereiding"><div class="kicker">Deel 8 · Zelfscan 106–113</div><h2>Zelftest en examenvoorbereiding</h2><div class="pending"><b>Dit onderdeel wordt nog uitgewerkt.</b><p>Je kunt voorlopig verder oefenen in deel 1. Hier komen later theorie, voorbeelden, oefeningen en zelfinschatting.</p></div></section><div class="actions"><button class="secondary" id="prev">← Vorige</button><button class="primary" id="done">Onderdeel afgerond ✓</button><button class="secondary" id="next">Volgende →</button></div></main></div></div><footer>ASTREM Lab · Vergelijkingen en ongelijkheden · Examencommissie tweede graad</footer>
+</section><section class="lesson" id="s2" data-title="Eerstegraadsvergelijkingen">
+<div class="kicker">Deel 2 · Zelfscan 106–107</div><h2>Eerstegraadsvergelijkingen oplossen</h2>
+<p>Je kent de balansmethode. Nu leer je vergelijkingen oplossen waarin de onbekende in beide leden staat. Je oefent ook met negatieve getallen en leert oplossingen correct noteren.</p>
+<h3>1. Onbekenden in beide leden</h3>
+<div class="theory"><b>Het basisidee</b><p>Je mag termen met \(x\) samenbrengen in één lid en de getallen in het andere lid, zolang je telkens <b>dezelfde bewerking in beide leden</b> uitvoert.</p></div>
+<div class="example"><strong>Voorbeeld: \(5x+3=2x+18\)</strong>
+<p>\(5x+3-2x=2x+18-2x\)</p><p>\(3x+3=18\)</p><p>\(3x=15\)</p><p>\(\boxed{x=5}\)</p>
+<p><b>Controle:</b> links \(5\cdot5+3=28\), rechts \(2\cdot5+18=28\). Beide leden zijn gelijk.</p></div>
+<h3>2. Negatieve coëfficiënten</h3>
+<p>Als er een negatief getal voor \(x\) staat, deel je uiteindelijk door dat <b>negatieve getal</b>.</p>
+<div class="example"><strong>Voorbeeld: \(7-3x=19\)</strong>
+<p>\(-3x=12\)</p><p>\(\boxed{x=-4}\)</p><p>Controle: \(7-3(-4)=7+12=19\).</p></div>
+<div class="note"><b>Veelgemaakte fout:</b> uit \(-3x=12\) volgt \(x=-4\), niet \(x=4\).</div>
+<h3>3. De oplossingsverzameling</h3>
+<p>Als een vergelijking precies één oplossing heeft, noteren we bijvoorbeeld \(V=\{5\}\). De accolades geven aan dat we een <b>verzameling</b> noteren.</p>
+<p>Voor dit onderdeel beperken we ons tot vergelijkingen met één oplossing. In deel 3 bekijken we ook vergelijkingen met geen of oneindig veel oplossingen.</p>
+<h3>4. Controleer je oplossing</h3>
+<p>Vul je gevonden waarde in de <b>oorspronkelijke vergelijking</b> in. Zijn linker- en rechterlid gelijk, dan klopt de oplossing.</p>
+<div class="example"><strong>Voorbeeld: \(4x-2=x+7\)</strong><p>\(3x=9\), dus \(x=3\).</p><p>Links: \(4\cdot3-2=10\). Rechts: \(3+7=10\). Dus \(V=\{3\}\).</p></div>
+<h3>5. Oefenen met verschillende vraagtypes</h3>
+<p>Je krijgt invulvragen, meerkeuzevragen, juist-of-foutvragen, open denkvragen en sleepoefeningen. Probeer telkens eerst zelfstandig te werken. Bij open vragen vergelijk je je redenering met een modelantwoord.</p>
+<div class="practice-bank" id="bank2"></div>
+<div class="subcheck" data-understand="deel2"><strong>Hoe goed beheers je eerstegraadsvergelijkingen?</strong><button data-v="yes">✓ Ik snap dit</button><button data-v="no">? Ik heb nog hulp nodig</button></div>
+<p><label for="help2"><b>Welke vraag wil je bespreken tijdens de begeleiding?</b></label><textarea id="help2" placeholder="Schrijf op waar je vastliep of welke stap je niet begrijpt."></textarea></p>
+</section><section class="lesson" id="s3" data-title="Haakjes, breuken en bijzondere gevallen"><div class="kicker">Deel 3 · Zelfscan 106–107</div><h2>Haakjes, breuken en bijzondere gevallen</h2><h3>1. Haakjes wegwerken</h3><div class="theory"><p>Gebruik de distributieve eigenschap: \(a(b+c)=ab+ac\). Een minteken vóór haakjes verandert de tekens van alle termen binnen de haakjes.</p></div><div class="example"><strong>Voorbeeld</strong><p>Los op: \(2(x+3)=3x-1\). Uitwerken geeft \(2x+6=3x-1\). Dus \(x=7\).</p></div><h3>2. Vergelijkingen met breuken</h3><div class="theory"><p>Vermenigvuldig beide leden met een gemeenschappelijk veelvoud van de noemers om de breuken weg te werken. Vermenigvuldig <b>alle termen</b>.</p></div><div class="example"><strong>Voorbeeld</strong><p>Los op: \(\frac{x}{3}+2=5\). Dan \(\frac{x}{3}=3\), dus \(x=9\).</p></div><h3>3. Bijzondere vergelijkingen</h3><div class="theory"><p>Soms verdwijnt de onbekende. Ontstaat een onware uitspraak zoals \(0=5\), dan is er geen oplossing. Ontstaat een ware uitspraak zoals \(0=0\), dan is elk reëel getal een oplossing.</p></div><div class="example"><strong>Voorbeeld</strong><p>\(2(x+1)=2x+5\) leidt tot \(2=5\): \(V=\varnothing\). \(3(x-1)=3x-3\) leidt tot \(0=0\): \(V=\mathbb{R}\).</p></div><h3>4. Kruisproduct</h3><div class="theory"><p>Bij een vergelijking van twee breuken met niet-nulnoemers kun je kruislings vermenigvuldigen. Controleer altijd of een eventuele onbekende noemer niet nul wordt.</p></div><div class="example"><strong>Voorbeeld</strong><p>\(\frac{x}{3}=\frac{4}{6}\) geeft \(6x=12\), dus \(x=2\).</p></div><h3>Oefeningen</h3><p>Werk zorgvuldig en probeer verschillende vraagtypes. Open het modelantwoord bij een open vraag pas na je eigen poging.</p><div class="practice-bank" id="bank3"></div><div class="subcheck" data-understand="deel3"><strong>Hoe goed begrijp je dit onderdeel?</strong><button data-v="yes">✓ Ik snap dit</button><button data-v="no">? Ik heb nog hulp nodig</button></div><label for="help3"><b>Vragen voor de begeleiding</b></label><textarea id="help3" placeholder="Wat wil je nog bespreken?"></textarea></section><section class="lesson" id="s4" data-title="Eerstegraadsongelijkheden"><div class="kicker">Deel 4 · Zelfscan 108</div><h2>Eerstegraadsongelijkheden</h2><h3>1. Wat is een ongelijkheid?</h3><div class="theory"><p>Bij een ongelijkheid gebruik je \(<\), \(>\), \(\leq\) of \(\geq\). De oplossing is meestal een verzameling getallen, niet één getal.</p></div><div class="example"><strong>Voorbeeld</strong><p>\(x+3<8\) geeft \(x<5\).</p></div><h3>2. De balansmethode bij ongelijkheden</h3><div class="theory"><p>Optellen en aftrekken van hetzelfde getal in beide leden verandert het ongelijkheidsteken niet.</p></div><div class="example"><strong>Voorbeeld</strong><p>\(2x+1\leq9\) geeft \(2x\leq8\), dus \(x\leq4\).</p></div><h3>3. Het teken omkeren</h3><div class="theory"><p><b>Belangrijk:</b> vermenigvuldig of deel je beide leden door een negatief getal, dan moet het ongelijkheidsteken omkeren.</p></div><div class="example"><strong>Voorbeeld</strong><p>\(-3x>12\) geeft \(x<-4\), niet \(x>-4\).</p></div><h3>4. Controleren</h3><div class="theory"><p>Test één getal dat wel aan de ongelijkheid voldoet en één dat niet voldoet. Zo kun je je redenering controleren.</p></div><div class="example"><strong>Voorbeeld</strong><p>Bij \(x<-4\) voldoet \(x=-5\), maar \(x=0\) niet.</p></div><h3>Oefeningen</h3><p>Werk zorgvuldig en probeer verschillende vraagtypes. Open het modelantwoord bij een open vraag pas na je eigen poging.</p><div class="practice-bank" id="bank4"></div><div class="subcheck" data-understand="deel4"><strong>Hoe goed begrijp je dit onderdeel?</strong><button data-v="yes">✓ Ik snap dit</button><button data-v="no">? Ik heb nog hulp nodig</button></div><label for="help4"><b>Vragen voor de begeleiding</b></label><textarea id="help4" placeholder="Wat wil je nog bespreken?"></textarea></section><section class="lesson" id="s5" data-title="Intervallen en oplossingsverzamelingen"><div class="kicker">Deel 5 · Zelfscan 53, 109</div><h2>Intervallen en oplossingsverzamelingen</h2><h3>1. Intervalnotatie</h3><div class="theory"><p>Een interval beschrijft een volledige verzameling getallen. Een open grens hoort niet bij de verzameling; een gesloten grens wel.</p></div><div class="example"><strong>Voorbeeld</strong><p>\(x<3\) wordt \(]-\infty,3[\). \(x\geq2\) wordt \([2,+\infty[\).</p></div><h3>2. Grenzen en getallenas</h3><div class="theory"><p>Gebruik een open bolletje bij \(<\) of \(>\), en een gevuld bolletje bij \(\leq\) of \(\geq\). Een pijl toont in welke richting de oplossingen liggen.</p></div><div class="example"><strong>Voorbeeld</strong><p>Bij \(x\leq-1\) staat een gevuld bolletje op \(-1\), met een pijl naar links.</p></div><h3>3. Dubbele ongelijkheden</h3><div class="theory"><p>Bij \(2<x\leq5\) ligt \(x\) tussen 2 en 5; 2 hoort er niet bij, 5 wel.</p></div><div class="example"><strong>Voorbeeld</strong><p>\(2<x\leq5\) wordt \(]2,5]\).</p></div><h3>4. Oplossingsverzameling</h3><div class="theory"><p>Een vergelijking met één oplossing schrijf je met accolades, bijvoorbeeld \(V=\{4\}\). Voor een ongelijkheid gebruiken we meestal een interval.</p></div><div class="example"><strong>Voorbeeld</strong><p>\(x>4\) heeft \(V=]4,+\infty[\).</p></div><h3>5. Interactieve getallenas</h3>
+<p>Stel zelf een ongelijkheid of interval samen. <b>Sleep de grenspunten</b> op de getallenas, kies of de grenspunten meetellen en bekijk de intervalnotatie. Met de pijltjes kun je ook nauwkeurig werken op een smartphone.</p>
+<div class="axis-widget">
+<div class="axis-options"><label>Soort verzameling <select id="axisMode"><option value="left">x kleiner dan een grens</option><option value="right">x groter dan een grens</option><option value="between">x tussen twee grenzen</option></select></label>
+<label>Linkergrens <input id="axisLeft" type="number" min="-10" max="10" step="1" value="-2"></label><label id="axisRightWrap" hidden>Rechtergrens <input id="axisRight" type="number" min="-10" max="10" step="1" value="4"></label></div>
+<div class="axis-options"><label><input id="axisIncludeLeft" type="checkbox"> Linkergrens inbegrepen (gevuld bolletje)</label><label id="axisIncludeRightWrap" hidden><input id="axisIncludeRight" type="checkbox" checked> Rechtergrens inbegrepen (gevuld bolletje)</label></div>
+<svg id="intervalAxis" viewBox="0 0 720 150" role="img" aria-label="Interactieve getallenas met versleepbare grenspunten" style="width:100%;touch-action:none"></svg>
+<p class="axis-result" id="axisResult" aria-live="polite"></p>
+<div class="axis-options"><button type="button" class="secondary" id="axisReset">Herstel voorbeeld</button><button type="button" class="secondary" id="axisNew">Nieuwe oefening</button></div>
+<div class="example"><strong>Zelf oefenen</strong><p id="axisChallenge">Stel het interval ]−2,4] in op de getallenas.</p><button type="button" id="axisCheck">Controleer mijn voorstelling</button><p id="axisFeedback" aria-live="polite"></p></div>
+</div>
+<h3>Oefeningen</h3><p>Werk zorgvuldig en probeer verschillende vraagtypes. Open het modelantwoord bij een open vraag pas na je eigen poging.</p><div class="practice-bank" id="bank5"></div><div class="subcheck" data-understand="deel5"><strong>Hoe goed begrijp je dit onderdeel?</strong><button data-v="yes">✓ Ik snap dit</button><button data-v="no">? Ik heb nog hulp nodig</button></div><label for="help5"><b>Vragen voor de begeleiding</b></label><textarea id="help5" placeholder="Wat wil je nog bespreken?"></textarea></section><section class="lesson" id="s6" data-title="Grafisch oplossen"><div class="kicker">Deel 6 · Zelfscan 111–113</div><h2>Grafisch oplossen</h2><h3>1. Vergelijkingen als snijpunten</h3><div class="theory"><p>Een vergelijking \(f(x)=g(x)\) oplossen betekent zoeken waar beide grafieken dezelfde \(y\)-waarde hebben. De \(x\)-coördinaat van het snijpunt is de oplossing.</p></div><div class="example"><strong>Voorbeeld</strong><p>Bij \(2x+1=x+4\) ligt het snijpunt bij \(x=3\).</p></div><h3>2. Nulwaarden</h3><div class="theory"><p>De oplossingen van \(f(x)=0\) zijn de nulwaarden van \(f\): de \(x\)-coördinaten waar de grafiek de \(x\)-as snijdt.</p></div><div class="example"><strong>Voorbeeld</strong><p>Voor \(f(x)=2x-6\) is de nulwaarde \(x=3\).</p></div><h3>3. Ongelijkheden als ligging van grafieken</h3><div class="theory"><p>Bij \(f(x)>g(x)\) zoek je de \(x\)-waarden waarvoor de grafiek van \(f\) boven die van \(g\) ligt.</p></div><div class="example"><strong>Voorbeeld</strong><p>\(2x+1>x+4\) geeft \(x>3\).</p></div><h3>4. Tekenverloop</h3><div class="theory"><p>Het tekenverloop toont waar een functie positief, negatief of nul is. Daarmee kun je ongelijkheden zoals \(f(x)\leq0\) oplossen.</p></div><div class="example"><strong>Voorbeeld</strong><p>Voor \(f(x)=x-2\) geldt \(f(x)\leq0\) als \(x\leq2\).</p></div>
+<h3>5. Onderzoek zelf twee rechten</h3>
+<p>Verander de richtingscoëfficiënten en de beginwaarden. Waar snijden de grafieken elkaar? Onderzoek vervolgens wanneer de eerste grafiek <b>boven</b> de tweede ligt.</p>
+<div class="figure" style="max-width:760px">
+<svg id="lineGraph" viewBox="0 0 650 420" role="img" aria-label="Interactieve grafiek met twee rechten, snijpunt en oplossingsgebied"></svg>
+<div class="figcaption" id="lineGraphCaption" aria-live="polite"></div>
+</div>
+<div class="graph-controls">
+<label>Richtingscoëfficiënt a van f <output id="faOut"></output><input id="fa" type="range" min="-3" max="3" step="0.5" value="2"></label>
+<label>Beginwaarde b van f <output id="fbOut"></output><input id="fb" type="range" min="-6" max="6" step="1" value="1"></label>
+<label>Richtingscoëfficiënt c van g <output id="gaOut"></output><input id="ga" type="range" min="-3" max="3" step="0.5" value="1"></label>
+<label>Beginwaarde d van g <output id="gbOut"></output><input id="gb" type="range" min="-6" max="6" step="1" value="4"></label>
+</div>
+<div class="example"><strong>Lees de grafiek af</strong>
+<p id="graphFormula"></p><p id="graphIntersection"></p><p id="graphInequality"></p>
+<button class="secondary" type="button" id="resetLines">Terug naar het voorbeeld</button></div>
+<h3>6. Onderzoek nulwaarden en tekenverloop</h3>
+<p>Verschuif de rechte of verander de helling. Zoek de nulwaarde en bekijk waar de functiewaarden positief of negatief zijn.</p>
+<div class="figure" style="max-width:760px">
+<svg id="zeroGraph" viewBox="0 0 650 330" role="img" aria-label="Interactieve rechte met nulwaarde en tekenverloop"></svg>
+<div class="figcaption" id="zeroGraphCaption"></div></div>
+<div class="graph-controls">
+<label>Richtingscoëfficiënt a <output id="zaOut"></output><input id="za" type="range" min="-3" max="3" step="0.5" value="1"></label>
+<label>Beginwaarde b <output id="zbOut"></output><input id="zb" type="range" min="-6" max="6" step="1" value="-2"></label>
+</div>
+<div class="example"><strong>Onderzoek</strong><p id="zeroSummary"></p>
+<button class="secondary" type="button" id="resetZero">Terug naar het voorbeeld</button></div>
+<h3>Oefeningen</h3><p>Werk zorgvuldig en probeer verschillende vraagtypes. Open het modelantwoord bij een open vraag pas na je eigen poging.</p><div class="practice-bank" id="bank6"></div><div class="subcheck" data-understand="deel6"><strong>Hoe goed begrijp je dit onderdeel?</strong><button data-v="yes">✓ Ik snap dit</button><button data-v="no">? Ik heb nog hulp nodig</button></div><label for="help6"><b>Vragen voor de begeleiding</b></label><textarea id="help6" placeholder="Wat wil je nog bespreken?"></textarea></section><section class="lesson" id="s7" data-title="Vraagstukken"><div class="kicker">Deel 7 · Zelfscan 110</div><h2>Vraagstukken</h2><h3>1. Van tekst naar vergelijking</h3><div class="theory"><p>Kies een onbekende en schrijf duidelijk op wat die voorstelt. Vertaal daarna de informatie naar een vergelijking of ongelijkheid.</p></div><div class="example"><strong>Voorbeeld</strong><p>Een ticket kost €7 en er is €4 reservatiekost. Bij een totaal van €39 geldt \(7x+4=39\), dus \(x=5\) tickets.</p></div><h3>2. Eenheden en betekenis</h3><div class="theory"><p>Reken niet alleen: controleer of je antwoord past bij de situatie en vermeld de juiste eenheid.</p></div><div class="example"><strong>Voorbeeld</strong><p>Bij \(x=5\) schrijf je: er werden vijf tickets gekocht.</p></div><h3>3. Een grens of maximum</h3><div class="theory"><p>Woorden zoals 'hoogstens', 'minstens' en 'meer dan' wijzen vaak op een ongelijkheid.</p></div><div class="example"><strong>Voorbeeld</strong><p>Met een budget van €50, €8 per stuk en €2 vaste kosten: \(8x+2\leq50\), dus hoogstens zes stuks.</p></div><h3>4. Controle in context</h3><div class="theory"><p>Bij aantallen personen of voorwerpen zijn negatieve of niet-gehele uitkomsten meestal niet zinvol. Denk na over afronden.</p></div><div class="example"><strong>Voorbeeld</strong><p>Je kunt geen 4,5 toegangstickets kopen; een antwoord moet passen bij het vraagstuk.</p></div><h3>Oefeningen</h3><p>Werk zorgvuldig en probeer verschillende vraagtypes. Open het modelantwoord bij een open vraag pas na je eigen poging.</p><div class="practice-bank" id="bank7"></div><div class="subcheck" data-understand="deel7"><strong>Hoe goed begrijp je dit onderdeel?</strong><button data-v="yes">✓ Ik snap dit</button><button data-v="no">? Ik heb nog hulp nodig</button></div><label for="help7"><b>Vragen voor de begeleiding</b></label><textarea id="help7" placeholder="Wat wil je nog bespreken?"></textarea></section><section class="lesson" id="s8" data-title="Zelftest en examenvoorbereiding"><div class="kicker">Deel 8 · Zelfscan 106–113</div><h2>Zelftest en examenvoorbereiding</h2><h3>1. Zelfstandig oplossen</h3><div class="theory"><p>Probeer deze vragen zonder hulp. Schrijf je tussenstappen op papier en controleer pas daarna je antwoord.</p></div><div class="example"><strong>Voorbeeld</strong><p>Los op: \(3x-4=2x+5\). De oplossing is \(x=9\).</p></div><h3>2. Correct noteren</h3><div class="theory"><p>Geef bij vergelijkingen de oplossingsverzameling. Bij ongelijkheden noteer je een interval en kun je een getallenas tekenen.</p></div><div class="example"><strong>Voorbeeld</strong><p>\(x\leq3\) geeft \(V=]-\infty,3]\).</p></div><h3>3. Fouten analyseren</h3><div class="theory"><p>Een examen vraagt niet alleen rekenwerk. Je moet ook kunnen uitleggen waarom een redenering wel of niet klopt.</p></div><div class="example"><strong>Voorbeeld</strong><p>Uit \(-2x<6\) volgt \(x>-3\). Het teken keert om bij delen door \(-2\).</p></div><h3>4. Terugblik</h3><div class="theory"><p>Vergelijk je resultaten met je zelfscan. Noteer wat je zelfstandig kunt en wat je tijdens de volgende begeleiding wilt bespreken.</p></div><div class="example"><strong>Voorbeeld</strong><p>Bekijk vooral je eerste pogingen en de vragen waarbij je hints nodig had.</p></div><h3>Oefeningen</h3><p>Werk zorgvuldig en probeer verschillende vraagtypes. Open het modelantwoord bij een open vraag pas na je eigen poging.</p><div class="practice-bank" id="bank8"></div><div class="subcheck" data-understand="deel8"><strong>Hoe goed begrijp je dit onderdeel?</strong><button data-v="yes">✓ Ik snap dit</button><button data-v="no">? Ik heb nog hulp nodig</button></div><label for="help8"><b>Vragen voor de begeleiding</b></label><textarea id="help8" placeholder="Wat wil je nog bespreken?"></textarea></section><div class="actions"><button class="secondary" id="prev">← Vorige</button><button class="primary" id="done">Onderdeel afgerond ✓</button><button class="secondary" id="next">Volgende →</button></div></main></div></div><footer>ASTREM Lab · Vergelijkingen en ongelijkheden · Examencommissie tweede graad</footer>
 
 <script>
 const API='https://astremlab-rapportering.herremaningmar.workers.dev';
@@ -146,7 +216,7 @@ function logout(){sessionStorage.removeItem('astremlab_active_id');sessionStorag
 document.getElementById('sessionLogout').onclick=logout;
 document.getElementById('logoutButton').onclick=logout;
 const lessons=[...document.querySelectorAll('.lesson')],nav=document.getElementById('nav');
-const AVAILABLE=new Set([1]);
+const AVAILABLE=new Set([1,2,3,4,5,6,7,8]);
 lessons.forEach((l,i)=>{
  const b=document.createElement('button');
  b.onclick=()=>show(i);nav.appendChild(b);
@@ -156,7 +226,7 @@ function progress(){
  document.getElementById('progressbar').style.width=(100*count/AVAILABLE.size)+'%';
  document.getElementById('progresslabel').textContent=count+' van '+AVAILABLE.size+' beschikbaar onderdeel afgerond';
  [...nav.children].forEach((b,i)=>{
-  b.textContent=(state.done.includes(i)?'✓ ':'')+(i===0?'Start':i+'.')+' '+lessons[i].dataset.title+((i>1)?' · binnenkort':'');
+  b.textContent=(state.done.includes(i)?'✓ ':'')+(i===0?'Start':i+'.')+' '+lessons[i].dataset.title;
  });
 }
 function show(i){
@@ -193,11 +263,26 @@ const questions=[
  {id:'vg1_07',type:'fill',goal:'106',q:'Los op: 4x − 9 = x + 6',a:'5',hint:'Breng eerst de termen met x samen.',solution:'3x = 15, dus x = 5.'},
  {id:'vg1_08',type:'fill',goal:'106',q:'Een leerling schrijft: 4x + 7 = 23 ⇔ 4x = 30. Welke waarde van x is wél juist?',a:'4',hint:'Bij +7 moet je 7 aftrekken, niet optellen.',solution:'4x = 23 − 7 = 16, dus x = 4.'}
 ];
+
+const moreQuestions=[
+ {id:'vg2_01',type:'fill',q:'Los op: 5x + 3 = 2x + 18. Geef alleen de waarde van x.',a:'5',hint:'Trek eerst 2x af in beide leden.',solution:'3x + 3 = 18, dus 3x = 15 en x = 5.'},
+ {id:'vg2_02',type:'mc',q:'Wat is de eerste correcte stap bij 4x − 7 = x + 8?',options:['4x = x + 1','3x − 7 = 8','5x − 7 = 8','3x = 1'],a:'1',hint:'Trek x af van beide leden.',solution:'4x − x − 7 = 8, dus 3x − 7 = 8.'},
+ {id:'vg2_03',type:'tf',q:'Uit −4x = 20 volgt x = −5.',options:['Juist','Fout'],a:'0',hint:'Deel beide leden door −4.',solution:'Juist: 20 / (−4) = −5.'},
+ {id:'vg2_04',type:'fill',q:'Los op: 7 − 3x = 19.',a:'-4',hint:'Trek 7 af, en deel dan door −3.',solution:'−3x = 12, dus x = −4.'},
+ {id:'vg2_05',type:'mc',q:'Welke oplossingsverzameling hoort bij 2x + 1 = 9?',options:['V = {5}','V = {4}','V = 4','V = {−4}'],a:'1',hint:'Bereken eerst x en let op de accolades.',solution:'2x = 8, dus x = 4 en V = {4}.'},
+ {id:'vg2_06',type:'open',q:'Een leerling lost 6x − 2 = 2x + 10 op en schrijft: 8x = 12. Leg uit wat fout gaat en los correct op.',hint:'Om 2x rechts weg te werken moet je 2x aftrekken, niet optellen.',solution:'De leerling telt de x-termen onterecht op. Correct: 6x − 2x − 2 = 10, dus 4x = 12 en x = 3. Controle: links 16, rechts 16.'},
+ {id:'vg2_07',type:'order',q:'Sleep de stappen in de juiste volgorde om 3x + 4 = x + 12 op te lossen.',steps:['2x + 4 = 12','2x = 8','x = 4'],hint:'Werk eerst x rechts weg, daarna +4.',solution:'3x + 4 = x + 12 → 2x + 4 = 12 → 2x = 8 → x = 4.'},
+ {id:'vg2_08',type:'fill',q:'Los op: −2x + 5 = x − 10.',a:'5',hint:'Breng de x-termen samen: −3x = −15.',solution:'−3x = −15, dus x = 5.'},
+ {id:'vg2_09',type:'tf',q:'Als x = 3 de vergelijking oplost, zijn beide leden na invullen gelijk.',options:['Juist','Fout'],a:'0',hint:'Denk aan de betekenis van een oplossing.',solution:'Juist: dat is precies wat een oplossing van een vergelijking betekent.'},
+ {id:'vg2_10',type:'open',q:'Los 4x − 2 = x + 7 volledig op. Noteer je tussenstappen, de oplossingsverzameling en de controle.',hint:'Breng eerst de x-termen samen.',solution:'4x − 2 = x + 7 → 3x − 2 = 7 → 3x = 9 → x = 3. V = {3}. Controle: 4·3 − 2 = 10 en 3 + 7 = 10.'},
+ {id:'vg2_11',type:'order',q:'Sleep de stappen in de juiste volgorde om 8 − 2x = 14 op te lossen.',steps:['−2x = 6','x = −3','8 − 2(−3) = 14'],hint:'Trek 8 af, deel door −2 en controleer.',solution:'8 − 2x = 14 → −2x = 6 → x = −3 → controle: 8 − 2(−3) = 14.'},
+ {id:'vg2_12',type:'mc',q:'Welke waarde voldoet aan 2x − 5 = 3x + 1?',options:['−6','6','−4','4'],a:'0',hint:'Trek 2x af: −5 = x + 1.',solution:'−5 = x + 1, dus x = −6.'}
+];
 const normalize=x=>String(x).trim().replace(/\s+/g,'').replaceAll('−','-').replace(',','.');
 const bank=document.getElementById('bank1');
 questions.forEach((q,i)=>{
  const div=document.createElement('div');div.className='task';
- const head=document.createElement('div');head.className='task-head';head.textContent='1.'+(i+1)+' · '+(i<4?'Basis':i<7?'Toepassing':'Inzicht')+' · doel '+q.goal;
+ const head=document.createElement('div');head.className='task-head';head.textContent='1.'+(i+1)+' · '+(i<4?'Basis':i<7?'Toepassing':'Inzicht');
  const question=document.createElement('p');question.textContent=q.q;
  const input=document.createElement('input');input.type='text';input.placeholder='x = ...';input.autocomplete='off';
  input.value=state.attempts[q.id]?.answer||'';
@@ -225,8 +310,96 @@ questions.forEach((q,i)=>{
  };
  controls.append(check,hintBtn,solBtn);div.append(head,question,input,controls,hint,solution,fb);bank.append(div);
 });
-document.getElementById('help1').value=state.answers.help1||'';
-document.getElementById('help1').oninput=e=>{state.answers.help1=e.target.value;save()};
+
+// Deel 2: gevarieerde oefeningen met automatische correctie en sleepvragen.
+const extendedBanks={"1": [{"id": "vg1_01", "type": "mc", "q": "Welke bewerking is correct bij x + 9 = 14?", "options": ["In beide leden 9 aftrekken", "In beide leden 9 optellen", "Beide leden delen door 9"], "a": "0", "hint": "Trek 9 af aan beide kanten.", "solution": "Juiste antwoord: In beide leden 9 aftrekken. Trek 9 af aan beide kanten."}, {"id": "vg1_02", "type": "tf", "q": "Als je beide leden door 0 deelt, blijft een gelijkwaardige vergelijking over.", "options": ["Juist", "Fout"], "a": "1", "hint": "Delen door nul is niet gedefinieerd.", "solution": "Fout. Delen door nul is niet gedefinieerd."}, {"id": "vg1_03", "type": "open", "q": "Leg uit waarom je bij 6x = 30 moet delen door 6 en niet 6 aftrekken.", "hint": "Schrijf eerst zelf je redenering uit.", "solution": "6 is een factor van x. Om de vermenigvuldiging ongedaan te maken deel je beide leden door 6. x = 5."}, {"id": "vg1_04", "type": "order", "q": "Zet de stappen bij 2x + 5 = 17 in de juiste volgorde.", "steps": ["2x = 12", "x = 6", "2·6 + 5 = 17"], "hint": "Werk eerst +5 weg, deel door 2 en controleer.", "solution": "2x = 12 → x = 6 → 2·6 + 5 = 17"}], "3": [{"id": "vg3_01", "type": "fill", "q": "Los op: 3(x + 2) = 21.", "a": "5", "hint": "Werk de haakjes weg of deel eerst door 3.", "solution": "Antwoord: 5. Werk de haakjes weg of deel eerst door 3."}, {"id": "vg3_02", "type": "mc", "q": "Welke uitwerking van −2(x − 4) is juist?", "options": ["−2x − 8", "−2x + 8", "2x − 8"], "a": "1", "hint": "Vermenigvuldig beide termen met −2.", "solution": "Juiste antwoord: −2x + 8. Vermenigvuldig beide termen met −2."}, {"id": "vg3_03", "type": "fill", "q": "Los op: x/4 + 3 = 5.", "a": "8", "hint": "Trek 3 af en vermenigvuldig met 4.", "solution": "Antwoord: 8. Trek 3 af en vermenigvuldig met 4."}, {"id": "vg3_04", "type": "tf", "q": "De vergelijking 2(x + 1) = 2x + 5 heeft geen oplossing.", "options": ["Juist", "Fout"], "a": "0", "hint": "Je krijgt 2 = 5, wat onmogelijk is.", "solution": "Juist. Je krijgt 2 = 5, wat onmogelijk is."}, {"id": "vg3_05", "type": "mc", "q": "Wat is de oplossingsverzameling van 3(x − 2) = 3x − 6?", "options": ["V = ∅", "V = {0}", "V = ℝ"], "a": "2", "hint": "Beide leden zijn voor elke x gelijk.", "solution": "Juiste antwoord: V = ℝ. Beide leden zijn voor elke x gelijk."}, {"id": "vg3_06", "type": "order", "q": "Orden de stappen voor 2(x + 3) = 3x − 1.", "steps": ["2x + 6 = 3x − 1", "6 = x − 1", "x = 7"], "hint": "Werk eerst de haakjes weg.", "solution": "2x + 6 = 3x − 1 → 6 = x − 1 → x = 7"}, {"id": "vg3_07", "type": "open", "q": "Los (x + 1)/2 = 4 op en controleer je oplossing.", "hint": "Schrijf eerst zelf je redenering uit.", "solution": "x + 1 = 8, dus x = 7. Controle: (7 + 1)/2 = 4."}, {"id": "vg3_08", "type": "fill", "q": "Los op: 5 − (x + 2) = 0.", "a": "3", "hint": "Werk het minteken vóór de haakjes correct weg.", "solution": "Antwoord: 3. Werk het minteken vóór de haakjes correct weg."}], "4": [{"id": "vg4_01", "type": "fill", "q": "Los op: x + 4 < 9. Geef alleen de grenswaarde.", "a": "5", "hint": "Trek 4 af: x < 5.", "solution": "Antwoord: 5. Trek 4 af: x < 5."}, {"id": "vg4_02", "type": "mc", "q": "Los op: −2x > 8.", "options": ["x > −4", "x < −4", "x > 4", "x < 4"], "a": "1", "hint": "Delen door een negatief getal keert het teken om.", "solution": "Juiste antwoord: x < −4. Delen door een negatief getal keert het teken om."}, {"id": "vg4_03", "type": "tf", "q": "Uit 3x ≤ 12 volgt x ≤ 4.", "options": ["Juist", "Fout"], "a": "0", "hint": "Deel door het positieve getal 3.", "solution": "Juist. Deel door het positieve getal 3."}, {"id": "vg4_04", "type": "order", "q": "Orden de stappen voor −3x + 5 ≥ 14.", "steps": ["−3x ≥ 9", "x ≤ −3", "Controleer met x = −4"], "hint": "Trek 5 af, deel door −3 en draai het teken om.", "solution": "−3x ≥ 9 → x ≤ −3 → Controleer met x = −4"}, {"id": "vg4_05", "type": "mc", "q": "Welk getal voldoet aan x < −2?", "options": ["−1", "0", "−3", "2"], "a": "2", "hint": "Zoek een getal kleiner dan −2.", "solution": "Juiste antwoord: −3. Zoek een getal kleiner dan −2."}, {"id": "vg4_06", "type": "open", "q": "Leg uit waarom het ongelijkheidsteken omkeert bij −2x < 6.", "hint": "Schrijf eerst zelf je redenering uit.", "solution": "Na delen door −2 keert < om naar >. Dus x > −3."}, {"id": "vg4_07", "type": "fill", "q": "Los op: 4 − x ≥ 9. Geef de grenswaarde.", "a": "-5", "hint": "−x ≥ 5, dus x ≤ −5.", "solution": "Antwoord: -5. −x ≥ 5, dus x ≤ −5."}, {"id": "vg4_08", "type": "tf", "q": "De oplossing van 2x + 3 > 11 is x > 4.", "options": ["Juist", "Fout"], "a": "0", "hint": "2x > 8, dus x > 4.", "solution": "Juist. 2x > 8, dus x > 4."}], "5": [{"id": "vg5_01", "type": "mc", "q": "Welk interval hoort bij x ≥ 3?", "options": ["]3,+∞[", "[3,+∞[", "]−∞,3]"], "a": "1", "hint": "Bij ≥ hoort 3 bij de verzameling.", "solution": "Juiste antwoord: [3,+∞[. Bij ≥ hoort 3 bij de verzameling."}, {"id": "vg5_02", "type": "tf", "q": "Bij x < 2 hoort een gevuld bolletje op 2.", "options": ["Juist", "Fout"], "a": "1", "hint": "Bij een strikte ongelijkheid is het bolletje open.", "solution": "Fout. Bij een strikte ongelijkheid is het bolletje open."}, {"id": "vg5_03", "type": "mc", "q": "Welk interval hoort bij −1 < x ≤ 4?", "options": ["[−1,4[", "]−1,4]", "]−1,4["], "a": "1", "hint": "−1 niet inbegrepen, 4 wel.", "solution": "Juiste antwoord: ]−1,4]. −1 niet inbegrepen, 4 wel."}, {"id": "vg5_04", "type": "order", "q": "Zet de vertalingen van x ≥ −2 in de juiste volgorde.", "steps": ["x ≥ −2", "Gevuld bolletje op −2, pijl naar rechts", "[−2,+∞["], "hint": "Begin bij de ongelijkheid.", "solution": "x ≥ −2 → Gevuld bolletje op −2, pijl naar rechts → [−2,+∞["}, {"id": "vg5_05", "type": "open", "q": "Beschrijf hoe je x < 5 op een getallenas voorstelt en geef het interval.", "hint": "Schrijf eerst zelf je redenering uit.", "solution": "Open bolletje op 5, pijl naar links. Interval ]−∞,5[."}, {"id": "vg5_06", "type": "mc", "q": "Welke verzameling hoort bij x > 0?", "options": ["[0,+∞[", "]0,+∞[", "]−∞,0["], "a": "1", "hint": "0 hoort niet bij de oplossingen.", "solution": "Juiste antwoord: ]0,+∞[. 0 hoort niet bij de oplossingen."}, {"id": "vg5_07", "type": "fill", "q": "Wat is de rechtergrens van ]−3,7]?", "a": "7", "hint": "Het interval eindigt bij 7.", "solution": "Antwoord: 7. Het interval eindigt bij 7."}, {"id": "vg5_08", "type": "tf", "q": "Oneindig is een getal dat je als gesloten intervalgrens kunt opnemen.", "options": ["Juist", "Fout"], "a": "1", "hint": "±∞ is geen reëel eindpunt en krijgt altijd een open grens.", "solution": "Fout. ±∞ is geen reëel eindpunt en krijgt altijd een open grens."}], "6": [{"id": "vg6_01", "type": "fill", "q": "Waar ligt de nulwaarde van f(x) = x − 7?", "a": "7", "hint": "Stel f(x) = 0.", "solution": "Antwoord: 7. Stel f(x) = 0."}, {"id": "vg6_02", "type": "mc", "q": "Wat betekent de oplossing van f(x) = g(x)?", "options": ["Snijpunt met de y-as", "x-coördinaat van een snijpunt", "Maximum van f"], "a": "1", "hint": "De grafieken hebben daar dezelfde y-waarde.", "solution": "Juiste antwoord: x-coördinaat van een snijpunt. De grafieken hebben daar dezelfde y-waarde."}, {"id": "vg6_03", "type": "fill", "q": "Los grafisch/algebraïsch op: 2x + 1 = x + 5.", "a": "4", "hint": "Zoek waar de twee rechten elkaar snijden.", "solution": "Antwoord: 4. Zoek waar de twee rechten elkaar snijden."}, {"id": "vg6_04", "type": "tf", "q": "Als f(x) > 0, ligt de grafiek van f boven de x-as.", "options": ["Juist", "Fout"], "a": "0", "hint": "Positieve functiewaarden liggen boven de x-as.", "solution": "Juist. Positieve functiewaarden liggen boven de x-as."}, {"id": "vg6_05", "type": "mc", "q": "Voor f(x)=x−3 geldt f(x)<0 als ...", "options": ["x<3", "x>3", "x=3"], "a": "0", "hint": "Links van de nulwaarde is deze stijgende functie negatief.", "solution": "Juiste antwoord: x<3. Links van de nulwaarde is deze stijgende functie negatief."}, {"id": "vg6_06", "type": "order", "q": "Orden de grafische aanpak voor f(x)=g(x).", "steps": ["Teken beide grafieken", "Zoek hun snijpunt", "Lees de x-coördinaat af"], "hint": "Eerst tekenen, dan aflezen.", "solution": "Teken beide grafieken → Zoek hun snijpunt → Lees de x-coördinaat af"}, {"id": "vg6_07", "type": "open", "q": "Leg uit hoe je 2x + 1 > x + 5 met twee grafieken oplost.", "hint": "Schrijf eerst zelf je redenering uit.", "solution": "Teken y=2x+1 en y=x+5. Ze snijden bij x=4. De eerste grafiek ligt boven de tweede voor x>4."}, {"id": "vg6_08", "type": "fill", "q": "Wat is de nulwaarde van f(x)=−2x+8?", "a": "4", "hint": "Los −2x+8=0 op.", "solution": "Antwoord: 4. Los −2x+8=0 op."}], "7": [{"id": "vg7_01", "type": "fill", "q": "Een taxi rekent €5 startgeld en €3 per kilometer. Je betaalt €26. Hoeveel kilometer reed je?", "a": "7", "hint": "Stel 5 + 3x = 26.", "solution": "Antwoord: 7. Stel 5 + 3x = 26."}, {"id": "vg7_02", "type": "mc", "q": "Wat betekent hoogstens 12?", "options": ["x < 12", "x ≤ 12", "x ≥ 12"], "a": "1", "hint": "Hoogstens betekent kleiner dan of gelijk aan.", "solution": "Juiste antwoord: x ≤ 12. Hoogstens betekent kleiner dan of gelijk aan."}, {"id": "vg7_03", "type": "open", "q": "Een abonnement kost €12 vast en €4 per les. Je hebt €40. Stel een ongelijkheid op en bepaal het maximumaantal lessen.", "hint": "Schrijf eerst zelf je redenering uit.", "solution": "12 + 4x ≤ 40, dus x ≤ 7. Je kunt maximaal 7 lessen volgen."}, {"id": "vg7_04", "type": "order", "q": "Orden de aanpak van een vraagstuk.", "steps": ["Kies en omschrijf de onbekende", "Stel de vergelijking op", "Los de vergelijking op", "Controleer en formuleer het antwoord"], "hint": "Van context naar wiskunde en terug.", "solution": "Kies en omschrijf de onbekende → Stel de vergelijking op → Los de vergelijking op → Controleer en formuleer het antwoord"}, {"id": "vg7_05", "type": "tf", "q": "Een uitkomst van −3 personen kan in een telvraagstuk een zinvol antwoord zijn.", "options": ["Juist", "Fout"], "a": "1", "hint": "Een aantal personen kan niet negatief zijn.", "solution": "Fout. Een aantal personen kan niet negatief zijn."}, {"id": "vg7_06", "type": "fill", "q": "Vijf gelijke tickets en €4 kosten samen €39. Wat kost één ticket in euro?", "a": "7", "hint": "Stel 5x+4=39.", "solution": "Antwoord: 7. Stel 5x+4=39."}, {"id": "vg7_07", "type": "mc", "q": "Een winkel heeft €50 budget, €2 vaste kosten en €8 per product. Hoeveel volledige producten maximaal?", "options": ["5", "6", "7"], "a": "1", "hint": "8x + 2 ≤ 50 geeft x ≤ 6.", "solution": "Juiste antwoord: 6. 8x + 2 ≤ 50 geeft x ≤ 6."}, {"id": "vg7_08", "type": "open", "q": "Bedenk zelf een vraagstuk dat past bij 3x + 5 = 20. Los op en interpreteer x.", "hint": "Schrijf eerst zelf je redenering uit.", "solution": "Bijvoorbeeld €5 vaste kosten plus €3 per artikel geeft €20 totaal. 3x=15, dus x=5 artikelen."}], "8": [{"id": "vg8_01", "type": "fill", "q": "Los op: 5x − 7 = 2x + 8.", "a": "5", "hint": "Breng de x-termen samen.", "solution": "Antwoord: 5. Breng de x-termen samen."}, {"id": "vg8_02", "type": "mc", "q": "Wat is V bij 2(x+1)=2x+2?", "options": ["∅", "{0}", "ℝ"], "a": "2", "hint": "De gelijkheid geldt voor alle reële getallen.", "solution": "Juiste antwoord: ℝ. De gelijkheid geldt voor alle reële getallen."}, {"id": "vg8_03", "type": "mc", "q": "Los op: −4x < 12.", "options": ["x < −3", "x > −3", "x < 3"], "a": "1", "hint": "Delen door −4 keert het teken om.", "solution": "Juiste antwoord: x > −3. Delen door −4 keert het teken om."}, {"id": "vg8_04", "type": "fill", "q": "Wat is de nulwaarde van f(x)=3x−12?", "a": "4", "hint": "Stel 3x−12=0.", "solution": "Antwoord: 4. Stel 3x−12=0."}, {"id": "vg8_05", "type": "tf", "q": "De oplossing van x+2≤5 is het interval ]−∞,3].", "options": ["Juist", "Fout"], "a": "0", "hint": "x ≤ 3.", "solution": "Juist. x ≤ 3."}, {"id": "vg8_06", "type": "order", "q": "Orden de stappen bij 2(x−1)=x+3.", "steps": ["2x−2=x+3", "x−2=3", "x=5"], "hint": "Werk eerst de haakjes weg.", "solution": "2x−2=x+3 → x−2=3 → x=5"}, {"id": "vg8_07", "type": "open", "q": "Los 3x−5≤x+7 op, noteer het interval en leg uit hoe je het op de getallenas tekent.", "hint": "Schrijf eerst zelf je redenering uit.", "solution": "2x≤12, dus x≤6. Interval ]−∞,6]. Gevuld bolletje op 6, pijl naar links."}, {"id": "vg8_08", "type": "open", "q": "Een activiteit kost €15 vast en €6 per deelnemer. Er is €75. Hoeveel deelnemers kunnen maximaal meedoen? Stel een ongelijkheid op.", "hint": "Schrijf eerst zelf je redenering uit.", "solution": "15+6x≤75, dus x≤10. Maximaal 10 deelnemers."}]};
+const bank2=document.getElementById('bank2');
+const allExtended=[...moreQuestions.map(q=>({...q,section:2})),...Object.entries(extendedBanks).flatMap(([section,items])=>items.map(q=>({...q,section:Number(section)})))];
+allExtended.forEach((q,index)=>{
+ const block=document.createElement('div');block.className='task';
+ const title=document.createElement('div');title.className='task-head';
+ const labels={fill:'Kort antwoord',mc:'Meerkeuze',tf:'Juist of fout',open:'Open vraag',order:'Sleepoefening'};
+ title.textContent=q.section+'.'+(q.section===2?index+1:extendedBanks[String(q.section)].findIndex(item=>item.id===q.id)+1)+' · '+labels[q.type];
+ const statement=document.createElement('p');statement.textContent=q.q;
+ block.append(title,statement);
+ let input=null,radios=[],order=[];
+ if(q.type==='fill'){
+  input=document.createElement('input');input.type='text';input.placeholder='Vul x in';input.value=state.attempts[q.id]?.answer||state.answers[q.id+'_draft']||'';
+  input.oninput=()=>{state.answers[q.id+'_draft']=input.value;save()};
+  block.append(input);
+ }else if(q.type==='open'){
+  input=document.createElement('textarea');input.placeholder='Schrijf je volledige redenering en tussenstappen op';
+  input.value=state.attempts[q.id]?.answer||state.answers[q.id+'_draft']||'';
+  input.oninput=()=>{state.answers[q.id+'_draft']=input.value;save()};
+  block.append(input);
+ }else if(q.type==='mc'||q.type==='tf'){
+  q.options.forEach((option,j)=>{
+   const label=document.createElement('label'),radio=document.createElement('input');
+   radio.type='radio';radio.name=q.id;radio.value=String(j);
+   radio.checked=state.attempts[q.id]?.answer===String(j);
+   radio.onchange=()=>{state.answers[q.id+'_draft']=String(j);save()};
+   label.append(radio,document.createTextNode(' '+option));block.append(label);radios.push(radio);
+  });
+ }else if(q.type==='order'){
+  const holder=document.createElement('div');holder.className='ordering';
+  const stored=state.answers[q.id+'_order'];
+  order=Array.isArray(stored)&&stored.length===q.steps.length?stored.slice():[...q.steps].reverse();
+  const draw=()=>{
+   holder.replaceChildren();
+   order.forEach((step,j)=>{
+    const row=document.createElement('div');row.className='order-row';row.draggable=true;
+    const handle=document.createElement('span');handle.textContent='☰';handle.setAttribute('aria-hidden','true');
+    const text=document.createElement('span');text.textContent=step;
+    const up=document.createElement('button');up.type='button';up.className='light';up.textContent='↑';up.setAttribute('aria-label','Verplaats stap omhoog');
+    const down=document.createElement('button');down.type='button';down.className='light';down.textContent='↓';down.setAttribute('aria-label','Verplaats stap omlaag');
+    const move=(to)=>{if(to<0||to>=order.length)return;[order[j],order[to]]=[order[to],order[j]];state.answers[q.id+'_order']=order.slice();save();draw()};
+    up.onclick=()=>move(j-1);down.onclick=()=>move(j+1);
+    row.addEventListener('dragstart',e=>{e.dataTransfer.setData('text/plain',String(j));e.dataTransfer.effectAllowed='move'});
+    row.addEventListener('dragover',e=>e.preventDefault());
+    row.addEventListener('drop',e=>{
+     e.preventDefault();const from=Number(e.dataTransfer.getData('text/plain'));
+     if(!Number.isInteger(from)||from<0||from>=order.length||from===j)return;
+     const [item]=order.splice(from,1);order.splice(j,0,item);
+     state.answers[q.id+'_order']=order.slice();save();draw();
+    });
+    row.append(handle,text,up,down);holder.append(row);
+   });
+  };draw();block.append(holder);
+  const note=document.createElement('small');note.textContent='Sleep de regels, of gebruik de pijltjes om ze te verplaatsen.';block.append(note);
+ }
+ const actions=document.createElement('div');
+ const check=document.createElement('button');check.textContent=q.type==='open'?'Vergelijk met modelantwoord':'Controleer antwoord';
+ const hintBtn=document.createElement('button');hintBtn.className='light';hintBtn.textContent='Hint';
+ const solutionBtn=document.createElement('button');solutionBtn.className='light';solutionBtn.textContent='Toon uitwerking';
+ const hint=document.createElement('div');hint.className='hint';hint.hidden=true;hint.textContent=q.hint;
+ const solution=document.createElement('div');solution.className='hint';solution.hidden=true;solution.textContent=q.solution;
+ const feedback=document.createElement('div');feedback.className='answer-feedback';feedback.setAttribute('aria-live','polite');
+ hintBtn.onclick=()=>{hint.hidden=!hint.hidden};
+ solutionBtn.onclick=()=>{solution.hidden=!solution.hidden};
+ check.onclick=()=>{
+  let answer;
+  if(q.type==='fill'||q.type==='open')answer=input.value.trim();
+  else if(q.type==='order')answer=order.slice();
+  else answer=radios.find(r=>r.checked)?.value;
+  if(!answer||(typeof answer==='string'&&!answer.trim())){feedback.textContent='Geef eerst een antwoord.';return}
+  const correct=q.type==='open'?null:q.type==='order'?answer.every((x,i)=>x===q.steps[i]):normalize(answer)===normalize(q.a);
+  const old=state.attempts[q.id];
+  state.attempts[q.id]={answer,correct,checkedAt:new Date().toISOString(),
+   firstAnswer:old?.firstAnswer??answer,firstCorrect:old?.firstCorrect??correct,
+   attempts:(old?.attempts||0)+1};
+  feedback.className='answer-feedback '+(correct===true?'correct':correct===false?'incorrect':'');
+  feedback.textContent=correct===true?'✓ Juist!':correct===false?'Nog niet juist. '+q.hint:'Vergelijk nu jouw redenering met het modelantwoord. Open de uitwerking hieronder.';
+  if(q.type==='open')solution.hidden=false;
+  save();updateReport();
+ };
+ actions.append(check,hintBtn,solutionBtn);block.append(actions,hint,solution,feedback);document.getElementById('bank'+q.section).append(block);
+});
+for(const section of [1,2,3,4,5,6,7,8]){
+ const help=document.getElementById('help'+section);
+ help.value=state.answers['help'+section]||'';
+ help.oninput=()=>{state.answers['help'+section]=help.value;save()};
+}
+
 document.querySelectorAll('.subcheck').forEach(box=>{
  const key=box.dataset.understand;
  const paint=()=>box.querySelectorAll('button').forEach(b=>b.classList.toggle('selected',state.understanding[key]===b.dataset.v));
@@ -241,7 +414,7 @@ function makeReport(){
  return {leerpad:'ASTREM Lab – Vergelijkingen en ongelijkheden',
  naam:state.studentName||'',tijdstip:new Date().toISOString(),
  afgerondeOnderdelen:state.done,zelfinschatting:state.understanding,
- vragen:{totaal:questions.length,beantwoord:attempted.length,
+ vragen:{totaal:questions.length+moreQuestions.length+Object.values(extendedBanks).reduce((n,items)=>n+items.length,0),beantwoord:attempted.length,
  automatischBeoordeeld:graded.length,juist:graded.filter(a=>a.correct===true).length,
  antwoorden:state.attempts},openOefeningen:state.answers,meerkeuzeEersteVersie:state.quiz};
 }
@@ -311,4 +484,112 @@ window.addEventListener('focus',syncReport);
 if(localStorage.getItem(SYNC_KEY))setTimeout(syncReport,1500);
 else syncStatus(activeId?'Aangemeld. Wijzigingen worden automatisch gesynchroniseerd.':'Automatisch lokaal bewaren actief.');
 progress();show(state.current);updateReport();
-</script></body></html>
+</script>
+<script>
+(function(){
+ const ns='http://www.w3.org/2000/svg';
+ function el(tag,attrs,text){const n=document.createElementNS(ns,tag);for(const [k,v] of Object.entries(attrs||{}))n.setAttribute(k,String(v));if(text!==undefined)n.textContent=text;return n}
+ const fmt=x=>Number.isFinite(x)?(Math.abs(x)<1e-9?'0':Number(x.toFixed(2)).toString().replace('.',',')):'';
+ const bounds={left:45,right:625,top:20,bottom:380,xMin:-8,xMax:8,yMin:-8,yMax:8};
+ function chart(svg,options={}){
+  const b={...bounds,...options},sx=x=>b.left+(x-b.xMin)/(b.xMax-b.xMin)*(b.right-b.left),sy=y=>b.bottom-(y-b.yMin)/(b.yMax-b.yMin)*(b.bottom-b.top);
+  svg.replaceChildren();
+  for(let x=Math.ceil(b.xMin);x<=b.xMax;x++){svg.append(el('line',{x1:sx(x),x2:sx(x),y1:b.top,y2:b.bottom,stroke:x===0?'#607383':'#e7edf1','stroke-width':x===0?1.6:1}));if(x%2===0)svg.append(el('text',{x:sx(x),y:sy(0)+17,'text-anchor':'middle','font-size':11,fill:'#607383'},x))}
+  for(let y=Math.ceil(b.yMin);y<=b.yMax;y++){svg.append(el('line',{x1:b.left,x2:b.right,y1:sy(y),y2:sy(y),stroke:y===0?'#607383':'#e7edf1','stroke-width':y===0?1.6:1}));if(y%2===0&&y!==0)svg.append(el('text',{x:sx(0)-9,y:sy(y)+4,'text-anchor':'end','font-size':11,fill:'#607383'},y))}
+  return {b,sx,sy,svg};
+ }
+ function line(c,a,b,color){
+  const {sx,sy,svg}=c;
+  svg.append(el('line',{x1:sx(c.b.xMin),y1:sy(a*c.b.xMin+b),x2:sx(c.b.xMax),y2:sy(a*c.b.xMax+b),stroke:color,'stroke-width':3,'stroke-linecap':'round'}));
+ }
+ function point(c,x,y,label){
+  if(x<c.b.xMin||x>c.b.xMax||y<c.b.yMin||y>c.b.yMax)return;
+  c.svg.append(el('circle',{cx:c.sx(x),cy:c.sy(y),r:6,fill:'#e9a14a',stroke:'#123b53','stroke-width':1.5}));
+  c.svg.append(el('text',{x:c.sx(x)+10,y:c.sy(y)-10,'font-size':14,'font-weight':700,fill:'#123b53'},label));
+ }
+ const get=id=>Number(document.getElementById(id).value);
+ function updateLines(){
+  const a=get('fa'),b=get('fb'),d=get('ga'),e=get('gb');
+  [['faOut',a],['fbOut',b],['gaOut',d],['gbOut',e]].forEach(([id,v])=>document.getElementById(id).textContent=fmt(v));
+  const c=chart(document.getElementById('lineGraph'));
+  line(c,a,b,'#087f83');line(c,d,e,'#d4842c');
+  const form=(a,b)=>fmt(a)+'x '+(b<0?'− '+fmt(-b):'+ '+fmt(b));
+  document.getElementById('graphFormula').textContent='Blauw: f(x) = '+form(a,b)+'  ·  Oranje: g(x) = '+form(d,e);
+  const int=document.getElementById('graphIntersection'),ineq=document.getElementById('graphInequality'),caption=document.getElementById('lineGraphCaption');
+  if(a===d){
+   const same=b===e;
+   int.textContent=same?'De rechten vallen samen: elke x is een oplossing van f(x) = g(x).':'De rechten zijn evenwijdig: f(x) = g(x) heeft geen oplossing.';
+   ineq.textContent=same?'f(x) > g(x): geen oplossingen.':b>e?'f(x) > g(x) voor alle reële x.':'f(x) > g(x): geen oplossingen.';
+   caption.textContent=same?'Samenvallende rechten':'Evenwijdige rechten';
+  }else{
+   const x=(e-b)/(a-d),y=a*x+b;
+   point(c,x,y,'S');
+   int.textContent='Snijpunt S = ('+fmt(x)+'; '+fmt(y)+'). Oplossing van f(x) = g(x): x = '+fmt(x)+'.';
+   const gt=a>d;
+   ineq.textContent='f(x) > g(x) als x '+(gt?'> ':'< ')+fmt(x)+'.';
+   caption.textContent='De blauwe en oranje rechte snijden elkaar. Het gele punt is het snijpunt.';
+  }
+ }
+ function updateZero(){
+  const a=get('za'),b=get('zb');
+  document.getElementById('zaOut').textContent=fmt(a);document.getElementById('zbOut').textContent=fmt(b);
+  const c=chart(document.getElementById('zeroGraph'),{bottom:285,top:15,yMin:-6,yMax:6});
+  line(c,a,b,'#087f83');
+  const out=document.getElementById('zeroSummary'),caption=document.getElementById('zeroGraphCaption');
+  if(a===0){
+   out.textContent='f(x) = '+fmt(b)+'. '+(b===0?'Elke x is een nulwaarde.':'Er is geen nulwaarde.')+' De functie is '+(b>0?'overal positief.':b<0?'overal negatief.':'overal nul.');
+   caption.textContent='Horizontale rechte';
+  }else{
+   const x=-b/a;
+   point(c,x,0,'N');
+   out.textContent='f(x) = '+fmt(a)+'x '+(b<0?'− '+fmt(-b):'+ '+fmt(b))+'. Nulwaarde: x = '+fmt(x)+'. f(x) > 0 voor x '+(a>0?'> ':'< ')+fmt(x)+'. f(x) < 0 voor x '+(a>0?'< ':'> ')+fmt(x)+'.';
+   caption.textContent='Het gele punt N markeert de nulwaarde.';
+  }
+ }
+ ['fa','fb','ga','gb'].forEach(id=>document.getElementById(id).addEventListener('input',updateLines));
+ ['za','zb'].forEach(id=>document.getElementById(id).addEventListener('input',updateZero));
+ document.getElementById('resetLines').onclick=()=>{[['fa',2],['fb',1],['ga',1],['gb',4]].forEach(([id,v])=>document.getElementById(id).value=v);updateLines()};
+ document.getElementById('resetZero').onclick=()=>{document.getElementById('za').value=1;document.getElementById('zb').value=-2;updateZero()};
+ updateLines();updateZero();
+})();
+</script>
+<script>
+(function(){
+ const NS='http://www.w3.org/2000/svg', svg=document.getElementById('intervalAxis');if(!svg)return;
+ const $=id=>document.getElementById(id), xMin=-10,xMax=10,L=40,R=680,Y=75;
+ const xToPx=x=>L+(x-xMin)*(R-L)/(xMax-xMin);
+ const pxToX=px=>Math.max(xMin,Math.min(xMax,Math.round(xMin+(px-L)*(xMax-xMin)/(R-L))));
+ const el=(tag,attrs={},value)=>{const e=document.createElementNS(NS,tag);for(const [k,v] of Object.entries(attrs))e.setAttribute(k,v);if(value!==undefined)e.textContent=value;return e};
+ const stateAxis={mode:'between',left:-2,right:4,incL:false,incR:true};
+ const challenges=[{mode:'between',left:-2,right:4,incL:false,incR:true,label:']−2,4]'},{mode:'left',left:3,incL:false,label:']−∞,3['},{mode:'right',left:-1,incL:true,label:'[−1,+∞['},{mode:'between',left:0,right:5,incL:true,incR:false,label:'[0,5['},{mode:'left',left:-4,incL:true,label:']−∞,−4]'},{mode:'right',left:2,incL:false,label:']2,+∞['}];
+ let challenge=0,dragging=null;
+ function notation(){const s=stateAxis;const fmt=n=>String(n).replace('-','−');return s.mode==='left'?']−∞,'+fmt(s.left)+(s.incL?']':'['):s.mode==='right'?(s.incL?'[':']')+fmt(s.left)+',+∞[':(s.incL?'[':']')+fmt(s.left)+','+fmt(s.right)+(s.incR?']':'[')}
+ function sync(){const s=stateAxis;$('axisMode').value=s.mode;$('axisLeft').value=s.left;$('axisRight').value=s.right;$('axisIncludeLeft').checked=s.incL;$('axisIncludeRight').checked=s.incR;$('axisRightWrap').hidden=s.mode!=='between';$('axisIncludeRightWrap').hidden=s.mode!=='between';render()}
+ function render(){const s=stateAxis;svg.replaceChildren();
+ for(let n=xMin;n<=xMax;n++){const x=xToPx(n);svg.append(el('line',{x1:x,y1:Y-5,x2:x,y2:Y+5,stroke:'#8496a4','stroke-width':1}));if(n%2===0)svg.append(el('text',{x,y:Y+24,'text-anchor':'middle','font-size':13,fill:'#485b69'},String(n).replace('-','−')))}
+ svg.append(el('line',{x1:L-10,y1:Y,x2:R+10,y2:Y,stroke:'#465a6a','stroke-width':2}));
+ const start=s.mode==='left'?L:xToPx(s.left),end=s.mode==='right'?R:xToPx(s.mode==='left'?s.left:s.right);
+ svg.append(el('line',{x1:start,y1:Y,x2:end,y2:Y,stroke:'#087f83','stroke-width':7,'stroke-linecap':'round'}));
+ if(s.mode==='left')svg.append(el('path',{d:`M ${L} ${Y} l 11 -7 v 14 z`,fill:'#087f83'}));
+ if(s.mode==='right')svg.append(el('path',{d:`M ${R} ${Y} l -11 -7 v 14 z`,fill:'#087f83'}));
+ function handle(value,filled,key){const x=xToPx(value);svg.append(el('circle',{cx:x,cy:Y,r:9,fill:filled?'#087f83':'#fff',stroke:'#087f83','stroke-width':3,'pointer-events':'none'}));const h=el('circle',{cx:x,cy:Y,r:22,fill:'transparent','data-handle':key,style:'cursor:ew-resize'});svg.append(h);svg.append(el('text',{x,y:Y-27,'text-anchor':'middle','font-size':15,'font-weight':700,fill:'#075e68'},String(value).replace('-','−')))}
+ handle(s.left,s.incL,'left');if(s.mode==='between')handle(s.right,s.incR,'right');
+ const ineq=s.mode==='left'?'x '+(s.incL?'≤':'<')+' '+s.left:s.mode==='right'?'x '+(s.incL?'≥':'>')+' '+s.left:(s.left+(s.incL?' ≤ ':' < ')+'x'+(s.incR?' ≤ ':' < ')+s.right);
+ $('axisResult').textContent=ineq+'     →     V = '+notation();
+ }
+ function clamp(){stateAxis.left=Math.max(-10,Math.min(10,Math.round(stateAxis.left)));stateAxis.right=Math.max(-10,Math.min(10,Math.round(stateAxis.right)));if(stateAxis.mode==='between'&&stateAxis.left>=stateAxis.right){if(dragging==='right')stateAxis.right=Math.min(10,stateAxis.left+1);else stateAxis.left=Math.max(-10,stateAxis.right-1);if(stateAxis.left>=stateAxis.right){stateAxis.left=0;stateAxis.right=1}}}
+ $('axisMode').onchange=e=>{stateAxis.mode=e.target.value;sync()};
+ for(const [id,key] of [['axisLeft','left'],['axisRight','right']])$(id).oninput=e=>{stateAxis[key]=Number(e.target.value);dragging=key;clamp();dragging=null;sync()};
+ for(const [id,key] of [['axisIncludeLeft','incL'],['axisIncludeRight','incR']])$(id).onchange=e=>{stateAxis[key]=e.target.checked;render()};
+ function pointerX(e){const pt=svg.createSVGPoint();pt.x=e.clientX;pt.y=e.clientY;const m=svg.getScreenCTM();return m?pt.matrixTransform(m.inverse()).x:0}
+ svg.addEventListener('pointerdown',e=>{const h=e.target.closest('[data-handle]');if(!h)return;dragging=h.getAttribute('data-handle');svg.setPointerCapture(e.pointerId);e.preventDefault()});
+ svg.addEventListener('pointermove',e=>{if(!dragging)return;stateAxis[dragging]=pxToX(pointerX(e));clamp();sync()});
+ for(const ev of ['pointerup','pointercancel','lostpointercapture'])svg.addEventListener(ev,()=>dragging=null);
+ function setChallenge(i){challenge=i;$('axisChallenge').textContent='Stel het interval '+challenges[i].label+' in op de getallenas.';$('axisFeedback').textContent=''}
+ $('axisCheck').onclick=()=>{const t=challenges[challenge],s=stateAxis;const ok=s.mode===t.mode&&s.left===t.left&&s.incL===t.incL&&(t.mode!=='between'||(s.right===t.right&&s.incR===t.incR));$('axisFeedback').textContent=ok?'✓ Helemaal juist! Je hebt de grenspunten en bolletjes correct ingesteld.':'Nog niet helemaal. Controleer de richting, de grenswaarden en of de bolletjes open of gevuld zijn.'};
+ $('axisNew').onclick=()=>setChallenge((challenge+1)%challenges.length);
+ $('axisReset').onclick=()=>{Object.assign(stateAxis,{mode:'between',left:-2,right:4,incL:false,incR:true});sync();setChallenge(0)};
+ sync();setChallenge(0);
+})();
+</script>
+</body></html>
