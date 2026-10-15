@@ -48,9 +48,29 @@ footer{text-align:center;padding:22px;color:var(--muted);font-size:.8rem}
 .report-area input{width:100%;max-width:550px;padding:10px;border:1px solid #b9cdd7;border-radius:8px;margin:7px 0 12px}
 .mini-stats{display:flex;gap:10px;flex-wrap:wrap}.mini-stats span{padding:10px 14px;border-radius:9px;background:white;border:1px solid #dce5ec}
 </style>
+<style>
+/* Afzonderlijk aanmeldscherm vóór de oefeningen */
+#learningApp{display:none}
+#authScreen{min-height:calc(100vh - 180px);display:flex;align-items:center;justify-content:center;padding:32px 18px}
+.auth-card{width:min(100%,480px);background:#fff;border:1px solid var(--line);border-radius:22px;padding:clamp(24px,5vw,42px);box-shadow:0 18px 55px #123b5318}
+.auth-mark{display:inline-block;color:#087f83;background:#e7f4f2;border-radius:50px;padding:5px 13px;font-size:.77rem;font-weight:800;letter-spacing:.09em}
+.auth-card h2{margin:18px 0 12px}.auth-card p{color:var(--muted)}
+.auth-card label{display:block;font-weight:700;color:var(--navy);margin-top:16px}
+.auth-card input{width:100%;padding:13px;border:1px solid #b9cdd7;border-radius:9px;font:inherit;margin-top:6px}
+.auth-card #loginButton{width:100%;margin:23px 0 5px;padding:14px;border:0;border-radius:10px;background:var(--teal);color:white;font-weight:800;font-size:1rem;cursor:pointer}
+.auth-card #loginButton:disabled{opacity:.65;cursor:wait}
+.auth-card #loginStatus{font-size:.91rem;min-height:1.5em}
+#authScreen #logoutButton{display:none}
+#authScreen[hidden]{display:none}
+#learningApp.app-visible{display:block}
+#sessionBar{display:flex;gap:12px;align-items:center;justify-content:flex-end;padding:10px max(20px,calc((100vw - 1180px)/2));background:#e8f4f3;font-size:.9rem}
+#sessionBar button{border:1px solid #a9d0ce;background:white;color:#086d70;border-radius:8px;padding:7px 12px;cursor:pointer;font-weight:700}
+</style>
 </head><body>
 <header><div class="eyebrow">ASTREM LAB · WISKUNDE · ZELFSTUDIE</div><h1>Goniometrie begrijpen</h1><p>Een interactief leerpad over de goniometrische cirkel, de grondformule en verwante hoeken. Lees de theorie, onderzoek de figuren, maak de oefeningen en controleer je redenering.</p></header>
-<div class="layout"><aside><h3>Jouw leerpad</h3><div class="progress"><div id="progressbar"></div></div><small id="progresslabel">0 van 8 onderdelen afgerond</small><nav id="nav"></nav><p class="muted" style="font-size:.8rem">Je voortgang wordt automatisch op dit toestel bewaard. Wanneer de beveiligde online koppeling actief is, worden wijzigingen automatisch gesynchroniseerd.</p><button class="secondary" onclick="if(confirm('Voortgang en antwoorden wissen?')){localStorage.removeItem('astremlab_gonio_v2');location.reload()}">Voortgang wissen</button></aside><main>
+<div id="authScreen"><div class="auth-card"><span class="auth-mark">ASTREM LAB · MIJN LEERPAD</span><h2>Welkom bij je leerpad!</h2><p>Meld je aan om je oefeningen te maken en je voortgang online te bewaren. Je kunt later verdergaan waar je gebleven was.</p><noscript>Schakel JavaScript in om je aan te melden.</noscript><div id="authFormMount"><div id="loginPanel"><p><label for="leerlingId">Leerling-ID</label><input id="leerlingId" autocomplete="username" placeholder="Vul je leerling-ID in"></p><p><label for="leerlingToken">Persoonlijke toegangscode</label><input id="leerlingToken" type="password" autocomplete="off" placeholder="Je persoonlijke toegangscode"></p><button type="button" id="loginButton">Aanmelden en verder leren →</button><button type="button" id="logoutButton">Afmelden</button><p id="loginStatus" aria-live="polite"></p></div></div><p style="font-size:.84rem">Je toegangscode wordt alleen tijdens deze browsersessie onthouden. Deel ze niet met anderen.</p></div></div>
+<div id="learningApp"><div id="sessionBar"><span id="sessionName"></span><button type="button" id="sessionLogout">Afmelden</button></div>
+<div class="layout"><aside><h3>Jouw leerpad</h3><div class="progress"><div id="progressbar"></div></div><small id="progresslabel">0 van 8 onderdelen afgerond</small><nav id="nav"></nav><p class="muted" style="font-size:.8rem">Je voortgang wordt lokaal en online bewaard zolang je bent aangemeld.</p><button class="secondary" onclick="if(confirm('Voortgang en antwoorden wissen?')){localStorage.removeItem(KEY);location.reload()}">Voortgang wissen</button></aside><main>
 <section class="lesson active" id="s0" data-title="Starten"><div class="kicker">Welkom</div><h2>Zo werk je met dit leerpad</h2>
 <p>Je leert de leerstof in kleine stappen. Je hoeft niet alles in één keer te maken. Neem je tijd om elke figuur te begrijpen. Als je een berekening ziet, probeer dan zelf de volgende stap te voorspellen voordat je verder leest.</p>
 <div class="theory"><b>Werkwijze</b><p>Lees eerst de theorie en bekijk de figuren. Maak vervolgens de oefeningen op papier of in het antwoordvak. Bij elke oefening kun je een hint en een oplossing openen. Bekijk de oplossing pas na je eigen poging.</p></div>
@@ -126,14 +146,29 @@ footer{text-align:center;padding:22px;color:var(--muted);font-size:.8rem}
 <section class="lesson" id="s7" data-title="Zelftest en afronding"><div class="kicker">Hoofdstuk 7</div><h2>Zelftest</h2><p>Probeer deze opdrachten eerst zonder de theorie opnieuw te bekijken. Noteer je redenering, niet alleen het antwoord. Controleer pas daarna je uitwerking.</p><div id="finaltest"></div>
 <h3>Wat neem je mee naar de volgende begeleiding?</h3><p>Noteer minstens één vraag die je nog niet volledig begrijpt. Vermeld waar je vastliep: de figuur, het teken, de formule of het rekenen.</p>
 <textarea id="reflection" placeholder="Mijn vragen voor de volgende sessie..."></textarea>
-<div class="note"><b>Rapport:</b> je kunt je voortgang downloaden. Je voortgang wordt automatisch lokaal bewaard. Online synchronisatie werkt zodra ASTREM Lab het leerpad via een beveiligde leeromgeving aanbiedt.</div>
-<div class="report-area" id="reportArea"><h3>Mijn resultaten en voortgang</h3><p>Dit overzicht bevat ook je antwoorden op de open vragen. Bekijk het voordat je het met je begeleider deelt.</p><div class="mini-stats" id="miniStats"></div><p><label for="studentName">Voornaam (voor het rapport)</label><input id="studentName" placeholder="Bijvoorbeeld Olivia" autocomplete="given-name"></p><button type="button" id="downloadReport">Download rapport (.json)</button><button type="button" id="sendReport">Synchronisatie opnieuw proberen</button><p id="reportStatus" aria-live="polite"></p><p class="muted">Automatisch lokaal bewaren is actief. Online synchronisatie vereist een beveiligde, door ASTREM Lab ingestelde verbinding.</p></div><button class="secondary" onclick="window.print()">Afdrukken of opslaan als PDF</button>
+<div class="note"><b>Rapport:</b> je kunt je voortgang downloaden. Je voortgang wordt automatisch lokaal bewaard. Je voortgang wordt automatisch online gesynchroniseerd zodra je bent aangemeld.</div>
+<div class="report-area" id="reportArea"><h3>Mijn resultaten en voortgang</h3><p>Dit overzicht bevat ook je antwoorden op de open vragen. Bekijk het voordat je het met je begeleider deelt.</p><div class="mini-stats" id="miniStats"></div><p><label for="studentName">Voornaam (voor het rapport)</label><input id="studentName" placeholder="Bijvoorbeeld Olivia" autocomplete="given-name"></p><button type="button" id="downloadReport">Download rapport (.json)</button><button type="button" id="sendReport">Synchronisatie opnieuw proberen</button><p id="reportStatus" aria-live="polite"></p><p class="muted">Automatisch bewaren is actief. Je persoonlijke toegangscode blijft alleen gedurende deze browsersessie actief.</p></div><button class="secondary" onclick="window.print()">Afdrukken of opslaan als PDF</button>
 <div class="practice-bank" id="bank7"><h3>Extra inoefening</h3><p>Maak de vragen zelfstandig. Je krijgt meteen feedback bij gesloten vragen. Bij open vragen vergelijk je jouw redenering met een modelantwoord.</p></div><div class="subcheck" data-understand="deel7"><strong>Hoe goed begrijp je dit onderdeel?</strong><button data-v="yes">✓ Ik snap dit</button><button data-v="no">? Ik heb nog hulp nodig</button></div></section>
 <div class="actions"><button class="secondary" id="prev">← Vorige</button><button class="primary" id="done">Onderdeel afgerond ✓</button><button class="secondary" id="next">Volgende →</button></div>
-</main></div><footer>ASTREM Lab · Interactief leerpad goniometrie · Gebaseerd op de aangeleverde cursus en de zelfscan</footer>
+</main></div></div><footer>ASTREM Lab · Interactief leerpad goniometrie · Gebaseerd op de aangeleverde cursus en de zelfscan</footer>
 <script>
-const KEY='astremlab_gonio_v2';let state={done:[],answers:{},quiz:{},checks:{},attempts:{},understanding:{},current:0};try{state={...state,...JSON.parse(localStorage.getItem(KEY)||'{}')}}catch(e){}
-const SYNC_KEY='astremlab_gonio_v3_pending';
+const API='https://astremlab-rapportering.herremaningmar.workers.dev';
+const LEERPAD='wiskunde-goniometrie';
+const activeId=sessionStorage.getItem('astremlab_active_id')||'';
+const activeToken=sessionStorage.getItem('astremlab_active_token')||'';
+const isSignedIn=Boolean(activeId && /^[a-f0-9]{64}$/.test(activeToken));
+document.getElementById('authScreen').hidden=isSignedIn;
+if(isSignedIn){
+ document.getElementById('learningApp').classList.add('app-visible');
+ document.getElementById('sessionName').textContent='Aangemeld als '+activeId;
+}
+document.getElementById('sessionLogout').onclick=()=>{
+ sessionStorage.removeItem('astremlab_active_id');
+ sessionStorage.removeItem('astremlab_active_token');
+ location.reload();
+};
+const KEY=activeId?'astremlab_gonio_v2_'+activeId:'astremlab_gonio_v2';let state={done:[],answers:{},quiz:{},checks:{},attempts:{},understanding:{},current:0};try{state={...state,...JSON.parse(localStorage.getItem(KEY)||'{}')}}catch(e){}
+const SYNC_KEY='astremlab_gonio_v3_pending_'+(activeId||'guest');
 let syncTimer=null, syncBusy=false, syncRevision=0;
 const save=()=>{
   localStorage.setItem(KEY,JSON.stringify(state));
@@ -186,9 +221,7 @@ progress();show(state.current);
 
 // Instelbaar door ASTREM Lab: plak hier na publicatie de URL van de Google Apps Script-webapp.
 // Geen geheime sleutel in dit HTML-bestand plaatsen.
- // Voor online synchronisatie moet dit leerpad als Apps Script HTML-service
- // worden aangeboden, met een serverfunctie receiveGonioReport().
- const ONLINE_SYNC_AVAILABLE = !!(window.google && google.script && google.script.run);
+ // Online synchronisatie gebeurt via de beveiligde Cloudflare Worker.
 const banks={
 1:[
 ['tf','De cosinus is de horizontale coördinaat van het beeldpunt.','Juist','Juist: cos α is de x-coördinaat.'],
@@ -303,42 +336,57 @@ function syncStatus(message){
  const el=document.getElementById('reportStatus');
  if(el)el.textContent=message;
 }
-function syncReport(){
- if(!localStorage.getItem(SYNC_KEY))return;
- if(!ONLINE_SYNC_AVAILABLE){
-  syncStatus('Voortgang lokaal opgeslagen. Online synchronisatie is nog niet geactiveerd.');
-  return;
- }
- if(syncBusy)return;
- const report=makeReport();
- if(!report.naam){
-  syncStatus('Voortgang lokaal opgeslagen. Vul je voornaam in om online te synchroniseren.');
-  return;
- }
- syncBusy=true;
- const sentRevision=syncRevision;
- syncStatus('Voortgang lokaal opgeslagen · online synchroniseren…');
- google.script.run
-  .withSuccessHandler(result=>{
-    syncBusy=false;
-    if(result && result.ok){
-      if(sentRevision===syncRevision){
-        localStorage.removeItem(SYNC_KEY);
-        syncStatus('Voortgang lokaal opgeslagen en online gesynchroniseerd.');
-      }else{
-        syncStatus('Nieuwere wijzigingen worden nog gesynchroniseerd.');
-        setTimeout(syncReport,800);
-      }
-    }else{
-      syncStatus('Lokaal opgeslagen. Online synchronisatie niet bevestigd.');
-    }
-  })
-  .withFailureHandler(()=>{
-    syncBusy=false;
-    syncStatus('Lokaal opgeslagen. Online synchronisatie mislukt; later opnieuw proberen.');
-  })
-  .receiveGonioReport(report);
+function credentials(){
+ const id=sessionStorage.getItem('astremlab_active_id')||'';
+ const token=sessionStorage.getItem('astremlab_active_token')||'';
+ return {id,token};
 }
+function authHeaders(){const {id,token}=credentials();return {'X-Leerling-ID':id,'X-Leerling-Token':token};}
+async function syncReport(){
+ if(!localStorage.getItem(SYNC_KEY))return;
+ const {id,token}=credentials();
+ if(!id||!token){syncStatus('Lokaal bewaard. Meld je aan voor online synchronisatie.');return;}
+ if(syncBusy)return;
+ syncBusy=true;
+ const revision=syncRevision;
+ syncStatus('Online synchroniseren…');
+ try{
+  const response=await fetch(API+'/rapport',{method:'POST',headers:{...authHeaders(),'Content-Type':'application/json'},body:JSON.stringify({leerpad:LEERPAD,rapport:makeReport()})});
+  const result=await response.json();
+  if(!response.ok||!result.ok)throw new Error(result.fout||'Synchronisatie mislukt');
+  if(revision===syncRevision){localStorage.removeItem(SYNC_KEY);syncStatus('Voortgang online gesynchroniseerd.');}
+  else {syncStatus('Nieuwe wijzigingen synchroniseren…');setTimeout(syncReport,800);}
+ }catch(e){syncStatus('Lokaal bewaard. Online synchronisatie niet gelukt: '+e.message);}
+ finally{syncBusy=false;}
+}
+function setLoginStatus(msg){document.getElementById('loginStatus').textContent=msg;}
+const loginId=document.getElementById('leerlingId'),loginToken=document.getElementById('leerlingToken');
+loginId.value=activeId;
+document.getElementById('loginButton').onclick=async()=>{
+ const id=loginId.value.trim(),token=loginToken.value.trim().toLowerCase();
+ if(!/^[A-Za-z0-9-]{1,40}$/.test(id)||!/^[a-f0-9]{64}$/.test(token)){setLoginStatus('Controleer je leerling-ID en persoonlijke toegangscode.');return;}
+ setLoginStatus('Aanmelden…');
+ try{
+  const res=await fetch(API+'/rapport?leerpad='+encodeURIComponent(LEERPAD),{headers:{'X-Leerling-ID':id,'X-Leerling-Token':token}});
+  const data=await res.json();
+  if(!res.ok||!data.ok)throw new Error(data.fout||'Aanmelden mislukt');
+  const ownKey='astremlab_gonio_v2_'+id;
+  // Neem online voortgang over als dit toestel nog geen eigen gegevens heeft.
+  if(data.rapport&&!localStorage.getItem(ownKey)){
+   const r=data.rapport;
+   localStorage.setItem(ownKey,JSON.stringify({done:r.afgerondeOnderdelen||[],answers:r.openOefeningen||{},quiz:r.meerkeuzeEersteVersie||{},attempts:r.vragen?.antwoorden||{},understanding:r.zelfinschatting||{},studentName:r.naam||'',current:0}));
+  }
+  sessionStorage.setItem('astremlab_active_id',id);
+  sessionStorage.setItem('astremlab_active_token',token);
+  location.reload();
+ }catch(e){setLoginStatus('Aanmelden mislukt: '+e.message);}
+};
+document.getElementById('logoutButton').onclick=()=>{
+ sessionStorage.removeItem('astremlab_active_id');
+ sessionStorage.removeItem('astremlab_active_token');
+ location.reload();
+};
+if(activeId){setLoginStatus('Aangemeld als '+activeId+' (voor deze browsersessie).');loginToken.placeholder='Toegangscode is actief voor deze sessie';}
 document.getElementById('sendReport').onclick=()=>{
  localStorage.setItem(SYNC_KEY,'1');
  syncReport();
@@ -347,6 +395,6 @@ window.addEventListener('online',syncReport);
 window.addEventListener('focus',syncReport);
 window.addEventListener('pagehide',()=>localStorage.setItem(SYNC_KEY,'1'));
 if(localStorage.getItem(SYNC_KEY))setTimeout(syncReport,1500);
-else syncStatus('Automatisch lokaal bewaren actief. Online synchronisatie nog niet ingesteld.');
+else syncStatus(activeId?'Aangemeld. Wijzigingen worden automatisch gesynchroniseerd.':'Automatisch lokaal bewaren actief. Meld je aan voor online synchronisatie.');
 updateReport();
 </script></body></html>
