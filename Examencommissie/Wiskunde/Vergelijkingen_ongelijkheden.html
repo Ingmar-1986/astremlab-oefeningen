@@ -1,0 +1,314 @@
+<!doctype html><html lang="nl"><!doctype html>
+<html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ASTREM Lab | Leerpad Vergelijkingen en ongelijkheden</title>
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<style>
+:root{--navy:#123b53;--teal:#087f83;--gold:#e9a14a;--bg:#f5f7fa;--ink:#213345;--muted:#607383;--line:#dce5ec}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,"Segoe UI",Arial,sans-serif;line-height:1.75}
+header{background:#123b53;color:white;padding:30px max(22px,calc((100vw - 1180px)/2));}header .eyebrow{letter-spacing:.16em;color:#a7d5d4;font-size:.75rem;font-weight:800}
+header h1{font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.2;margin:.4rem 0}header p{max-width:760px;color:#d4e2eb;margin:0}
+.layout{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:255px minmax(0,1fr);gap:28px;padding:28px 20px}
+aside{position:sticky;top:20px;align-self:start;background:white;border:1px solid var(--line);border-radius:15px;padding:20px}
+aside h3{margin:0 0 12px;font-size:.95rem}nav button{display:block;width:100%;border:0;background:transparent;padding:11px 12px;text-align:left;border-radius:8px;color:var(--ink);cursor:pointer;font-size:.92rem}
+nav button:hover,nav button.active{background:#e9f5f4;color:#076d71;font-weight:700}
+.progress{height:9px;background:#e2e9ee;border-radius:12px;overflow:hidden}.progress>div{background:var(--teal);height:100%;width:0;transition:width .3s}
+small,.muted{color:var(--muted)}main{min-width:0}.lesson{display:none;background:white;border:1px solid var(--line);border-radius:18px;padding:clamp(20px,4vw,48px);box-shadow:0 10px 28px #153d5310}.lesson.active{display:block}
+.kicker{font-size:.77rem;font-weight:800;color:var(--teal);letter-spacing:.12em;text-transform:uppercase}
+h2{font-size:2rem;line-height:1.3;color:var(--navy);margin:.3rem 0 18px}h3{color:var(--navy);margin:34px 0 9px;font-size:1.24rem}h4{margin:22px 0 8px;color:var(--navy)}
+p{margin:10px 0 15px}.theory{border-left:4px solid var(--teal);background:#f0f8f8;padding:15px 20px;border-radius:0 10px 10px 0;margin:22px 0}
+.example{background:#f7f9fc;border:1px solid var(--line);padding:18px 22px;border-radius:12px;margin:23px 0}.example strong:first-child{color:var(--teal)}
+.note{background:#fff7e9;border-left:4px solid var(--gold);padding:14px 18px;margin:20px 0}
+.figure{border:1px solid var(--line);border-radius:12px;padding:14px;background:#fbfdfe;margin:20px auto;text-align:center;max-width:640px}
+.figure svg{width:100%;max-width:460px;height:auto}.figcaption{font-size:.84rem;color:var(--muted);margin-top:5px}
+button.primary,button.secondary,.actions button,.checkbtn{border:0;border-radius:9px;background:var(--teal);color:white;padding:10px 16px;cursor:pointer;font-weight:700}
+button.secondary{background:#e7f1f2;color:#076b71}.actions{display:flex;justify-content:space-between;gap:12px;margin-top:35px;border-top:1px solid var(--line);padding-top:23px}
+.exercise{border:1px solid var(--line);border-radius:12px;padding:18px;margin:16px 0}.exercise .num{font-weight:800;color:var(--teal);margin-right:8px}
+textarea,input[type=text],select{font:inherit;width:100%;border:1px solid #cbd8e0;border-radius:8px;padding:10px;margin-top:9px;background:#fff}
+textarea{min-height:90px;resize:vertical}.reveal{margin-top:12px}details{border-top:1px solid var(--line);margin-top:12px;padding-top:9px}summary{cursor:pointer;color:#087b80;font-weight:700}
+.quiz-option{display:block;margin:8px 0;padding:11px;border:1px solid var(--line);border-radius:9px;cursor:pointer}.quiz-option input{margin-right:8px}
+.feedback{font-weight:700;margin:8px 0;min-height:20px}.good{color:#087f62}.bad{color:#ae512b}
+.formula{font-size:1.2rem;text-align:center;padding:16px;overflow-x:auto}.badge{display:inline-block;background:#e7f4f2;color:#087d80;border-radius:99px;padding:3px 11px;font-size:.75rem;font-weight:700}
+.control{display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center}.control input{width:min(290px,65vw)}
+table{border-collapse:collapse;width:100%;margin:20px 0;font-size:.95rem}td,th{border:1px solid var(--line);padding:9px 12px;text-align:left}th{background:#eaf2f5}
+footer{text-align:center;padding:22px;color:var(--muted);font-size:.8rem}
+@media(max-width:850px){.layout{display:block;padding:12px}aside{position:static;margin-bottom:14px}nav{display:grid;grid-template-columns:1fr 1fr;gap:4px}.lesson{padding:22px}h2{font-size:1.6rem}}
+</style>
+<style>
+.lesson{max-width:960px}.practice-bank{margin:28px 0 36px;border-top:2px solid #d9e5e9;padding-top:20px}
+.practice-bank h3{margin-bottom:8px}.practice-bank>p{color:#607383}.task{border:1px solid #d8e4e8;background:#fff;border-radius:13px;padding:17px 19px;margin:13px 0;box-shadow:0 2px 8px #123b5310}
+.task-head{font-size:.85rem;font-weight:800;color:#087f83;margin-bottom:7px}.task p{margin:7px 0 12px}
+.task input[type=text]{width:100%;padding:11px 12px;border:1px solid #bdced7;border-radius:8px;font:inherit}
+.task label{display:block;margin:8px 0;padding:8px 10px;border:1px solid #e0e8ec;border-radius:8px;cursor:pointer}
+.task button,.report-area button{padding:9px 14px;border-radius:8px;border:0;background:#123b53;color:#fff;font-weight:700;cursor:pointer;margin:8px 8px 2px 0}
+.task .answer-feedback{font-size:.94rem;margin-top:8px;line-height:1.6}.task .correct{color:#137452}.task .incorrect{color:#a3402f}
+.subcheck{display:flex;gap:12px;flex-wrap:wrap;align-items:center;background:#eff7f7;border:1px solid #cde3e1;border-radius:11px;padding:14px;margin:22px 0}
+.subcheck strong{flex:1 1 230px}.subcheck button{border:1px solid #bfd6d5;background:white;border-radius:8px;padding:10px 12px;color:#134659;cursor:pointer}.subcheck button.selected{background:#087f83;color:white}
+.report-area{background:#f0f5f7;border:1px solid #d6e4e9;border-radius:14px;padding:20px;margin:25px 0}
+.report-area input{width:100%;max-width:550px;padding:10px;border:1px solid #b9cdd7;border-radius:8px;margin:7px 0 12px}
+.mini-stats{display:flex;gap:10px;flex-wrap:wrap}.mini-stats span{padding:10px 14px;border-radius:9px;background:white;border:1px solid #dce5ec}
+</style>
+<style>
+/* Afzonderlijk aanmeldscherm vóór de oefeningen */
+#learningApp{display:none}
+#authScreen{min-height:calc(100vh - 180px);display:flex;align-items:center;justify-content:center;padding:32px 18px}
+.auth-card{width:min(100%,480px);background:#fff;border:1px solid var(--line);border-radius:22px;padding:clamp(24px,5vw,42px);box-shadow:0 18px 55px #123b5318}
+.auth-mark{display:inline-block;color:#087f83;background:#e7f4f2;border-radius:50px;padding:5px 13px;font-size:.77rem;font-weight:800;letter-spacing:.09em}
+.auth-card h2{margin:18px 0 12px}.auth-card p{color:var(--muted)}
+.auth-card label{display:block;font-weight:700;color:var(--navy);margin-top:16px}
+.auth-card input{width:100%;padding:13px;border:1px solid #b9cdd7;border-radius:9px;font:inherit;margin-top:6px}
+.auth-card #loginButton{width:100%;margin:23px 0 5px;padding:14px;border:0;border-radius:10px;background:var(--teal);color:white;font-weight:800;font-size:1rem;cursor:pointer}
+.auth-card #loginButton:disabled{opacity:.65;cursor:wait}
+.auth-card #loginStatus{font-size:.91rem;min-height:1.5em}
+#authScreen #logoutButton{display:none}
+#authScreen[hidden]{display:none}
+#learningApp.app-visible{display:block}
+#sessionBar{display:flex;gap:12px;align-items:center;justify-content:flex-end;padding:10px max(20px,calc((100vw - 1180px)/2));background:#e8f4f3;font-size:.9rem}
+#sessionBar button{border:1px solid #a9d0ce;background:white;color:#086d70;border-radius:8px;padding:7px 12px;cursor:pointer;font-weight:700}
+</style>
+
+<style>
+.learning-objectives{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.learning-objectives span{background:#e7f4f2;color:#087d80;padding:4px 10px;border-radius:99px;font-size:.8rem;font-weight:700}
+.task .hint{background:#fff7e9;padding:10px;border-radius:8px;margin:8px 0}
+.task button.light{background:#e7f1f2;color:#076b71}
+.task .answer-feedback{white-space:pre-wrap}
+.pending{background:#fff7e9;border-left:4px solid #e9a14a;padding:16px;margin:20px 0}
+.step-card{border:1px solid #dce5ec;border-radius:12px;padding:16px;margin:15px 0}
+</style>
+</head><body>
+<header><div class="eyebrow">ASTREM LAB · WISKUNDE · ZELFSTUDIE</div><h1>Vergelijkingen en ongelijkheden</h1>
+<p>Interactief leerpad voor de Examencommissie tweede graad: theorie, voorbeelden, oefeningen en gerichte feedback.</p></header>
+<div id="authScreen"><div class="auth-card"><span class="auth-mark">ASTREM LAB · MIJN LEERPAD</span><h2>Welkom bij je leerpad!</h2><p>Meld je aan om je oefeningen te maken en je voortgang online te bewaren. Je kunt later verdergaan waar je gebleven was.</p><noscript>Schakel JavaScript in om je aan te melden.</noscript><div id="authFormMount"><div id="loginPanel"><p><label for="leerlingId">Leerling-ID</label><input id="leerlingId" autocomplete="username" placeholder="Vul je leerling-ID in"></p><p><label for="leerlingToken">Persoonlijke toegangscode</label><input id="leerlingToken" type="password" autocomplete="off" placeholder="Je persoonlijke toegangscode"></p><button type="button" id="loginButton">Aanmelden en verder leren →</button><button type="button" id="logoutButton">Afmelden</button><p id="loginStatus" aria-live="polite"></p></div></div><p style="font-size:.84rem">Je toegangscode wordt alleen tijdens deze browsersessie onthouden. Deel ze niet met anderen.</p></div></div>
+
+<div id="learningApp"><div id="sessionBar"><span id="sessionName"></span><button type="button" id="sessionLogout">Afmelden</button></div>
+<div class="layout"><aside><h3>Jouw leerpad</h3><div class="progress"><div id="progressbar"></div></div>
+<small id="progresslabel">0 van 1 beschikbaar onderdeel afgerond</small><nav id="nav"></nav>
+<p class="muted" style="font-size:.8rem">Je voortgang wordt lokaal en online bewaard zodra de Worker dit leerpad ondersteunt.</p></aside>
+<main><section class="lesson active" id="s0" data-title="Starten"><div class="kicker">Welkom</div>
+<h2>Vergelijkingen en ongelijkheden</h2>
+<p>In dit leerpad leer je stap voor stap vergelijkingen en ongelijkheden oplossen. Je werkt zelfstandig, controleert je antwoorden en geeft aan waarbij je nog hulp nodig hebt.</p>
+<div class="theory"><b>Zo werk je</b><p>Lees de theorie, bestudeer de voorbeelden en maak daarna de oefeningen. Noteer bij moeilijkere vragen ook je tussenstappen op papier. Gebruik de hints pas wanneer je vastzit.</p></div>
+<h3>Wat gaan we zien?</h3><ol><li>Gelijkheden en balansmethode <small>(zelfscan: 106)</small></li><li>Eerstegraadsvergelijkingen <small>(zelfscan: 106–107)</small></li><li>Haakjes, breuken en bijzondere gevallen <small>(zelfscan: 106–107)</small></li><li>Eerstegraadsongelijkheden <small>(zelfscan: 108)</small></li><li>Intervallen en oplossingsverzamelingen <small>(zelfscan: 53, 109)</small></li><li>Grafisch oplossen <small>(zelfscan: 111–113)</small></li><li>Vraagstukken <small>(zelfscan: 110)</small></li><li>Zelftest en examenvoorbereiding <small>(zelfscan: 106–113)</small></li></ol><div class="report-area" id="reportArea"><h3>Mijn resultaten en voortgang</h3>
+<div class="mini-stats" id="miniStats"></div>
+<p><label for="studentName">Voornaam (voor het rapport)</label><input id="studentName" placeholder="Bijvoorbeeld Olivia" autocomplete="given-name"></p>
+<button type="button" id="downloadReport">Download rapport (.json)</button>
+<button type="button" id="sendReport">Synchronisatie opnieuw proberen</button>
+<p id="reportStatus" aria-live="polite"></p></div><div class="note"><b>Opmerking:</b> Deel 1 is volledig uitgewerkt. De volgende onderdelen worden stapsgewijs toegevoegd.</div></section><section class="lesson" id="s1" data-title="Balansmethode">
+<div class="kicker">Deel 1 · Zelfscan 106</div><h2>Gelijkheden en de balansmethode</h2>
+<div class="learning-objectives"><span>Vergelijking herkennen</span><span>Gelijkwaardige vergelijkingen</span><span>Oplossing controleren</span></div>
+<h3>1. Wat is een vergelijking?</h3><p>Een <b>vergelijking</b> is een gelijkheid waarin een onbekende voorkomt. Je zoekt de waarde van die onbekende waarvoor beide leden gelijk zijn.</p>
+<div class="example"><strong>Voorbeeld</strong><p>\(3x+5=17\). Als \(x=4\), dan is \(3\cdot4+5=17\). Dus \(x=4\) is een oplossing.</p></div>
+<h3>2. De balansmethode</h3><p>Een vergelijking kun je vergelijken met een weegschaal. Als je in het linkerlid iets verandert, voer je dezelfde bewerking uit in het rechterlid.</p>
+<div class="figure"><svg viewBox="0 0 400 210" role="img" aria-label="Weegschaal met links x plus 3 en rechts 7">
+<line x1="200" y1="32" x2="200" y2="170" stroke="#123b53" stroke-width="6"/>
+<line x1="135" y1="172" x2="265" y2="172" stroke="#123b53" stroke-width="6" stroke-linecap="round"/>
+<line x1="90" y1="57" x2="310" y2="57" stroke="#087f83" stroke-width="7" stroke-linecap="round"/>
+<circle cx="200" cy="57" r="9" fill="#e9a14a"/>
+<path d="M105 57 L70 120 L140 120 Z M295 57 L260 120 L330 120 Z" stroke="#087f83" fill="#e7f4f2" stroke-width="2"/>
+<text x="105" y="107" text-anchor="middle" font-size="19" fill="#123b53" font-weight="bold">x + 3</text>
+<text x="295" y="107" text-anchor="middle" font-size="19" fill="#123b53" font-weight="bold">7</text>
+<text x="200" y="200" text-anchor="middle" font-size="15" fill="#607383">Links en rechts dezelfde bewerking</text></svg></div>
+<div class="theory"><b>Toegestane bewerkingen</b><p>Je mag aan beide leden hetzelfde getal optellen of aftrekken, beide leden met hetzelfde getal vermenigvuldigen en beide leden delen door hetzelfde <b>niet-nulgetal</b>.</p></div>
+<div class="example"><strong>Voorbeeld: \(x+3=7\)</strong><p>\(x+3-3=7-3\), dus \(\boxed{x=4}\).</p></div>
+<h3>3. Termen en factoren</h3><p>Bij \(x+5\) is 5 een <b>term</b> die je wegwerkt door 5 af te trekken. Bij \(4x\) is 4 een <b>factor</b> die je wegwerkt door te delen door 4.</p>
+<table><thead><tr><th>Vergelijking</th><th>Wat doe je?</th></tr></thead><tbody>
+<tr><td>\(x+5=12\)</td><td>In beide leden 5 aftrekken</td></tr>
+<tr><td>\(x-8=3\)</td><td>In beide leden 8 optellen</td></tr>
+<tr><td>\(4x=20\)</td><td>Beide leden delen door 4</td></tr>
+<tr><td>\(\frac{x}{3}=6\)</td><td>Beide leden vermenigvuldigen met 3</td></tr></tbody></table>
+<h3>4. Uitgewerkt voorbeeld</h3><div class="example"><strong>Los op: \(3x-5=16\)</strong>
+<p>\(3x-5+5=16+5\)</p><p>\(3x=21\)</p><p>\(\boxed{x=7}\)</p>
+<p><b>Controle:</b> \(3\cdot7-5=16\). De oplossingsverzameling is \(V=\{7\}\).</p></div>
+<h3>5. Oefeningen</h3><p>Maak de acht oefeningen. Je kunt een hint openen en na je poging de uitwerking bekijken. Bij een fout antwoord mag je opnieuw proberen.</p>
+<div class="practice-bank" id="bank1"></div>
+<div class="subcheck" data-understand="deel1"><strong>Hoe goed begrijp je de balansmethode?</strong><button data-v="yes">✓ Ik snap dit</button><button data-v="no">? Ik heb nog hulp nodig</button></div>
+<p><label for="help1"><b>Welke vraag wil je tijdens de begeleiding bespreken?</b></label><textarea id="help1" placeholder="Bijvoorbeeld: ik weet niet wanneer ik moet delen of aftrekken."></textarea></p>
+</section><section class="lesson" id="s2" data-title="Eerstegraadsvergelijkingen"><div class="kicker">Deel 2 · Zelfscan 106–107</div><h2>Eerstegraadsvergelijkingen</h2><div class="pending"><b>Dit onderdeel wordt nog uitgewerkt.</b><p>Je kunt voorlopig verder oefenen in deel 1. Hier komen later theorie, voorbeelden, oefeningen en zelfinschatting.</p></div></section><section class="lesson" id="s3" data-title="Haakjes, breuken en bijzondere gevallen"><div class="kicker">Deel 3 · Zelfscan 106–107</div><h2>Haakjes, breuken en bijzondere gevallen</h2><div class="pending"><b>Dit onderdeel wordt nog uitgewerkt.</b><p>Je kunt voorlopig verder oefenen in deel 1. Hier komen later theorie, voorbeelden, oefeningen en zelfinschatting.</p></div></section><section class="lesson" id="s4" data-title="Eerstegraadsongelijkheden"><div class="kicker">Deel 4 · Zelfscan 108</div><h2>Eerstegraadsongelijkheden</h2><div class="pending"><b>Dit onderdeel wordt nog uitgewerkt.</b><p>Je kunt voorlopig verder oefenen in deel 1. Hier komen later theorie, voorbeelden, oefeningen en zelfinschatting.</p></div></section><section class="lesson" id="s5" data-title="Intervallen en oplossingsverzamelingen"><div class="kicker">Deel 5 · Zelfscan 53, 109</div><h2>Intervallen en oplossingsverzamelingen</h2><div class="pending"><b>Dit onderdeel wordt nog uitgewerkt.</b><p>Je kunt voorlopig verder oefenen in deel 1. Hier komen later theorie, voorbeelden, oefeningen en zelfinschatting.</p></div></section><section class="lesson" id="s6" data-title="Grafisch oplossen"><div class="kicker">Deel 6 · Zelfscan 111–113</div><h2>Grafisch oplossen</h2><div class="pending"><b>Dit onderdeel wordt nog uitgewerkt.</b><p>Je kunt voorlopig verder oefenen in deel 1. Hier komen later theorie, voorbeelden, oefeningen en zelfinschatting.</p></div></section><section class="lesson" id="s7" data-title="Vraagstukken"><div class="kicker">Deel 7 · Zelfscan 110</div><h2>Vraagstukken</h2><div class="pending"><b>Dit onderdeel wordt nog uitgewerkt.</b><p>Je kunt voorlopig verder oefenen in deel 1. Hier komen later theorie, voorbeelden, oefeningen en zelfinschatting.</p></div></section><section class="lesson" id="s8" data-title="Zelftest en examenvoorbereiding"><div class="kicker">Deel 8 · Zelfscan 106–113</div><h2>Zelftest en examenvoorbereiding</h2><div class="pending"><b>Dit onderdeel wordt nog uitgewerkt.</b><p>Je kunt voorlopig verder oefenen in deel 1. Hier komen later theorie, voorbeelden, oefeningen en zelfinschatting.</p></div></section><div class="actions"><button class="secondary" id="prev">← Vorige</button><button class="primary" id="done">Onderdeel afgerond ✓</button><button class="secondary" id="next">Volgende →</button></div></main></div></div><footer>ASTREM Lab · Vergelijkingen en ongelijkheden · Examencommissie tweede graad</footer>
+
+<script>
+const API='https://astremlab-rapportering.herremaningmar.workers.dev';
+const LEERPAD='wiskunde-vergelijkingen-ongelijkheden';
+const activeId=sessionStorage.getItem('astremlab_active_id')||'';
+const activeToken=sessionStorage.getItem('astremlab_active_token')||'';
+const isSignedIn=Boolean(activeId&&/^[a-f0-9]{64}$/.test(activeToken));
+const KEY='astremlab_vergelijkingen_v1_'+(activeId||'guest');
+const SYNC_KEY='astremlab_vergelijkingen_v1_pending_'+(activeId||'guest');
+const initialState={done:[],answers:{},quiz:{},attempts:{},understanding:{},studentName:'',current:0};
+let state={...initialState};
+try{state={...state,...JSON.parse(localStorage.getItem(KEY)||'{}')}}catch(e){}
+let syncTimer=null,syncBusy=false,syncRevision=0;
+document.getElementById('authScreen').hidden=isSignedIn;
+if(isSignedIn){
+ document.getElementById('learningApp').classList.add('app-visible');
+ document.getElementById('sessionName').textContent='Aangemeld als '+activeId;
+}
+function logout(){sessionStorage.removeItem('astremlab_active_id');sessionStorage.removeItem('astremlab_active_token');location.reload();}
+document.getElementById('sessionLogout').onclick=logout;
+document.getElementById('logoutButton').onclick=logout;
+const lessons=[...document.querySelectorAll('.lesson')],nav=document.getElementById('nav');
+const AVAILABLE=new Set([1]);
+lessons.forEach((l,i)=>{
+ const b=document.createElement('button');
+ b.onclick=()=>show(i);nav.appendChild(b);
+});
+function progress(){
+ const count=state.done.filter(i=>AVAILABLE.has(i)).length;
+ document.getElementById('progressbar').style.width=(100*count/AVAILABLE.size)+'%';
+ document.getElementById('progresslabel').textContent=count+' van '+AVAILABLE.size+' beschikbaar onderdeel afgerond';
+ [...nav.children].forEach((b,i)=>{
+  b.textContent=(state.done.includes(i)?'✓ ':'')+(i===0?'Start':i+'.')+' '+lessons[i].dataset.title+((i>1)?' · binnenkort':'');
+ });
+}
+function show(i){
+ state.current=Math.max(0,Math.min(lessons.length-1,i));
+ lessons.forEach((l,j)=>l.classList.toggle('active',j===state.current));
+ [...nav.children].forEach((b,j)=>b.classList.toggle('active',j===state.current));
+ document.getElementById('prev').disabled=state.current===0;
+ document.getElementById('next').disabled=state.current===lessons.length-1;
+ document.getElementById('done').disabled=!AVAILABLE.has(state.current);
+ document.getElementById('done').textContent=state.done.includes(state.current)?'Afgerond ✓':'Onderdeel afgerond ✓';
+ save();window.scrollTo(0,0);
+ if(window.MathJax?.typesetPromise)MathJax.typesetPromise();
+}
+document.getElementById('prev').onclick=()=>show(state.current-1);
+document.getElementById('next').onclick=()=>show(state.current+1);
+document.getElementById('done').onclick=()=>{
+ if(!AVAILABLE.has(state.current))return;
+ state.done=state.done.includes(state.current)?state.done.filter(x=>x!==state.current):[...state.done,state.current];
+ progress();show(state.current);
+};
+function save(){
+ localStorage.setItem(KEY,JSON.stringify(state));
+ localStorage.setItem(SYNC_KEY,'1');
+ syncRevision++;clearTimeout(syncTimer);
+ syncTimer=setTimeout(syncReport,3500);
+}
+const questions=[
+ {id:'vg1_01',type:'fill',goal:'106',q:'Los op: x + 8 = 19',a:'11',hint:'Trek in beide leden 8 af.',solution:'x = 19 − 8 = 11.'},
+ {id:'vg1_02',type:'fill',goal:'106',q:'Los op: x − 6 = 14',a:'20',hint:'Tel in beide leden 6 op.',solution:'x = 14 + 6 = 20.'},
+ {id:'vg1_03',type:'fill',goal:'106',q:'Los op: 5x = 35',a:'7',hint:'Deel beide leden door 5.',solution:'x = 35 / 5 = 7.'},
+ {id:'vg1_04',type:'fill',goal:'106',q:'Los op: x/4 = −3',a:'-12',hint:'Vermenigvuldig beide leden met 4.',solution:'x = −3 × 4 = −12.'},
+ {id:'vg1_05',type:'fill',goal:'106',q:'Los op: 3x + 4 = 22',a:'6',hint:'Trek eerst 4 af, deel daarna door 3.',solution:'3x = 18, dus x = 6.'},
+ {id:'vg1_06',type:'fill',goal:'106',q:'Los op: 7 − 2x = 15',a:'-4',hint:'Trek eerst 7 af; let op de negatieve factor.',solution:'−2x = 8, dus x = −4.'},
+ {id:'vg1_07',type:'fill',goal:'106',q:'Los op: 4x − 9 = x + 6',a:'5',hint:'Breng eerst de termen met x samen.',solution:'3x = 15, dus x = 5.'},
+ {id:'vg1_08',type:'fill',goal:'106',q:'Een leerling schrijft: 4x + 7 = 23 ⇔ 4x = 30. Welke waarde van x is wél juist?',a:'4',hint:'Bij +7 moet je 7 aftrekken, niet optellen.',solution:'4x = 23 − 7 = 16, dus x = 4.'}
+];
+const normalize=x=>String(x).trim().replace(/\s+/g,'').replaceAll('−','-').replace(',','.');
+const bank=document.getElementById('bank1');
+questions.forEach((q,i)=>{
+ const div=document.createElement('div');div.className='task';
+ const head=document.createElement('div');head.className='task-head';head.textContent='1.'+(i+1)+' · '+(i<4?'Basis':i<7?'Toepassing':'Inzicht')+' · doel '+q.goal;
+ const question=document.createElement('p');question.textContent=q.q;
+ const input=document.createElement('input');input.type='text';input.placeholder='x = ...';input.autocomplete='off';
+ input.value=state.attempts[q.id]?.answer||'';
+ const controls=document.createElement('div');
+ const check=document.createElement('button');check.textContent='Controleer';
+ const hintBtn=document.createElement('button');hintBtn.className='light';hintBtn.textContent='Hint';
+ const solBtn=document.createElement('button');solBtn.className='light';solBtn.textContent='Toon uitwerking';
+ const hint=document.createElement('div');hint.className='hint';hint.hidden=true;hint.textContent=q.hint;
+ const solution=document.createElement('div');solution.className='hint';solution.hidden=true;solution.textContent=q.solution;
+ const fb=document.createElement('div');fb.className='answer-feedback';fb.setAttribute('aria-live','polite');
+ hintBtn.onclick=()=>{hint.hidden=!hint.hidden};
+ solBtn.onclick=()=>{solution.hidden=!solution.hidden};
+ input.oninput=()=>{state.answers[q.id+'_draft']=input.value;save()};
+ check.onclick=()=>{
+  const answer=input.value.trim();
+  if(!answer){fb.textContent='Vul eerst een antwoord in.';return;}
+  const correct=normalize(answer)===normalize(q.a);
+  const old=state.attempts[q.id];
+  state.attempts[q.id]={answer,correct,checkedAt:new Date().toISOString(),
+   firstAnswer:old?.firstAnswer??answer,firstCorrect:old?.firstCorrect??correct,
+   attempts:(old?.attempts||0)+1,goal:q.goal};
+  fb.className='answer-feedback '+(correct?'correct':'incorrect');
+  fb.textContent=correct?'✓ Juist!':('Nog niet juist. '+q.hint);
+  save();updateReport();
+ };
+ controls.append(check,hintBtn,solBtn);div.append(head,question,input,controls,hint,solution,fb);bank.append(div);
+});
+document.getElementById('help1').value=state.answers.help1||'';
+document.getElementById('help1').oninput=e=>{state.answers.help1=e.target.value;save()};
+document.querySelectorAll('.subcheck').forEach(box=>{
+ const key=box.dataset.understand;
+ const paint=()=>box.querySelectorAll('button').forEach(b=>b.classList.toggle('selected',state.understanding[key]===b.dataset.v));
+ box.querySelectorAll('button').forEach(b=>b.onclick=()=>{state.understanding[key]=b.dataset.v;paint();save();updateReport()});paint();
+});
+const nameInput=document.getElementById('studentName');
+nameInput.value=state.studentName||'';
+nameInput.oninput=()=>{state.studentName=nameInput.value;save()};
+function makeReport(){
+ const attempted=Object.values(state.attempts);
+ const graded=attempted.filter(a=>a.correct!==null);
+ return {leerpad:'ASTREM Lab – Vergelijkingen en ongelijkheden',
+ naam:state.studentName||'',tijdstip:new Date().toISOString(),
+ afgerondeOnderdelen:state.done,zelfinschatting:state.understanding,
+ vragen:{totaal:questions.length,beantwoord:attempted.length,
+ automatischBeoordeeld:graded.length,juist:graded.filter(a=>a.correct===true).length,
+ antwoorden:state.attempts},openOefeningen:state.answers,meerkeuzeEersteVersie:state.quiz};
+}
+function updateReport(){
+ const r=makeReport(),el=document.getElementById('miniStats');
+ el.replaceChildren();
+ for(const s of [r.afgerondeOnderdelen.filter(i=>AVAILABLE.has(i)).length+'/'+AVAILABLE.size+' onderdelen afgerond',
+ r.vragen.beantwoord+'/'+r.vragen.totaal+' vragen gemaakt',
+ r.vragen.juist+'/'+r.vragen.automatischBeoordeeld+' juist',
+ Object.values(r.zelfinschatting).filter(x=>x==='no').length+' hulpvragen']){
+  const span=document.createElement('span');span.textContent=s;el.append(span);
+ }
+}
+document.getElementById('downloadReport').onclick=()=>{
+ const blob=new Blob([JSON.stringify(makeReport(),null,2)],{type:'application/json'});
+ const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='ASTREM_vergelijkingen_rapport.json';a.click();
+ setTimeout(()=>URL.revokeObjectURL(url),1000);
+};
+function syncStatus(msg){document.getElementById('reportStatus').textContent=msg}
+function credentials(){return {id:sessionStorage.getItem('astremlab_active_id')||'',token:sessionStorage.getItem('astremlab_active_token')||''}}
+function authHeaders(){const {id,token}=credentials();return {'X-Leerling-ID':id,'X-Leerling-Token':token}}
+async function syncReport(){
+ if(!localStorage.getItem(SYNC_KEY)||syncBusy)return;
+ const {id,token}=credentials();
+ if(!id||!token){syncStatus('Lokaal bewaard. Meld je aan voor online synchronisatie.');return;}
+ syncBusy=true;const revision=syncRevision;
+ syncStatus('Online synchroniseren…');
+ try{
+  const response=await fetch(API+'/rapport',{method:'POST',
+   headers:{...authHeaders(),'Content-Type':'application/json'},
+   body:JSON.stringify({leerpad:LEERPAD,rapport:makeReport()})});
+  const result=await response.json();
+  if(!response.ok||!result.ok)throw new Error(result.fout||'Synchronisatie mislukt');
+  if(revision===syncRevision){localStorage.removeItem(SYNC_KEY);syncStatus('Voortgang online gesynchroniseerd.')}
+  else setTimeout(syncReport,800);
+ }catch(e){syncStatus('Lokaal bewaard. Online synchronisatie niet gelukt: '+e.message)}
+ finally{syncBusy=false}
+}
+const loginId=document.getElementById('leerlingId'),loginToken=document.getElementById('leerlingToken');
+loginId.value=activeId;
+document.getElementById('loginButton').onclick=async()=>{
+ const id=loginId.value.trim(),token=loginToken.value.trim().toLowerCase();
+ const status=document.getElementById('loginStatus');
+ if(!/^[A-Za-z0-9-]{1,40}$/.test(id)||!/^[a-f0-9]{64}$/.test(token)){status.textContent='Controleer je leerling-ID en persoonlijke toegangscode.';return}
+ status.textContent='Aanmelden…';
+ try{
+  const response=await fetch(API+'/rapport?leerpad='+encodeURIComponent(LEERPAD),{headers:{'X-Leerling-ID':id,'X-Leerling-Token':token}});
+  const data=await response.json();
+  if(!response.ok||!data.ok)throw new Error(data.fout||'Aanmelden mislukt');
+  const ownKey='astremlab_vergelijkingen_v1_'+id;
+  if(data.rapport&&!localStorage.getItem(ownKey)){
+   const r=data.rapport;
+   localStorage.setItem(ownKey,JSON.stringify({
+    done:r.afgerondeOnderdelen||[],answers:r.openOefeningen||{},
+    quiz:r.meerkeuzeEersteVersie||{},attempts:r.vragen?.antwoorden||{},
+    understanding:r.zelfinschatting||{},studentName:r.naam||'',current:0
+   }));
+  }
+  sessionStorage.setItem('astremlab_active_id',id);
+  sessionStorage.setItem('astremlab_active_token',token);
+  location.reload();
+ }catch(e){status.textContent='Aanmelden mislukt: '+e.message}
+};
+document.getElementById('sendReport').onclick=()=>{localStorage.setItem(SYNC_KEY,'1');syncReport()};
+window.addEventListener('online',syncReport);
+window.addEventListener('focus',syncReport);
+if(localStorage.getItem(SYNC_KEY))setTimeout(syncReport,1500);
+else syncStatus(activeId?'Aangemeld. Wijzigingen worden automatisch gesynchroniseerd.':'Automatisch lokaal bewaren actief.');
+progress();show(state.current);updateReport();
+</script></body></html>
