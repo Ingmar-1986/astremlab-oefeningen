@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ASTREM Lab | Leerpad Goniometrie</title>
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<style>
+:root{--navy:#123b53;--teal:#087f83;--gold:#e9a14a;--bg:#f5f7fa;--ink:#213345;--muted:#607383;--line:#dce5ec}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,"Segoe UI",Arial,sans-serif;line-height:1.75}
+header{background:#123b53;color:white;padding:30px max(22px,calc((100vw - 1180px)/2));}header .eyebrow{letter-spacing:.16em;color:#a7d5d4;font-size:.75rem;font-weight:800}
+header h1{font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.2;margin:.4rem 0}header p{max-width:760px;color:#d4e2eb;margin:0}
+.layout{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:255px minmax(0,1fr);gap:28px;padding:28px 20px}
+aside{position:sticky;top:20px;align-self:start;background:white;border:1px solid var(--line);border-radius:15px;padding:20px}
+aside h3{margin:0 0 12px;font-size:.95rem}nav button{display:block;width:100%;border:0;background:transparent;padding:11px 12px;text-align:left;border-radius:8px;color:var(--ink);cursor:pointer;font-size:.92rem}
+nav button:hover,nav button.active{background:#e9f5f4;color:#076d71;font-weight:700}
+.progress{height:9px;background:#e2e9ee;border-radius:12px;overflow:hidden}.progress>div{background:var(--teal);height:100%;width:0;transition:width .3s}
+small,.muted{color:var(--muted)}main{min-width:0}.lesson{display:none;background:white;border:1px solid var(--line);border-radius:18px;padding:clamp(20px,4vw,48px);box-shadow:0 10px 28px #153d5310}.lesson.active{display:block}
+.kicker{font-size:.77rem;font-weight:800;color:var(--teal);letter-spacing:.12em;text-transform:uppercase}
+h2{font-size:2rem;line-height:1.3;color:var(--navy);margin:.3rem 0 18px}h3{color:var(--navy);margin:34px 0 9px;font-size:1.24rem}h4{margin:22px 0 8px;color:var(--navy)}
+p{margin:10px 0 15px}.theory{border-left:4px solid var(--teal);background:#f0f8f8;padding:15px 20px;border-radius:0 10px 10px 0;margin:22px 0}
+.example{background:#f7f9fc;border:1px solid var(--line);padding:18px 22px;border-radius:12px;margin:23px 0}.example strong:first-child{color:var(--teal)}
+.note{background:#fff7e9;border-left:4px solid var(--gold);padding:14px 18px;margin:20px 0}
+.figure{border:1px solid var(--line);border-radius:12px;padding:14px;background:#fbfdfe;margin:20px auto;text-align:center;max-width:640px}
+.figure svg{width:100%;max-width:460px;height:auto}.figcaption{font-size:.84rem;color:var(--muted);margin-top:5px}
+button.primary,button.secondary,.actions button,.checkbtn{border:0;border-radius:9px;background:var(--teal);color:white;padding:10px 16px;cursor:pointer;font-weight:700}
+button.secondary{background:#e7f1f2;color:#076b71}.actions{display:flex;justify-content:space-between;gap:12px;margin-top:35px;border-top:1px solid var(--line);padding-top:23px}
+.exercise{border:1px solid var(--line);border-radius:12px;padding:18px;margin:16px 0}.exercise .num{font-weight:800;color:var(--teal);margin-right:8px}
+textarea,input[type=text],select{font:inherit;width:100%;border:1px solid #cbd8e0;border-radius:8px;padding:10px;margin-top:9px;background:#fff}
+textarea{min-height:90px;resize:vertical}.reveal{margin-top:12px}details{border-top:1px solid var(--line);margin-top:12px;padding-top:9px}summary{cursor:pointer;color:#087b80;font-weight:700}
+.quiz-option{display:block;margin:8px 0;padding:11px;border:1px solid var(--line);border-radius:9px;cursor:pointer}.quiz-option input{margin-right:8px}
+.feedback{font-weight:700;margin:8px 0;min-height:20px}.good{color:#087f62}.bad{color:#ae512b}
+.formula{font-size:1.2rem;text-align:center;padding:16px;overflow-x:auto}.badge{display:inline-block;background:#e7f4f2;color:#087d80;border-radius:99px;padding:3px 11px;font-size:.75rem;font-weight:700}
+.control{display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center}.control input{width:min(290px,65vw)}
+table{border-collapse:collapse;width:100%;margin:20px 0;font-size:.95rem}td,th{border:1px solid var(--line);padding:9px 12px;text-align:left}th{background:#eaf2f5}
+footer{text-align:center;padding:22px;color:var(--muted);font-size:.8rem}
+@media(max-width:850px){.layout{display:block;padding:12px}aside{position:static;margin-bottom:14px}nav{display:grid;grid-template-columns:1fr 1fr;gap:4px}.lesson{padding:22px}h2{font-size:1.6rem}}
+</style>
+<style>
+.lesson{max-width:960px}.practice-bank{margin:28px 0 36px;border-top:2px solid #d9e5e9;padding-top:20px}
+.practice-bank h3{margin-bottom:8px}.practice-bank>p{color:#607383}.task{border:1px solid #d8e4e8;background:#fff;border-radius:13px;padding:17px 19px;margin:13px 0;box-shadow:0 2px 8px #123b5310}
+.task-head{font-size:.85rem;font-weight:800;color:#087f83;margin-bottom:7px}.task p{margin:7px 0 12px}
+.task input[type=text]{width:100%;padding:11px 12px;border:1px solid #bdced7;border-radius:8px;font:inherit}
+.task label{display:block;margin:8px 0;padding:8px 10px;border:1px solid #e0e8ec;border-radius:8px;cursor:pointer}
+.task button,.report-area button{padding:9px 14px;border-radius:8px;border:0;background:#123b53;color:#fff;font-weight:700;cursor:pointer;margin:8px 8px 2px 0}
+.task .answer-feedback{font-size:.94rem;margin-top:8px;line-height:1.6}.task .correct{color:#137452}.task .incorrect{color:#a3402f}
+.subcheck{display:flex;gap:12px;flex-wrap:wrap;align-items:center;background:#eff7f7;border:1px solid #cde3e1;border-radius:11px;padding:14px;margin:22px 0}
+.subcheck strong{flex:1 1 230px}.subcheck button{border:1px solid #bfd6d5;background:white;border-radius:8px;padding:10px 12px;color:#134659;cursor:pointer}.subcheck button.selected{background:#087f83;color:white}
+.report-area{background:#f0f5f7;border:1px solid #d6e4e9;border-radius:14px;padding:20px;margin:25px 0}
+.report-area input{width:100%;max-width:550px;padding:10px;border:1px solid #b9cdd7;border-radius:8px;margin:7px 0 12px}
+.mini-stats{display:flex;gap:10px;flex-wrap:wrap}.mini-stats span{padding:10px 14px;border-radius:9px;background:white;border:1px solid #dce5ec}
+</style>
+</head><body>
+<header><div class="eyebrow">ASTREM LAB · WISKUNDE · ZELFSTUDIE</div><h1>Goniometrie begrijpen</h1><p>Een interactief leerpad over de goniometrische cirkel, de grondformule en verwante hoeken. Lees de theorie, onderzoek de figuren, maak de oefeningen en controleer je redenering.</p></header>
+<div class="layout"><aside><h3>Jouw leerpad</h3><div class="progress"><div id="progressbar"></div></div><small id="progresslabel">0 van 8 onderdelen afgerond</small><nav id="nav"></nav><p class="muted" style="font-size:.8rem">Je voortgang wordt automatisch op dit toestel bewaard. Wanneer de beveiligde online koppeling actief is, worden wijzigingen automatisch gesynchroniseerd.</p><button class="secondary" onclick="if(confirm('Voortgang en antwoorden wissen?')){localStorage.removeItem('astremlab_gonio_v2');location.reload()}">Voortgang wissen</button></aside><main>
+<section class="lesson active" id="s0" data-title="Starten"><div class="kicker">Welkom</div><h2>Zo werk je met dit leerpad</h2>
+<p>Je leert de leerstof in kleine stappen. Je hoeft niet alles in één keer te maken. Neem je tijd om elke figuur te begrijpen. Als je een berekening ziet, probeer dan zelf de volgende stap te voorspellen voordat je verder leest.</p>
+<div class="theory"><b>Werkwijze</b><p>Lees eerst de theorie en bekijk de figuren. Maak vervolgens de oefeningen op papier of in het antwoordvak. Bij elke oefening kun je een hint en een oplossing openen. Bekijk de oplossing pas na je eigen poging.</p></div>
+<p>Alle hoeken in dit leerpad worden in <b>graden</b> uitgedrukt. Voor exacte waarden gebruiken we onder meer \( \frac12 \), \( \frac{\sqrt2}{2} \) en \( \frac{\sqrt3}{2} \).</p>
+<h3>Wat heb je nodig?</h3><p>Een blad papier, een potlood, een lat en eventueel een rekenmachine om achteraf te controleren. Probeer bij de bijzondere hoeken zoveel mogelijk <b>exact</b> te rekenen.</p>
+<div class="note"><b>Belangrijk:</b> de knop 'Afgerond' betekent dat je het onderdeel hebt bestudeerd en de oefeningen hebt geprobeerd. Het is geen automatische beoordeling van je kennis.</div></section>
+
+<section class="lesson" id="s1" data-title="De goniometrische cirkel"><div class="kicker">Hoofdstuk 1</div><h2>De goniometrische cirkel</h2>
+<h3>1.1 Van driehoek naar cirkel</h3><p>In een rechthoekige driehoek beschrijven sinus en cosinus verhoudingen van zijden. Daarmee kun je scherpe hoeken bestuderen. Maar wat betekent \( \sin 135^\circ \)? Een rechthoekige driehoek kan geen stompe hoek van \(135^\circ\) bevatten. We hebben dus een uitbreiding nodig.</p>
+<p>We tekenen een assenstelsel en een cirkel met middelpunt \(O=(0,0)\) en straal \(1\). Die cirkel noemen we de <b>goniometrische cirkel</b> of <b>eenheidscirkel</b>.</p>
+<div class="theory"><p>Elke hoek begint op de positieve \(x\)-as. Positieve hoeken worden tegenwijzerzin gemeten, negatieve hoeken wijzerzin. Het eindbeen van de hoek snijdt de cirkel in een punt \(P\), het <b>beeldpunt</b>.</p><div class="formula">\(P=(\cos\alpha,\sin\alpha)\)</div><p>De <b>cosinus</b> is de horizontale coördinaat. De <b>sinus</b> is de verticale coördinaat.</p></div>
+<h3>1.2 Onderzoek zelf een hoek</h3><p>Verplaats de schuifregelaar. Let op de richting van de draaiing en op de coördinaten van het beeldpunt.</p>
+<div class="figure"><svg id="livecircle" viewBox="0 0 420 350" role="img" aria-label="Interactieve goniometrische cirkel"><circle cx="210" cy="175" r="128" fill="white" stroke="#194d63" stroke-width="2"/><line x1="42" y1="175" x2="378" y2="175" stroke="#93a6b1"/><line x1="210" y1="17" x2="210" y2="333" stroke="#93a6b1"/><text x="380" y="170">x</text><text x="217" y="18">y</text><line id="ray" x1="210" y1="175" x2="338" y2="175" stroke="#087f83" stroke-width="3"/><line id="projx" x1="210" y1="175" x2="338" y2="175" stroke="#e9a14a" stroke-width="2" stroke-dasharray="5 4"/><line id="projy" x1="338" y1="175" x2="338" y2="175" stroke="#e9a14a" stroke-width="2" stroke-dasharray="5 4"/><circle id="dot" cx="338" cy="175" r="6" fill="#087f83"/><text x="210" y="346" text-anchor="middle" id="coords">P = (1,000; 0,000)</text></svg>
+<div class="control"><label for="angle">Hoek <b id="anglelabel">45°</b></label><input id="angle" type="range" min="-360" max="720" step="5" value="45"><button class="secondary" onclick="document.getElementById('angle').value=45;drawLive()">Terug naar 45°</button></div><div class="figcaption">Bij hoeken buiten 0°–360° blijft het beeldpunt op dezelfde cirkel.</div></div>
+<h3>1.3 De hoeken op de assen</h3><table><tr><th>Hoek</th><th>Beeldpunt</th><th>Sinus</th><th>Cosinus</th></tr><tr><td>\(0^\circ\)</td><td>\((1,0)\)</td><td>0</td><td>1</td></tr><tr><td>\(90^\circ\)</td><td>\((0,1)\)</td><td>1</td><td>0</td></tr><tr><td>\(180^\circ\)</td><td>\((-1,0)\)</td><td>0</td><td>−1</td></tr><tr><td>\(270^\circ\)</td><td>\((0,-1)\)</td><td>−1</td><td>0</td></tr><tr><td>\(360^\circ\)</td><td>\((1,0)\)</td><td>0</td><td>1</td></tr></table>
+<div class="example"><strong>Uitgewerkt voorbeeld</strong><p>Bij \(180^\circ\) ligt het beeldpunt links van de oorsprong op \((-1,0)\). Daarom is \(\cos180^\circ=-1\) en \(\sin180^\circ=0\).</p></div>
+<div class="exercise" data-hint="Denk aan de maximale en minimale x- en y-coördinaat van een cirkel met straal 1." data-solution="Op de eenheidscirkel liggen beide coördinaten tussen −1 en 1. Dus ook sinus en cosinus liggen altijd tussen −1 en 1."><span class="num">1.1</span>Waarom kan \(\sin\alpha=1{,}3\) nooit juist zijn? Leg uit met de cirkel.</div>
+<div class="exercise" data-hint="Eén volledige omwenteling is 360°." data-solution="405° = 45° + 360° en −315° = 45° − 360°. Beide hebben hetzelfde beeldpunt als 45°."><span class="num">1.2</span>Leg uit waarom \(45^\circ\), \(405^\circ\) en \(-315^\circ\) hetzelfde beeldpunt hebben.</div>
+<div class="practice-bank" id="bank1"><h3>Extra inoefening</h3><p>Maak de vragen zelfstandig. Je krijgt meteen feedback bij gesloten vragen. Bij open vragen vergelijk je jouw redenering met een modelantwoord.</p></div><div class="subcheck" data-understand="deel1"><strong>Hoe goed begrijp je dit onderdeel?</strong><button data-v="yes">✓ Ik snap dit</button><button data-v="no">? Ik heb nog hulp nodig</button></div></section>
+
+<section class="lesson" id="s2" data-title="Kwadranten en tekens"><div class="kicker">Hoofdstuk 2</div><h2>Kwadranten en tekens</h2>
+<p>De twee assen verdelen de cirkel in vier kwadranten. In elk kwadrant kun je het teken van de sinus en cosinus afleiden uit het teken van de coördinaten.</p>
+<table><tr><th>Kwadrant</th><th>Ligging</th><th>\(\sin\alpha\)</th><th>\(\cos\alpha\)</th></tr><tr><td>I</td><td>Rechtsboven</td><td>+</td><td>+</td></tr><tr><td>II</td><td>Linksboven</td><td>+</td><td>−</td></tr><tr><td>III</td><td>Linksonder</td><td>−</td><td>−</td></tr><tr><td>IV</td><td>Rechtsonder</td><td>−</td><td>+</td></tr></table>
+<div class="theory">De tangens wordt gedefinieerd als <div class="formula">\(\displaystyle\tan\alpha=\frac{\sin\alpha}{\cos\alpha}\)</div>De tangens bestaat niet wanneer \(\cos\alpha=0\), bijvoorbeeld bij \(90^\circ\) en \(270^\circ\).</div>
+<div class="example"><strong>Uitgewerkt voorbeeld</strong><p>\(230^\circ\) ligt tussen \(180^\circ\) en \(270^\circ\), dus in kwadrant III. Daar zijn sinus en cosinus negatief. Omdat een negatief getal gedeeld door een negatief getal positief is, is de tangens positief.</p></div>
+<div class="exercise" data-hint="Herleid negatieve hoeken eventueel tot een hoek tussen 0° en 360°." data-solution="125°: II; 215°: III; 310°: IV; −60° komt overeen met 300°: IV."><span class="num">2.1</span>Bepaal het kwadrant van \(125^\circ\), \(215^\circ\), \(310^\circ\) en \(-60^\circ\).</div>
+<div class="exercise" data-hint="Kijk naar de horizontale coördinaat bij 90°." data-solution="Bij 90° is cos 90° = 0. Dan zou tan 90° = 1/0 zijn. Delen door nul is niet gedefinieerd."><span class="num">2.2</span>Waarom bestaat \(\tan90^\circ\) niet? Geef een wiskundige verklaring.</div>
+<div class="exercise" data-hint="Bij 160° ligt het beeldpunt linksboven." data-solution="sin 160° > 0, cos 160° < 0, tan 160° < 0."><span class="num">2.3</span>Bepaal zonder rekenmachine de tekens van \(\sin160^\circ\), \(\cos160^\circ\) en \(\tan160^\circ\).</div>
+<div class="quiz" data-q="Welk teken heeft cos 240°?" data-options='["Positief","Negatief","Nul"]' data-correct="1" data-explain="240° ligt in kwadrant III. Daar is de x-coördinaat negatief."></div>
+<div class="practice-bank" id="bank2"><h3>Extra inoefening</h3><p>Maak de vragen zelfstandig. Je krijgt meteen feedback bij gesloten vragen. Bij open vragen vergelijk je jouw redenering met een modelantwoord.</p></div><div class="subcheck" data-understand="deel2"><strong>Hoe goed begrijp je dit onderdeel?</strong><button data-v="yes">✓ Ik snap dit</button><button data-v="no">? Ik heb nog hulp nodig</button></div></section>
+
+<section class="lesson" id="s3" data-title="Bijzondere hoeken"><div class="kicker">Hoofdstuk 3</div><h2>Bijzondere hoeken</h2>
+<p>Voor de hoeken \(0^\circ\), \(30^\circ\), \(45^\circ\), \(60^\circ\) en \(90^\circ\) bestaan eenvoudige exacte waarden. Je kunt ze afleiden uit een gelijkbenige rechthoekige driehoek en uit een gehalveerde gelijkzijdige driehoek.</p>
+<h3>3.1 Waarom is \(\sin45^\circ=\cos45^\circ\)?</h3><p>In een gelijkbenige rechthoekige driehoek zijn beide rechthoekszijden even lang. Neem ze allebei gelijk aan 1. De schuine zijde is volgens Pythagoras \(\sqrt2\). Daarom is zowel de sinus als de cosinus van 45° gelijk aan \(1/\sqrt2=\sqrt2/2\).</p>
+<h3>3.2 De waarden van 30° en 60°</h3><p>Neem een gelijkzijdige driehoek met zijde 2. Een hoogtelijn verdeelt hem in twee rechthoekige driehoeken met schuine zijde 2, korte rechthoekszijde 1 en lange rechthoekszijde \(\sqrt3\). Daaruit volgen de waarden van 30° en 60°.</p>
+<table><tr><th>\(\alpha\)</th><th>\(\sin\alpha\)</th><th>\(\cos\alpha\)</th></tr><tr><td>0°</td><td>0</td><td>1</td></tr><tr><td>30°</td><td>\(\frac12\)</td><td>\(\frac{\sqrt3}{2}\)</td></tr><tr><td>45°</td><td>\(\frac{\sqrt2}{2}\)</td><td>\(\frac{\sqrt2}{2}\)</td></tr><tr><td>60°</td><td>\(\frac{\sqrt3}{2}\)</td><td>\(\frac12\)</td></tr><tr><td>90°</td><td>1</td><td>0</td></tr></table>
+<div class="exercise" data-hint="Gebruik de tabel en reken met breuken." data-solution="sin 30° + cos 60° = 1/2 + 1/2 = 1."><span class="num">3.1</span>Bereken exact: \(\sin30^\circ+\cos60^\circ\).</div>
+<div class="exercise" data-hint="Vergelijk de korte en lange rechthoekszijde in de twee driehoeken." data-solution="Bij complementaire hoeken worden overstaande en aanliggende rechthoekszijde verwisseld. Daarom sin 30° = cos 60° = 1/2."><span class="num">3.2</span>Verklaar met een driehoek waarom \(\sin30^\circ=\cos60^\circ\).</div>
+<div class="practice-bank" id="bank3"><h3>Extra inoefening</h3><p>Maak de vragen zelfstandig. Je krijgt meteen feedback bij gesloten vragen. Bij open vragen vergelijk je jouw redenering met een modelantwoord.</p></div><div class="subcheck" data-understand="deel3"><strong>Hoe goed begrijp je dit onderdeel?</strong><button data-v="yes">✓ Ik snap dit</button><button data-v="no">? Ik heb nog hulp nodig</button></div></section>
+
+<section class="lesson" id="s4" data-title="De grondformule"><div class="kicker">Hoofdstuk 4</div><h2>De grondformule</h2>
+<h3>4.1 Afleiden met Pythagoras</h3><p>Neem een willekeurig beeldpunt \(P=(\cos\alpha,\sin\alpha)\) op de eenheidscirkel. De afstand van de oorsprong tot P is precies 1. Trek vanuit P een loodlijn op de x-as. Je krijgt een rechthoekige driehoek met rechthoekszijden waarvan de lengtes \(|\cos\alpha|\) en \(|\sin\alpha|\) zijn.</p>
+<p>Volgens Pythagoras geldt: \((\cos\alpha)^2+(\sin\alpha)^2=1^2\). Omdat het kwadraat van een negatief getal positief is, geldt dit ook buiten het eerste kwadrant.</p>
+<div class="theory"><div class="formula">\[\boxed{\sin^2\alpha+\cos^2\alpha=1}\]</div><p>Let op: \(\sin^2\alpha\) betekent \((\sin\alpha)^2\), niet \(\sin(\alpha^2)\).</p></div>
+<h3>4.2 Een ontbrekende cosinus berekenen</h3><p>Als de sinus gegeven is, kun je de cosinus berekenen. Eerst zonder je \(\cos^2\alpha\) af. Daarna neem je de vierkantswortel. Er zijn meestal <b>twee mogelijke tekens</b>; het kwadrant bepaalt het juiste teken.</p>
+<div class="formula">\[\cos\alpha=\pm\sqrt{1-\sin^2\alpha}\]</div>
+<div class="example"><strong>Uitgewerkt voorbeeld: kwadrant II</strong><p>Gegeven: \(\sin\alpha=\frac35\) en \(\alpha\) ligt in kwadrant II.</p><p><b>Stap 1.</b> \(\cos^2\alpha=1-\frac9{25}=\frac{16}{25}\).</p><p><b>Stap 2.</b> \(\cos\alpha=\pm\frac45\).</p><p><b>Stap 3.</b> In kwadrant II is cosinus negatief, dus \(\boxed{\cos\alpha=-\frac45}\).</p><p><b>Stap 4.</b> \(\tan\alpha=\frac{3/5}{-4/5}=-\frac34\).</p></div>
+<h3>4.3 Een ontbrekende sinus berekenen</h3><p>Als de cosinus gegeven is, gebruik je dezelfde redenering:</p><div class="formula">\[\sin\alpha=\pm\sqrt{1-\cos^2\alpha}\]</div>
+<div class="exercise" data-hint="Bereken eerst cos² α en bepaal daarna het teken in kwadrant I." data-solution="cos² α = 1 − 16/25 = 9/25. In kwadrant I is cos α = 3/5. tan α = (4/5)/(3/5) = 4/3."><span class="num">4.1</span>Gegeven \(\sin\alpha=\frac45\) en \(\alpha\) ligt in kwadrant I. Bereken \(\cos\alpha\) en \(\tan\alpha\). Noteer alle stappen.</div>
+<div class="exercise" data-hint="In kwadrant III is de sinus negatief." data-solution="sin² α = 1 − 25/169 = 144/169. Dus sin α = −12/13 en tan α = (−12/13)/(−5/13) = 12/5."><span class="num">4.2</span>Gegeven \(\cos\alpha=-\frac5{13}\) en \(\alpha\) ligt in kwadrant III. Bereken \(\sin\alpha\) en \(\tan\alpha\).</div>
+<div class="exercise" data-hint="Denk aan het teken ± na het worteltrekken." data-solution="De fout is dat de leerling de negatieve wortel vergeet. In kwadrant II en III is de cosinus negatief. Bijvoorbeeld cos 120° = −1/2."><span class="num">4.3</span>Een leerling schrijft: “\(\cos\alpha=\sqrt{1-\sin^2\alpha}\), dus de cosinus is altijd positief.” Wat is er fout? Geef een tegenvoorbeeld.</div>
+<div class="quiz" data-q="Als sin α = 3/5 en α ligt in kwadrant II, wat is cos α?" data-options='["4/5","−4/5","3/5","−3/5"]' data-correct="1" data-explain="De grootte is 4/5, maar in kwadrant II is cosinus negatief."></div>
+<div class="practice-bank" id="bank4"><h3>Extra inoefening</h3><p>Maak de vragen zelfstandig. Je krijgt meteen feedback bij gesloten vragen. Bij open vragen vergelijk je jouw redenering met een modelantwoord.</p></div><div class="subcheck" data-understand="deel4"><strong>Hoe goed begrijp je dit onderdeel?</strong><button data-v="yes">✓ Ik snap dit</button><button data-v="no">? Ik heb nog hulp nodig</button></div></section>
+
+<section class="lesson" id="s5" data-title="Verwante hoeken"><div class="kicker">Hoofdstuk 5</div><h2>Verwante hoeken</h2>
+<p>Dit hoofdstuk is het hart van het leerpad. We vertrekken telkens van <b>\(\alpha=45^\circ\)</b>. We tekenen eerst het oorspronkelijke beeldpunt A en daarna het verwante beeldpunt B. De ligging van die twee punten vertelt ons welke sinus- en cosinusformules gelden.</p>
+<div class="note">Bestudeer de verwantschappen één voor één. Probeer de formule telkens eerst zelf uit de figuur af te leiden.</div>
+<div id="relations"></div>
+<div class="practice-bank" id="bank5"><h3>Extra inoefening</h3><p>Maak de vragen zelfstandig. Je krijgt meteen feedback bij gesloten vragen. Bij open vragen vergelijk je jouw redenering met een modelantwoord.</p></div><div class="subcheck" data-understand="deel5"><strong>Hoe goed begrijp je dit onderdeel?</strong><button data-v="yes">✓ Ik snap dit</button><button data-v="no">? Ik heb nog hulp nodig</button></div></section>
+
+<section class="lesson" id="s6" data-title="Toepassingen"><div class="kicker">Hoofdstuk 6</div><h2>Verwante hoeken toepassen</h2>
+<p>Bij oefeningen combineer je nu twee ideeën: de symmetrie van de goniometrische cirkel en de grondformule. Een vaste werkwijze helpt om tekenfouten te vermijden.</p>
+<div class="theory"><b>Een goede volgorde</b><p><b>1.</b> Herken de verwante hoek. <b>2.</b> Vervang die door \(\sin\alpha\) of \(\cos\alpha\), met het juiste teken. <b>3.</b> Werk haakjes en kwadraten uit. <b>4.</b> Gebruik zo nodig \(\sin^2\alpha+\cos^2\alpha=1\).</p></div>
+<div class="example"><strong>Voorbeeld 1</strong><p>\(\sin(180^\circ-\alpha)+\sin(-\alpha)\)</p><p>\(=\sin\alpha-\sin\alpha=0\).</p></div>
+<div class="example"><strong>Voorbeeld 2</strong><p>\(\cos^2(180^\circ-\alpha)+\sin^2(-\alpha)\)</p><p>\(=(-\cos\alpha)^2+(-\sin\alpha)^2\)</p><p>\(=\cos^2\alpha+\sin^2\alpha=1\).</p></div>
+<div class="example"><strong>Voorbeeld 3</strong><p>\(1-\sin^2(180^\circ+\alpha)\)</p><p>\(=1-(-\sin\alpha)^2\)</p><p>\(=1-\sin^2\alpha=\cos^2\alpha\).</p></div>
+<div id="applications"></div>
+<h3>Open denkvragen</h3>
+<div class="exercise" data-hint="Denk aan de spiegeling ten opzichte van de y-as." data-solution="Bij 180° − α blijft de y-coördinaat gelijk, dus sin(180° − α) = sin α. Het minteken hoort bij de cosinus."><span class="num">6.7</span>Een leerling schrijft \(\sin(180^\circ-\alpha)=-\sin\alpha\). Waarom klopt dat niet? Verklaar met een tekening.</div>
+<div class="exercise" data-hint="Gebruik twee verschillende verwantschappen en laat de grondformule verschijnen." data-solution="Bijvoorbeeld sin²(180° − α) + cos²(180° + α) = sin² α + cos² α = 1."><span class="num">6.8</span>Ontwerp zelf een uitdrukking met minstens twee verwante hoeken die vereenvoudigt tot 1. Werk je voorbeeld volledig uit.</div>
+<div class="practice-bank" id="bank6"><h3>Extra inoefening</h3><p>Maak de vragen zelfstandig. Je krijgt meteen feedback bij gesloten vragen. Bij open vragen vergelijk je jouw redenering met een modelantwoord.</p></div><div class="subcheck" data-understand="deel6"><strong>Hoe goed begrijp je dit onderdeel?</strong><button data-v="yes">✓ Ik snap dit</button><button data-v="no">? Ik heb nog hulp nodig</button></div></section>
+
+<section class="lesson" id="s7" data-title="Zelftest en afronding"><div class="kicker">Hoofdstuk 7</div><h2>Zelftest</h2><p>Probeer deze opdrachten eerst zonder de theorie opnieuw te bekijken. Noteer je redenering, niet alleen het antwoord. Controleer pas daarna je uitwerking.</p><div id="finaltest"></div>
+<h3>Wat neem je mee naar de volgende begeleiding?</h3><p>Noteer minstens één vraag die je nog niet volledig begrijpt. Vermeld waar je vastliep: de figuur, het teken, de formule of het rekenen.</p>
+<textarea id="reflection" placeholder="Mijn vragen voor de volgende sessie..."></textarea>
+<div class="note"><b>Rapport:</b> je kunt je voortgang downloaden. Je voortgang wordt automatisch lokaal bewaard. Online synchronisatie werkt zodra ASTREM Lab het leerpad via een beveiligde leeromgeving aanbiedt.</div>
+<div class="report-area" id="reportArea"><h3>Mijn resultaten en voortgang</h3><p>Dit overzicht bevat ook je antwoorden op de open vragen. Bekijk het voordat je het met je begeleider deelt.</p><div class="mini-stats" id="miniStats"></div><p><label for="studentName">Voornaam (voor het rapport)</label><input id="studentName" placeholder="Bijvoorbeeld Olivia" autocomplete="given-name"></p><button type="button" id="downloadReport">Download rapport (.json)</button><button type="button" id="sendReport">Synchronisatie opnieuw proberen</button><p id="reportStatus" aria-live="polite"></p><p class="muted">Automatisch lokaal bewaren is actief. Online synchronisatie vereist een beveiligde, door ASTREM Lab ingestelde verbinding.</p></div><button class="secondary" onclick="window.print()">Afdrukken of opslaan als PDF</button>
+<div class="practice-bank" id="bank7"><h3>Extra inoefening</h3><p>Maak de vragen zelfstandig. Je krijgt meteen feedback bij gesloten vragen. Bij open vragen vergelijk je jouw redenering met een modelantwoord.</p></div><div class="subcheck" data-understand="deel7"><strong>Hoe goed begrijp je dit onderdeel?</strong><button data-v="yes">✓ Ik snap dit</button><button data-v="no">? Ik heb nog hulp nodig</button></div></section>
+<div class="actions"><button class="secondary" id="prev">← Vorige</button><button class="primary" id="done">Onderdeel afgerond ✓</button><button class="secondary" id="next">Volgende →</button></div>
+</main></div><footer>ASTREM Lab · Interactief leerpad goniometrie · Gebaseerd op de aangeleverde cursus en de zelfscan</footer>
+<script>
+const KEY='astremlab_gonio_v2';let state={done:[],answers:{},quiz:{},checks:{},attempts:{},understanding:{},current:0};try{state={...state,...JSON.parse(localStorage.getItem(KEY)||'{}')}}catch(e){}
+const SYNC_KEY='astremlab_gonio_v3_pending';
+let syncTimer=null, syncBusy=false, syncRevision=0;
+const save=()=>{
+  localStorage.setItem(KEY,JSON.stringify(state));
+  localStorage.setItem(SYNC_KEY,'1');
+  syncRevision++;
+  clearTimeout(syncTimer);
+  syncTimer=setTimeout(syncReport,3500);
+};
+const lessons=[...document.querySelectorAll('.lesson')],nav=document.getElementById('nav');
+lessons.forEach((l,i)=>{let b=document.createElement('button');b.textContent=(i===0?'Start':i+'.')+' '+l.dataset.title;b.onclick=()=>show(i);nav.appendChild(b)});
+function show(i){state.current=Math.max(0,Math.min(lessons.length-1,i));lessons.forEach((l,j)=>l.classList.toggle('active',j===state.current));[...nav.children].forEach((b,j)=>b.classList.toggle('active',j===state.current));document.getElementById('prev').disabled=state.current===0;document.getElementById('next').disabled=state.current===lessons.length-1;document.getElementById('done').textContent=state.done.includes(state.current)?'Afgerond ✓':'Onderdeel afgerond ✓';save();window.scrollTo(0,0);if(window.MathJax?.typesetPromise)MathJax.typesetPromise()}
+function progress(){let n=state.done.length;document.getElementById('progressbar').style.width=(100*n/lessons.length)+'%';document.getElementById('progresslabel').textContent=n+' van '+lessons.length+' onderdelen afgerond';[...nav.children].forEach((b,i)=>{b.textContent=(state.done.includes(i)?'✓ ':'')+(i===0?'Start':i+'.')+' '+lessons[i].dataset.title})}
+document.getElementById('prev').onclick=()=>show(state.current-1);document.getElementById('next').onclick=()=>show(state.current+1);
+document.getElementById('done').onclick=()=>{if(!state.done.includes(state.current))state.done.push(state.current);else state.done=state.done.filter(x=>x!==state.current);save();progress();show(state.current)};
+function drawLive(){let a=Number(document.getElementById('angle').value),r=a*Math.PI/180,x=210+128*Math.cos(r),y=175-128*Math.sin(r);document.getElementById('anglelabel').textContent=a+'°';let ray=document.getElementById('ray');ray.setAttribute('x2',x);ray.setAttribute('y2',y);let dot=document.getElementById('dot');dot.setAttribute('cx',x);dot.setAttribute('cy',y);let px=document.getElementById('projx'),py=document.getElementById('projy');px.setAttribute('x2',x);px.setAttribute('y2',175);py.setAttribute('x1',x);py.setAttribute('x2',x);py.setAttribute('y1',175);py.setAttribute('y2',y);document.getElementById('coords').textContent='P = ('+Math.cos(r).toFixed(3).replace('.',',')+'; '+Math.sin(r).toFixed(3).replace('.',',')+')'}
+document.getElementById('angle').oninput=drawLive;drawLive();
+function diagram(a,b,label){const xy=deg=>{let t=deg*Math.PI/180;return [160+112*Math.cos(t),160-112*Math.sin(t)]};let [ax,ay]=xy(a),[bx,by]=xy(b);return `<div class="figure"><svg viewBox="0 0 360 330" aria-label="${label}"><circle cx="160" cy="160" r="112" fill="#fff" stroke="#174b61" stroke-width="2"/><path d="M25 160 H295 M160 24 V296" stroke="#9db0bb" stroke-width="1.2"/><text x="298" y="154">x</text><text x="168" y="25">y</text><line x1="160" y1="160" x2="${ax}" y2="${ay}" stroke="#078b88" stroke-width="3"/><line x1="160" y1="160" x2="${bx}" y2="${by}" stroke="#df8b37" stroke-width="3"/><circle cx="${ax}" cy="${ay}" r="5" fill="#078b88"/><circle cx="${bx}" cy="${by}" r="5" fill="#df8b37"/><text x="${ax+Math.sign(ax-160)*15}" y="${ay-9}" fill="#087f83" font-weight="bold">A</text><text x="${bx+Math.sign(bx-160)*15}" y="${by+16}" fill="#b56b24" font-weight="bold">B</text><text x="160" y="314" text-anchor="middle" fill="#5c6e7b">A: ${a}° · B: ${b}°</text></svg><div class="figcaption">${label}</div></div>`}
+const relations=[
+['5.1','Gelijke hoeken',405,'Een volledige omwenteling', 'Begin bij 45°. Draai daarna nog een volledige omwenteling van 360°. Je eindigt op hetzelfde punt. De beide coördinaten blijven gelijk.','\\sin(\\alpha+360^\\circ)=\\sin\\alpha,\\quad\\cos(\\alpha+360^\\circ)=\\cos\\alpha','Waarom hebben 45° en −315° dezelfde sinus én cosinus?','−315° = 45° − 360°. De eindbenen vallen samen.'],
+['5.2','Tegengestelde hoeken',-45,'Spiegeling in de x-as','Begin bij 45°. Draai vervolgens 45° in wijzerzin. Het beeldpunt gaat van kwadrant I naar IV. De x-coördinaat blijft gelijk; de y-coördinaat verandert van teken.','\\sin(-\\alpha)=-\\sin\\alpha,\\quad\\cos(-\\alpha)=\\cos\\alpha','Teken 30° en −30°. Welke coördinaat verandert van teken?','De y-coördinaat verandert van teken; de x-coördinaat blijft gelijk.'],
+['5.3','Supplementaire hoeken',135,'Spiegeling in de y-as','Begin bij 45°. Bereken 180° − 45° = 135°. Het tweede beeldpunt ligt in kwadrant II. De punten zijn gespiegeld in de y-as: de x-coördinaat verandert van teken, de y-coördinaat niet.','\\sin(180^\\circ-\\alpha)=\\sin\\alpha,\\quad\\cos(180^\\circ-\\alpha)=-\\cos\\alpha','Waarom is sin 135° positief en cos 135° negatief?','135° ligt in kwadrant II. De y-coördinaat is positief en de x-coördinaat negatief.'],
+['5.4','Antisupplementaire hoeken',225,'Puntspiegeling in de oorsprong','Begin bij 45°. Tel 180° op: 225°. Het nieuwe punt ligt precies tegenover het oorspronkelijke punt. Zowel de x- als de y-coördinaat verandert van teken.','\\sin(180^\\circ+\\alpha)=-\\sin\\alpha,\\quad\\cos(180^\\circ+\\alpha)=-\\cos\\alpha','Leg uit waarom tan 225° = tan 45°.','Beide coördinaten veranderen van teken. In de breuk sin/cos vallen die twee mintekens weg.'],
+['5.5','Complementaire hoeken',45,'Spiegeling in de rechte y = x','Begin bij 45°. De complementaire hoek is 90° − 45° = 45°. In dit bijzondere geval vallen de punten samen, want het beeldpunt ligt op de spiegelas y = x. Bekijk daarom ook 30° en 60°: bij die twee hoeken wisselen de x- en y-coördinaten.','\\sin(90^\\circ-\\alpha)=\\cos\\alpha,\\quad\\cos(90^\\circ-\\alpha)=\\sin\\alpha','Waarom is 45° een bijzonder voorbeeld van complementaire hoeken?','45° is complementair met zichzelf. Het beeldpunt ligt op y = x en blijft bij de spiegeling op zijn plaats.'],
+['5.6','Hoeken 360° − α',315,'Spiegeling in de x-as','Begin bij 45°. Bereken 360° − 45° = 315°. Dit ligt in kwadrant IV. De x-coördinaat blijft gelijk, de y-coördinaat verandert van teken.','\\sin(360^\\circ-\\alpha)=-\\sin\\alpha,\\quad\\cos(360^\\circ-\\alpha)=\\cos\\alpha','Bereken sin 315° en cos 315° exact.','sin 315° = −√2/2 en cos 315° = √2/2.'],
+['5.7','Hoeken 90° + α',135,'Een draaiing over 90°','Begin bij 45°. Draai het beeldpunt 90° verder tegenwijzerzin. Je bereikt 135°. Een punt met coördinaten (x,y) gaat door deze draaiing over in (−y,x).','\\sin(90^\\circ+\\alpha)=\\cos\\alpha,\\quad\\cos(90^\\circ+\\alpha)=-\\sin\\alpha','Bereken sin 150° en cos 150° via 90° + 60°.','sin 150° = cos 60° = 1/2; cos 150° = −sin 60° = −√3/2.']
+];
+const R=document.getElementById('relations');
+relations.forEach(([n,title,b,kind,body,formula,q,solution])=>{let a=45;let add=title==='Complementaire hoeken'?diagram(30,60,'Aanvullend voorbeeld: 30° en 60°'):'';R.insertAdjacentHTML('beforeend',`<h3>${n} ${title}</h3><span class="badge">${kind}</span>${diagram(a,b,'Uitgangshoek 45° en verwante hoek '+b+'°')}<p>${body}</p>${add}<div class="theory"><div class="formula">\\[${formula}\\]</div></div><div class="exercise" data-hint="Kijk welke coördinaat verandert door de symmetrie." data-solution="${solution}"><span class="num">${n}.1</span> ${q}</div>`)});
+const apps=[
+['6.1','\\sin(180^\\circ-\\alpha)-\\sin\\alpha','Vervang de supplementaire sinus.','sin α − sin α = 0.'],
+['6.2','\\cos(180^\\circ+\\alpha)+\\cos\\alpha','Antisupplementair verandert het teken van de cosinus.','−cos α + cos α = 0.'],
+['6.3','\\sin(-\\alpha)+\\sin(360^\\circ-\\alpha)','Beide sinuswaarden krijgen een minteken.','−sin α − sin α = −2 sin α.'],
+['6.4','\\sin^2(180^\\circ-\\alpha)+\\cos^2(180^\\circ+\\alpha)','Na het kwadrateren verdwijnen de mintekens.','sin² α + cos² α = 1.'],
+['6.5','1-\\cos^2(-\\alpha)','Cosinus is een even functie. Gebruik daarna de grondformule.','1 − cos² α = sin² α.'],
+['6.6','\\sin^2(90^\\circ-\\alpha)+\\sin^2\\alpha','Complementaire sinus wordt cosinus.','cos² α + sin² α = 1.']
+];const A=document.getElementById('applications');apps.forEach(([n,tex,hint,sol])=>A.insertAdjacentHTML('beforeend',`<div class="exercise" data-hint="${hint}" data-solution="${sol}"><span class="num">${n}</span> Vereenvoudig volledig: <div class="formula">\\(${tex}\\)</div></div>`));
+const tests=[
+['7.1','Teken 45°, −45°, 135°, 225° en 315° op één goniometrische cirkel.','Gebruik de vier kwadranten en de symmetrieën.','De vijf eindbenen liggen respectievelijk op 45°, 315°, 135°, 225° en 315°; −45° en 315° vallen samen.'],
+['7.2','Geef de exacte sinus en cosinus van 135° en 225°.','Vertrek van sin 45° = cos 45° = √2/2.','135°: sin √2/2, cos −√2/2. 225°: sin −√2/2, cos −√2/2.'],
+['7.3','Leid de formule voor sin(180° − α) af met behulp van coördinaten.','Denk aan spiegeling in de y-as.','Bij spiegeling in de y-as gaat (x,y) naar (−x,y). De y-coördinaat blijft gelijk. Dus sin(180° − α) = sin α.'],
+['7.4','Gegeven cos α = −12/13 in kwadrant II. Bereken sin α en tan α.','Bereken 1 − 144/169 en kies het teken van sinus.','sin² α = 25/169, dus sin α = 5/13. tan α = (5/13)/(−12/13) = −5/12.'],
+['7.5','Vereenvoudig sin²(180° − α) + cos²(−α).','Werk beide verwante hoeken om.','sin² α + cos² α = 1.'],
+['7.6','Vereenvoudig cos(90° − α) − sin(360° − α).','De eerste term wordt sin α, de tweede −sin α.','sin α − (−sin α) = 2 sin α.'],
+['7.7','Waarom verschijnt ± wanneer je de grondformule oplost naar cos α?','Wat zijn de wortels van x² = 16/25?','Omdat zowel 4/5 als −4/5 hetzelfde kwadraat 16/25 hebben. Het kwadrant bepaalt het teken.']
+];const F=document.getElementById('finaltest');tests.forEach(([n,q,h,s])=>F.insertAdjacentHTML('beforeend',`<div class="exercise" data-hint="${h}" data-solution="${s}"><span class="num">${n}</span>${q}</div>`));
+document.querySelectorAll('.exercise').forEach((e,i)=>{let id='ex'+i,area=document.createElement('textarea');area.placeholder='Noteer je redenering of je antwoord…';area.value=state.answers[id]||'';area.oninput=()=>{state.answers[id]=area.value;save()};e.appendChild(area);let det=document.createElement('details');det.innerHTML='<summary>Hint bekijken</summary><p>'+e.dataset.hint+'</p>';e.appendChild(det);let sol=document.createElement('details');sol.innerHTML='<summary>Uitwerking bekijken</summary><p>'+e.dataset.solution+'</p>';e.appendChild(sol)});
+document.querySelectorAll('.quiz').forEach((q,i)=>{let opts=JSON.parse(q.dataset.options),id='quiz'+i;q.innerHTML='<p><b>Controlevraag:</b> '+q.dataset.q+'</p>'+opts.map((o,j)=>`<label class="quiz-option"><input type="radio" name="${id}" value="${j}" ${state.quiz[id]===j?'checked':''}>${o}</label>`).join('')+'<button class="checkbtn">Controleer</button><div class="feedback"></div>';q.querySelector('.checkbtn').onclick=()=>{let sel=q.querySelector('input:checked'),fb=q.querySelector('.feedback');if(!sel){fb.textContent='Kies eerst een antwoord.';return}let v=Number(sel.value);state.quiz[id]=v;save();fb.className='feedback '+(v===Number(q.dataset.correct)?'good':'bad');fb.textContent=(v===Number(q.dataset.correct)?'Juist! ':'Nog niet juist. ')+q.dataset.explain}});
+let ref=document.getElementById('reflection');ref.value=state.answers.reflection||'';ref.oninput=()=>{state.answers.reflection=ref.value;save()};
+progress();show(state.current);
+
+// Instelbaar door ASTREM Lab: plak hier na publicatie de URL van de Google Apps Script-webapp.
+// Geen geheime sleutel in dit HTML-bestand plaatsen.
+ // Voor online synchronisatie moet dit leerpad als Apps Script HTML-service
+ // worden aangeboden, met een serverfunctie receiveGonioReport().
+ const ONLINE_SYNC_AVAILABLE = !!(window.google && google.script && google.script.run);
+const banks={
+1:[
+['tf','De cosinus is de horizontale coördinaat van het beeldpunt.','Juist','Juist: cos α is de x-coördinaat.'],
+['mc','Waar ligt het beeldpunt van 180°?',['(0,1)','(−1,0)','(1,0)','(0,−1)'],1,'180° ligt links op de cirkel.'],
+['fill','Hoeveel graden telt één volledige omwenteling?','360','Een volledige omwenteling is 360°.'],
+['mc','Welke hoek heeft hetzelfde beeldpunt als 45°?',['−45°','135°','405°','225°'],2,'405° = 45° + 360°.'],
+['tf','De sinus van een hoek kan gelijk zijn aan 1,2.','Fout','Een y-coördinaat op de eenheidscirkel ligt tussen −1 en 1.'],
+['open','Leg in je eigen woorden uit waarom sin 90° = 1 en cos 90° = 0.','Het beeldpunt bij 90° is (0,1): de x-coördinaat is 0 en de y-coördinaat is 1.']
+],
+2:[
+['mc','In welk kwadrant ligt 225°?',['I','II','III','IV'],2,'225° ligt tussen 180° en 270°.'],
+['tf','In kwadrant II is de sinus positief.','Juist','De y-coördinaat is daar positief.'],
+['tf','In kwadrant IV zijn sinus en cosinus allebei negatief.','Fout','In IV is de cosinus positief en de sinus negatief.'],
+['fill','Herleid −60° tot een hoek tussen 0° en 360° (alleen het getal).','300','−60° + 360° = 300°.'],
+['mc','Welk teken heeft tan 240°?',['positief','negatief','nul','niet gedefinieerd'],0,'In III zijn sinus en cosinus negatief, hun verhouding positief.'],
+['open','Waarom bestaat tan 270° niet?','Omdat cos 270° = 0 en tan α = sin α / cos α. Delen door nul is niet gedefinieerd.']
+],
+3:[
+['mc','Wat is sin 30°?',['1','1/2','√2/2','√3/2'],1,'De exacte waarde is 1/2.'],
+['mc','Wat is cos 60°?',['1/2','√2/2','0','1'],0,'De exacte waarde is 1/2.'],
+['tf','sin 45° en cos 45° zijn gelijk.','Juist','Beide zijn √2/2.'],
+['fill','Wat is tan 45°?','1','Sinus en cosinus zijn bij 45° gelijk.'],
+['mc','Wat is sin 90°?',['0','1','−1','bestaat niet'],1,'Het beeldpunt is (0,1).'],
+['open','Leg uit waarom sin 30° = cos 60° zonder de tabel letterlijk over te schrijven.','30° en 60° zijn complementair. In een rechthoekige driehoek wisselen overstaande en aanliggende zijde van rol.']
+],
+4:[
+['tf','De grondformule geldt ook voor stompe hoeken.','Juist','De formule volgt uit x² + y² = 1 voor elk punt op de cirkel.'],
+['mc','Als sin α = 3/5 en α ligt in II, wat is cos α?',['4/5','−4/5','3/5','−3/5'],1,'cos² α = 16/25 en in II is cos negatief.'],
+['fill','Vereenvoudig 1 − sin² α (gebruik cos²α).','cos²α','Volgens de grondformule is dit cos² α.'],
+['tf','Uit cos² α = 9/25 volgt altijd cos α = 3/5.','Fout','Ook −3/5 heeft kwadraat 9/25.'],
+['mc','Als cos α = −5/13 en α ligt in III, wat is sin α?',['12/13','−12/13','5/13','−5/13'],1,'sin² α = 144/169; sinus is in III negatief.'],
+['open','Waarom moet je na het worteltrekken het kwadrant controleren?','Omdat zowel een positieve als een negatieve waarde hetzelfde kwadraat kunnen hebben; het kwadrant bepaalt het teken.']
+],
+5:[
+['mc','Wat is de supplementaire hoek van 45°?',['−45°','135°','225°','405°'],1,'180° − 45° = 135°.'],
+['mc','Wat is de antisupplementaire hoek van 45°?',['135°','−45°','225°','315°'],2,'180° + 45° = 225°.'],
+['tf','sin(180° − α) = sin α.','Juist','Bij spiegeling in de y-as blijft de y-coördinaat gelijk.'],
+['tf','cos(−α) = −cos α.','Fout','Bij spiegeling in de x-as blijft de x-coördinaat gelijk.'],
+['fill','Hoeveel graden is 360° − 45°?','315','360 − 45 = 315.'],
+['mc','Welke coördinaten wisselen bij complementaire hoeken?',['alleen de tekens','x en y','geen van beide','alleen x'],1,'Bij spiegeling in y = x wisselen x en y.'],
+['mc','Wat is sin 135°?',['−√2/2','√2/2','1/2','−1/2'],1,'Supplementair met 45°: sinus blijft gelijk.'],
+['mc','Wat is cos 225°?',['√2/2','−√2/2','0','1'],1,'Antisupplementair: beide coördinaten veranderen van teken.'],
+['open','Leg met een tekening uit waarom sin(−45°) = −sin 45°.','De punten van 45° en −45° zijn gespiegeld in de x-as. Hun y-coördinaten zijn tegengesteld.'],
+['open','Waarom is 45° een speciaal voorbeeld bij complementaire hoeken?','90° − 45° = 45°. Het beeldpunt ligt op de spiegelas y = x en blijft bij spiegeling staan.']
+],
+6:[
+['mc','Vereenvoudig sin(180° − α) − sin α.',['0','1','2 sin α','−2 sin α'],0,'Beide sinustermen zijn gelijk.'],
+['mc','Vereenvoudig cos(180° + α) + cos α.',['2 cos α','0','−2 cos α','1'],1,'De eerste term is −cos α.'],
+['tf','(−sin α)² = −sin² α.','Fout','Het kwadraat van een negatief getal is positief.'],
+['mc','Vereenvoudig sin²(−α) + cos² α.',['0','sin α','1','2'],2,'Na kwadrateren: sin² α + cos² α = 1.'],
+['fill','Vereenvoudig sin(−α) + sin α (een getal).','0','−sin α + sin α = 0.'],
+['mc','Vereenvoudig 1 − cos² α.',['sin α','sin² α','cos² α','1'],1,'Herschik de grondformule.'],
+['open','Een leerling schrijft sin(180° + α) = sin α. Leg de fout uit.','Bij een draaiing van 180° verandert de y-coördinaat van teken, dus sin(180° + α) = −sin α.'],
+['open','Ontwerp zelf een uitdrukking met verwante hoeken die vereenvoudigt tot 1.','Bijvoorbeeld sin²(180° − α) + cos²(180° + α) = sin² α + cos² α = 1.']
+],
+7:[
+['mc','Wat is cos 135°?',['√2/2','−√2/2','−1/2','1/2'],1,'Supplementair met 45°.'],
+['mc','Wat is sin 315°?',['√2/2','−√2/2','1/2','−1/2'],1,'Spiegeling in de x-as van 45°.'],
+['tf','sin² α + cos² α = 1 geldt voor elke reële α.','Juist','Elk beeldpunt ligt op de eenheidscirkel.'],
+['mc','Als cos α = −12/13 in kwadrant II, wat is sin α?',['−5/13','5/13','12/13','−12/13'],1,'In II is sinus positief.'],
+['mc','Vereenvoudig sin²(180° − α) + cos²(−α).',['0','1','sin² α','cos² α'],1,'De grondformule.'],
+['open','Leg het verschil uit tussen supplementaire en antisupplementaire hoeken.','Supplementair: 180° − α, spiegeling in y-as. Antisupplementair: 180° + α, puntspiegeling in oorsprong.']
+]
+};
+const escapeHtml=x=>String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function normalize(x){return String(x).toLowerCase().trim().replaceAll(' ','').replaceAll('°','').replaceAll('²','^2').replaceAll('−','-').replaceAll(',','.');}
+let allTasks=[];
+Object.entries(banks).forEach(([section,qs])=>{
+ const el=document.getElementById('bank'+section);
+ qs.forEach((q,index)=>{
+  const id=`b${section}_${index+1}`,type=q[0],title=type==='tf'?'Juist of fout':type==='mc'?'Meerkeuze':type==='fill'?'Invulvraag':'Open vraag';
+  const block=document.createElement('div');block.className='task';block.dataset.task=id;
+  let input='';
+  if(type==='tf')input=['Juist','Fout'].map((v,i)=>`<label><input type="radio" name="${id}" value="${v}"> ${v}</label>`).join('');
+  else if(type==='mc')input=q[2].map((v,i)=>`<label><input type="radio" name="${id}" value="${i}"> ${escapeHtml(v)}</label>`).join('');
+  else if(type==='fill')input=`<input type="text" aria-label="Antwoord" placeholder="Typ je antwoord" />`;
+  else input=`<textarea aria-label="Uitwerking" placeholder="Schrijf je redenering op"></textarea>`;
+  block.innerHTML=`<div class="task-head">${section}.${index+1} · ${title}</div><p>${escapeHtml(q[1])}</p>${input}<button type="button">${type==='open'?'Toon modelantwoord':'Controleer antwoord'}</button><div class="answer-feedback" aria-live="polite"></div>`;
+  el.appendChild(block);allTasks.push({id,type,q,section});
+  let existing=state.attempts?.[id];
+  if(existing){if(type==='tf'||type==='mc'){let radio=block.querySelector(`input[value="${CSS.escape(String(existing.answer))}"]`);if(radio)radio.checked=true;}else{block.querySelector(type==='fill'?'input':'textarea').value=existing.answer||'';}}
+  block.querySelector('button').onclick=()=>{
+   let answer=type==='tf'||type==='mc'?block.querySelector('input:checked')?.value:block.querySelector(type==='fill'?'input':'textarea').value.trim();
+   const fb=block.querySelector('.answer-feedback');if(!answer){fb.textContent='Vul eerst een antwoord in.';return;}
+   let correct=type==='tf'?answer===q[2]:type==='mc'?Number(answer)===q[3]:type==='fill'?normalize(answer)===normalize(q[2]):null;
+   let explanation=type==='mc'?q[4]:type==='tf'?q[3]:type==='fill'?q[3]:q[2];
+   state.attempts[id]={answer,correct,checkedAt:new Date().toISOString()};save();
+   fb.className='answer-feedback '+(correct===true?'correct':correct===false?'incorrect':'');
+   fb.textContent=(correct===true?'✓ Juist. ':correct===false?'Nog niet juist. ': 'Modelantwoord: ')+explanation;
+   updateReport();
+  };
+ });
+});
+// Per subdeel een zelfinschatting. De verwante hoeken krijgen elk hun eigen vinkje.
+const relationHeaders=[...document.querySelectorAll('#relations h3')];
+relationHeaders.forEach((h,i)=>{
+ let box=document.createElement('div');box.className='subcheck';box.dataset.understand='verwant_'+(i+1);
+ box.innerHTML='<strong>Begrijp ik deze verwantschap?</strong><button data-v="yes">✓ Ik snap dit</button><button data-v="no">? Ik heb nog hulp nodig</button>';
+ let next=relationHeaders[i+1];if(next)next.before(box);else document.getElementById('relations').appendChild(box);
+});
+document.querySelectorAll('.subcheck').forEach(box=>{
+ const key=box.dataset.understand;
+ function paint(){box.querySelectorAll('button').forEach(b=>b.classList.toggle('selected',state.understanding?.[key]===b.dataset.v));}
+ box.querySelectorAll('button').forEach(b=>b.onclick=()=>{state.understanding[key]=b.dataset.v;save();paint();updateReport()});paint();
+});
+function makeReport(){let attempted=Object.values(state.attempts||{});let graded=attempted.filter(a=>a.correct!==null),right=graded.filter(a=>a.correct===true);
+ return {leerpad:'ASTREM Lab – Goniometrie',naam:document.getElementById('studentName')?.value.trim()||'',tijdstip:new Date().toISOString(),afgerondeOnderdelen:state.done,zelfinschatting:state.understanding,vragen:{totaal:allTasks.length,beantwoord:attempted.length,automatischBeoordeeld:graded.length,juist:right.length,antwoorden:state.attempts},openOefeningen:state.answers,meerkeuzeEersteVersie:state.quiz};}
+function updateReport(){const el=document.getElementById('miniStats');if(!el)return;let r=makeReport();el.innerHTML=`<span><b>${r.afgerondeOnderdelen.length}/8</b> onderdelen afgerond</span><span><b>${r.vragen.beantwoord}/${r.vragen.totaal}</b> extra vragen gemaakt</span><span><b>${r.vragen.juist}/${r.vragen.automatischBeoordeeld}</b> gesloten vragen juist</span><span><b>${Object.values(r.zelfinschatting).filter(x=>x==='no').length}</b> onderdelen met hulpvraag</span>`;}
+const nameInput=document.getElementById('studentName');nameInput.value=state.studentName||'';nameInput.oninput=()=>{state.studentName=nameInput.value;save()};
+document.getElementById('downloadReport').onclick=()=>{const blob=new Blob([JSON.stringify(makeReport(),null,2)],{type:'application/json'}),u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download='ASTREM_goniometrie_rapport.json';a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)};
+function syncStatus(message){
+ const el=document.getElementById('reportStatus');
+ if(el)el.textContent=message;
+}
+function syncReport(){
+ if(!localStorage.getItem(SYNC_KEY))return;
+ if(!ONLINE_SYNC_AVAILABLE){
+  syncStatus('Voortgang lokaal opgeslagen. Online synchronisatie is nog niet geactiveerd.');
+  return;
+ }
+ if(syncBusy)return;
+ const report=makeReport();
+ if(!report.naam){
+  syncStatus('Voortgang lokaal opgeslagen. Vul je voornaam in om online te synchroniseren.');
+  return;
+ }
+ syncBusy=true;
+ const sentRevision=syncRevision;
+ syncStatus('Voortgang lokaal opgeslagen · online synchroniseren…');
+ google.script.run
+  .withSuccessHandler(result=>{
+    syncBusy=false;
+    if(result && result.ok){
+      if(sentRevision===syncRevision){
+        localStorage.removeItem(SYNC_KEY);
+        syncStatus('Voortgang lokaal opgeslagen en online gesynchroniseerd.');
+      }else{
+        syncStatus('Nieuwere wijzigingen worden nog gesynchroniseerd.');
+        setTimeout(syncReport,800);
+      }
+    }else{
+      syncStatus('Lokaal opgeslagen. Online synchronisatie niet bevestigd.');
+    }
+  })
+  .withFailureHandler(()=>{
+    syncBusy=false;
+    syncStatus('Lokaal opgeslagen. Online synchronisatie mislukt; later opnieuw proberen.');
+  })
+  .receiveGonioReport(report);
+}
+document.getElementById('sendReport').onclick=()=>{
+ localStorage.setItem(SYNC_KEY,'1');
+ syncReport();
+};
+window.addEventListener('online',syncReport);
+window.addEventListener('focus',syncReport);
+window.addEventListener('pagehide',()=>localStorage.setItem(SYNC_KEY,'1'));
+if(localStorage.getItem(SYNC_KEY))setTimeout(syncReport,1500);
+else syncStatus('Automatisch lokaal bewaren actief. Online synchronisatie nog niet ingesteld.');
+updateReport();
+</script></body></html>
