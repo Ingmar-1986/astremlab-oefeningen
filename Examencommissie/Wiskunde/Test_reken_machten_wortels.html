@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="nl-BE">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="theme-color" content="#12243a" />
+<title>ASTREM Lab | Rekendril Machten & Wortels</title>
+<style>
+:root { --navy:#15243a;--ink:#172942;--secondary:#52627b;--turquoise:#1aa9a2;--turquoise-soft:#e5f8f5;--sand:#f6b948;--red:#bd4154;--red-soft:#fff0f1;--green:#147a63;--green-soft:#e7f8f0;--border:#dce5ec;--paper:#fff;--base:#f3f6fa;--shadow:0 15px 45px rgba(18,36,58,.08); }
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;color:var(--ink);background:var(--base);font-family:Inter,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.56}
+button,input{font:inherit}
+button{cursor:pointer}
+[hidden]{display:none!important}
+.outer{max-width:1000px;margin:0 auto;padding:24px 24px 68px}
+.header{background:var(--navy);color:white;border-radius:24px;padding:34px 42px 38px;position:relative;overflow:hidden;box-shadow:var(--shadow)}
+.header:after{content:"";position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,#35beb64d 0%,transparent 70%);top:-165px;right:-50px;pointer-events:none}
+.brand{display:flex;align-items:center;gap:12px;letter-spacing:.15em;text-transform:uppercase;font-size:12px;font-weight:800;color:#d5f5f1;position:relative;z-index:1}
+.brandmark{width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,#37c6b2,#1d8da6);display:grid;place-items:center;color:white;font-size:23px;letter-spacing:0}
+.kicker{color:#7ee4d3;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.19em;margin:22px 0 3px}
+h1{font-size:clamp(28px,4.4vw,44px);line-height:1.15;margin:0 0 12px;letter-spacing:-.04em;font-weight:800}
+.lead{color:#c5d6e5;margin:0;max-width:630px;font-size:15px}
+.stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px;position:relative;z-index:1}
+.stats span{border:1px solid #ffffff30;background:#ffffff10;border-radius:100px;padding:8px 13px;color:#eaf6ff;font-size:13px;font-weight:600}
+main{max-width:850px;margin:24px auto 0}
+.panel,.qcard,.results{border:1px solid var(--border);border-radius:18px;background:var(--paper);box-shadow:0 3px 12px rgba(18,36,58,.025)}
+.panel{padding:28px 32px}
+h2{font-size:23px;line-height:1.3;letter-spacing:-.025em;margin:0 0 12px}
+h3{margin:0;font-size:19px;letter-spacing:-.025em}
+p{margin:0 0 16px}
+.muted{color:var(--secondary)}
+.topgap{margin-top:18px}
+.fieldlabel{display:block;font-size:13px;font-weight:800;margin:22px 0 9px}
+.textinput{border:1px solid #becbd9;border-radius:11px;padding:13px 16px;width:100%;font-size:16px;color:var(--ink);background:white;outline:none}
+.textinput:focus{border-color:var(--turquoise);box-shadow:0 0 0 3px #1aa9a227}
+.primary,.ghost,.dark{border:0;border-radius:11px;padding:12px 19px;font-weight:750;min-height:46px;display:inline-flex;justify-content:center;align-items:center;gap:9px;transition:transform .12s,background .15s;text-align:center}
+.primary{background:var(--turquoise);color:#073a38}.primary:hover{background:#35c8bd}.primary:focus-visible,.ghost:focus-visible,.dark:focus-visible{outline:3px solid #70d5c8;outline-offset:3px}
+.dark{background:var(--navy);color:#fff}.dark:hover{background:#24405d}
+.ghost{background:#edf3f7;color:var(--ink);border:1px solid var(--border)}.ghost:hover{background:#e2edf3}
+.btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:21px}
+.note{background:#edf8f7;border-left:4px solid var(--turquoise);padding:12px 16px;color:#205e60;border-radius:7px;font-size:13px;margin-top:22px}
+.toolbar{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center;position:sticky;top:0;z-index:5;padding:13px 20px;background:#fffffff0;backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:14px;box-shadow:0 8px 25px #15243a10;margin-bottom:22px}
+.progresswrap{flex:1;min-width:220px}.progresslabel{display:flex;justify-content:space-between;font-size:12px;font-weight:800;margin-bottom:7px}
+.track{height:8px;background:#e8eef3;border-radius:10px;overflow:hidden}.bar{height:100%;background:var(--turquoise);width:0%;transition:width .2s}
+.timer{font-variant-numeric:tabular-nums;background:#edf4f7;padding:8px 12px;border-radius:8px;font-weight:800;color:var(--navy);white-space:nowrap}.timer.warn{color:#a75e18;background:#fff2d8}
+.sectionheading{display:flex;align-items:flex-start;gap:12px;margin:36px 4px 15px}.numcircle{background:#e3f6f3;color:#13796c;width:36px;height:36px;display:grid;place-items:center;border-radius:11px;font-weight:900;flex-shrink:0}.sectionheading p{font-size:13px;margin:3px 0 0;color:var(--secondary)}
+.qcard{padding:23px 25px;margin:12px 0}.qcard.correct{border-color:#9bd6c1}.qcard.incorrect{border-color:#edacb6}
+.qtop{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px;gap:12px}.qid{color:var(--secondary);font-size:12px;font-weight:900;letter-spacing:.05em;text-transform:uppercase}
+.qtype{color:#5a7387;background:#eef3f7;padding:4px 9px;border-radius:30px;font-size:11px;font-weight:800}
+.qexpr{font-family:"Cambria Math","STIX Two Math","Segoe UI Symbol",Georgia,serif;font-size:23px;font-weight:650;line-height:1.8;overflow-wrap:anywhere;margin-bottom:15px;letter-spacing:-.01em}.qexpr small{font-size:14px;display:block;line-height:1.55;color:var(--secondary);font-weight:500;margin-bottom:6px}
+sup{font-size:.68em;vertical-align:super;line-height:0}
+.frac{display:inline-flex;vertical-align:middle;flex-direction:column;text-align:center;line-height:1.24;margin:0 .15em;font-size:.94em}.frac .num{padding:0 .26em .13em;border-bottom:1.55px solid currentColor}.frac .den{padding:.13em .22em 0}
+.root{display:inline-block;white-space:nowrap}.rootbar{display:inline-block;border-top:1.5px solid currentColor;margin-left:-.08em;padding:.01em .13em 0 .12em}
+.answers{display:grid;grid-template-columns:1fr 1fr;gap:10px}.option{border:1px solid #d6e0e9;border-radius:10px;padding:13px 14px;display:flex;gap:11px;align-items:flex-start;cursor:pointer;min-height:56px;background:white;transition:background .1s,border-color .1s}.option:hover{border-color:#77c7be;background:#f9fffd}.option:has(input:checked){border-color:var(--turquoise);background:#eefaf8;box-shadow:0 0 0 1px var(--turquoise)}.option input{margin:6px 0 0;accent-color:var(--turquoise);flex-shrink:0}.opletter{font-weight:850;color:#68809a;font-size:13px;min-width:15px;margin-top:2px}.option .math{font-family:"Cambria Math","STIX Two Math","Segoe UI Symbol",Georgia,serif;line-height:1.7;font-size:18px;overflow-wrap:anywhere}
+.shortanswer{max-width:240px;width:100%}.answerlabel{font-size:12px;color:var(--secondary);display:block;margin-bottom:6px}
+.feedback{margin-top:17px;border-radius:10px;padding:13px 15px;font-size:13px;display:none}.feedback.good{display:block;background:var(--green-soft);color:#125c4c}.feedback.bad{display:block;background:var(--red-soft);color:#832f3f}
+.feedback strong{font-weight:800}.feedback strong .frac,.feedback strong .root{font-family:"Cambria Math","STIX Two Math",Georgia,serif;font-size:1.15em}.feedback .explain{margin-top:5px;opacity:.92}.badge-result{border-radius:30px;padding:4px 10px;font-size:12px;font-weight:850}.badge-result.good{background:var(--green-soft);color:var(--green)}.badge-result.bad{background:var(--red-soft);color:var(--red)}
+.finish{padding:28px;margin-top:27px;background:white;border:1px solid var(--border);border-radius:18px}.finish p{font-size:14px;color:var(--secondary)}
+.results{margin:25px 0;padding:30px 32px;border-color:#9cd5ca;scroll-margin-top:100px}.resulttop{display:flex;align-items:center;gap:23px;flex-wrap:wrap}.scorecircle{width:125px;height:125px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--turquoise) var(--pct),#e6ecef var(--pct));flex-shrink:0}.scorecircle>div{background:white;border-radius:50%;height:100px;width:100px;display:flex;flex-direction:column;justify-content:center;align-items:center}.scorecircle strong{font-size:32px;font-weight:900;line-height:1}.scorecircle small{color:var(--secondary);font-size:12px;margin-top:5px}
+.resultdetail{flex:1;min-width:215px}.resultdetail h2{margin-bottom:8px}.resultdetail p{margin-bottom:5px;font-size:14px;color:var(--secondary)}
+.breakdown{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:23px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:19px 0}.breakdown div{padding:3px}.breakdown span{font-size:12px;color:var(--secondary);display:block}.breakdown strong{font-size:23px}
+.mistakes{padding-left:20px}.mistakes li{margin:8px 0;color:#42556a;font-size:13px}
+footer{margin-top:35px;text-align:center;color:#6a7c93;font-size:12px}.hidequiz{display:none}
+@media(max-width:650px){.outer{padding:12px 12px 45px}.header{padding:28px 22px}.panel,.results{padding:21px 19px}.qcard{padding:18px 16px}.answers{grid-template-columns:1fr}.toolbar{border-radius:12px;padding:12px;top:0}.qexpr{font-size:21px}.resulttop{justify-content:center}.resultdetail{text-align:center}.breakdown{gap:4px}.breakdown strong{font-size:21px}.btnrow button{width:100%}}
+@media print { @page{size:A4;margin:15mm} body{background:white;color:black;font-size:11pt}.outer{padding:0}.header,.toolbar,#intro,#quiz,#finishSection,footer,.btnrow,.note{display:none!important}.results{display:block!important;border:0;box-shadow:none;padding:0;margin:0}.breakdown{margin:15px 0}.scorecircle{background:none;border:4px solid #aaa}.scorecircle>div{height:auto;width:auto}.resultdetail h2{font-size:22pt} }
+</style>
+</head>
+<body>
+<div class="outer">
+<header class="header">
+  <div class="brand"><span class="brandmark">✦</span> ASTREM LAB <span style="opacity:.65;font-size:10px;letter-spacing:.08em">/ LEREN MET INZICHT</span></div>
+  <div class="kicker">Interactieve oefentoets · Wiskunde</div>
+  <h1>Machten &amp; vierkantswortels</h1>
+  <p class="lead">Een korte rekendril om je rekenregels te testen, instinkers te herkennen en vlotter te rekenen.</p>
+  <div class="stats"><span>30 vragen</span><span>Maximaal 15 minuten</span><span>Zonder rekenmachine</span><span>Directe verbetering achteraf</span></div>
+</header>
+<main>
+<section id="intro" class="panel">
+  <h2>Klaar om te starten?</h2>
+  <p class="muted">Je krijgt <strong>30 korte vragen in 15 minuten</strong>, afwisselend invulvragen en meerkeuzevragen. Typ bij de invulvragen <strong>enkel het ontbrekende getal</strong>. Bij de meerkeuzevragen is er telkens precies één juist antwoord.</p>
+  <p class="muted">Je hebt <strong>maximaal 15 minuten</strong>. De aftelklok start wanneer je op Start klikt. Na 15 minuten wordt de toets automatisch ingediend en kun je niets meer aanpassen. Daarna zie je je score, de juiste antwoorden en de uitleg. Daarna download je een <strong>pdf met je resultaten</strong> om die naar je begeleider te sturen.</p>
+  <label for="studentName" class="fieldlabel">Voornaam (verplicht voor het resultatenblad)</label>
+  <input id="studentName" class="textinput" type="text" maxlength="70" placeholder="Bijvoorbeeld: Olivia" autocomplete="given-name" />
+  <div class="btnrow"><button class="primary" id="startBtn">Start de rekendril →</button></div>
+  <div class="note">Je antwoorden worden <strong>niet automatisch verzonden of opgeslagen op een server</strong>. Na de toets bewaar je het resultatenblad als pdf en stuur je het zelf naar je begeleider.</div>
+</section>
+<section id="quiz" hidden>
+  <div class="toolbar">
+    <div class="progresswrap"><div class="progresslabel"><span>Voortgang</span><span id="progressLabel">0 / 30 ingevuld</span></div><div class="track"><div class="bar" id="progressBar"></div></div></div>
+    <div id="timeDisplay" class="timer" role="timer" aria-label="Resterende tijd" aria-live="off">15:00 over</div>
+  </div>
+  <div id="questionContainer"></div>
+  <section id="finishSection" class="finish"><h3>Klaar met oefenen?</h3><p>Je mag vroeger indienen. Na 15 minuten wordt de toets automatisch afgesloten en verbeterd, ook als je nog niet alle vragen hebt ingevuld.</p><div class="btnrow"><button class="primary" id="submitBtn">Verbeter mijn antwoorden ✓</button><button class="ghost" id="resetBeforeBtn">Opnieuw beginnen</button></div></section>
+</section>
+<section id="results" class="results" hidden aria-live="polite">
+  <p id="timeUpNotice" class="note" hidden><strong>Tijd om!</strong> Je 15 minuten zijn voorbij. De toets is automatisch ingediend en je antwoorden zijn vergrendeld.</p>
+  <div class="resulttop"><div class="scorecircle" id="scoreCircle"><div><strong id="scoreNum">—</strong><small>van 30</small></div></div><div class="resultdetail"><h2>Jouw resultaat</h2><p id="resultName"></p><p id="resultTime"></p><p id="resultAdvice"></p></div></div>
+  <div id="breakdown" class="breakdown"></div>
+  <h3>Om te onthouden</h3><p class="muted" style="font-size:13px;margin:8px 0 12px">Download de pdf met je antwoorden, verbeteringen en tips en stuur die naar je begeleider via WhatsApp of e-mail.</p>
+  <ul id="mistakeList" class="mistakes"></ul>
+  <div class="btnrow"><button id="downloadBtn" class="dark">↓ Download resultaten als pdf</button><button id="copyBtn" class="ghost">Kopieer samenvatting</button><button id="printBtn" class="ghost">Print resultaat</button><button id="retryBtn" class="ghost">↻ Opnieuw oefenen</button></div>
+</section>
+</main>
+<footer>ASTREM LAB · Rekendril Wiskunde · Geen gegevensopslag of automatische verzending</footer>
+</div>
+<script>
+'use strict';
+const F=(a,b)=>`<span class="frac"><span class="num">${a}</span><span class="den">${b}</span></span>`;
+const S=x=>`<span class="root">√<span class="rootbar">${x}</span></span>`;
+const P=(b,e)=>`${b}<sup>${e}</sup>`;
+const qs=[
+{id:1,sec:1,type:'fill',q:`${P(2,3)} · ${P(2,4)} = 2<sup>…</sup>`,answer:'7',reason:'Bij vermenigvuldigen van machten met hetzelfde grondtal tel je de exponenten op: 3 + 4 = 7.'},
+{id:2,sec:1,type:'mc',q:F(P(5,6),P(5,2)),options:[P(5,8),P(5,4),P(5,3),P(5,12)],answer:1,reason:'Bij delen van machten met hetzelfde grondtal trek je de exponenten af: 6 − 2 = 4.'},
+{id:3,sec:1,type:'fill',q:`(${P(3,2)})<sup>4</sup> = 3<sup>…</sup>`,answer:'8',reason:'Bij een macht tot een macht vermenigvuldig je de exponenten: 2 · 4 = 8.'},
+{id:4,sec:1,type:'mc',q:'(2 · 3)<sup>2</sup>',options:['12','18','36','25'],answer:2,reason:'Een macht van een product: (2 · 3)² = 2² · 3² = 4 · 9 = 36.'},
+{id:5,sec:1,type:'fill',q:`${P(7,0)} = …`,answer:'1',reason:'Elk grondtal verschillend van nul tot de nulde macht is 1.'},
+{id:6,sec:1,type:'mc',q:P(2,'−3'),options:['−8',F('1','8'),'8','−'+F('1','6')],answer:1,reason:'Een negatieve exponent betekent het omgekeerde: 2⁻³ = 1/2³ = 1/8.'},
+{id:7,sec:1,type:'fill',q:`${F(P(4,5),P(4,7))} = 4<sup>…</sup>`,answer:'-2',reason:'Bij delen trek je exponenten af: 5 − 7 = −2.'},
+{id:8,sec:1,type:'mc',q:'(a<sup>3</sup>b<sup>2</sup>)<sup>2</sup>',options:['a<sup>6</sup>b<sup>4</sup>','a<sup>5</sup>b<sup>4</sup>','a<sup>6</sup>b<sup>2</sup>','a<sup>9</sup>b<sup>4</sup>'],answer:0,reason:'De exponent 2 werkt op beide factoren: a^(3·2)b^(2·2) = a⁶b⁴.'},
+{id:9,sec:1,type:'fill',q:`${F(`(${P(2,3)})<sup>2</sup>`,P(2,4))} = 2<sup>…</sup>`,answer:'2',reason:'Eerst vermenigvuldig je de exponenten: 3 · 2 = 6. Dan: 6 − 4 = 2.'},
+{id:10,sec:1,type:'mc',q:`<small>Welke uitdrukking is gelijk aan ${P(3,4)}?</small>`,options:[`${P(3,2)} + ${P(3,2)}`,F(P(3,6),P(3,2)),`(${P(3,2)})<sup>4</sup>`,'3 · 4'],answer:1,reason:'3⁶/3² = 3^(6−2) = 3⁴. Machten optellen is niet hetzelfde als exponenten optellen.'},
+{id:11,sec:1,type:'fill',q:`${P(9,3)} · ${P(9,'−2')} = 9<sup>…</sup>`,answer:'1',reason:'3 + (−2) = 1. Bij een product van machten met hetzelfde grondtal tel je de exponenten op.'},
+{id:12,sec:1,type:'mc',q:F(P(6,2),P(3,2)),options:['2','4','9','6'],answer:1,reason:'(6²)/(3²) = (6/3)² = 2² = 4. Je mag de machten delen als de exponenten gelijk zijn.'},
+{id:13,sec:2,type:'fill',q:`${S('81')} = …`,answer:'9',reason:'9² = 81 en de vierkantswortel is per definitie niet-negatief.'},
+{id:14,sec:2,type:'mc',q:S('25 + 144'),options:['17','169','13','12'],answer:2,reason:'Eerst reken je binnen het wortelteken: 25 + 144 = 169, en √169 = 13. √(a+b) is meestal niet gelijk aan √a+√b.'},
+{id:15,sec:2,type:'fill',q:`${S('50')} = …${S('2')}`,answer:'5',reason:'50 = 25 · 2, dus √50 = √25 · √2 = 5√2.'},
+{id:16,sec:2,type:'mc',q:`${S('12')} + ${S('27')}`,options:[S('39'),`5${S('3')}`,`6${S('3')}`,`5${S('39')}`],answer:1,reason:'√12 = 2√3 en √27 = 3√3. Gelijksoortige worteltermen tel je op: 5√3.'},
+{id:17,sec:2,type:'fill',q:`${S('18')} · ${S('8')} = …`,answer:'12',reason:'√18 · √8 = √144 = 12.'},
+{id:18,sec:2,type:'mc',q:F(S('72'),S('2')),options:['36',S('70'),'12','6'],answer:3,reason:'√72 / √2 = √(72/2) = √36 = 6.'},
+{id:19,sec:2,type:'fill',q:`${S('32')} − ${S('8')} = …${S('2')}`,answer:'2',reason:'√32 = 4√2 en √8 = 2√2. Het verschil is 2√2.'},
+{id:20,sec:2,type:'mc',q:'<small>Welke eigenschap is juist voor a &gt; 0 en b &gt; 0?</small>',options:[`${S('a + b')} = ${S('a')} + ${S('b')}`,`${S('ab')} = ${S('a')} · ${S('b')}`,`${S('a<sup>2</sup> + b<sup>2</sup>')} = a + b`,`${S('a − b')} = ${S('a')} − ${S('b')}`],answer:1,reason:'De wortel van een product mag je opsplitsen (bij niet-negatieve factoren), maar die van een som of verschil doorgaans niet.'},
+{id:21,sec:2,type:'fill',q:`(${S('3')})<sup>2</sup> + ${P(2,0)} = …`,answer:'4',reason:'(√3)² = 3 en 2⁰ = 1, samen 4.'},
+{id:22,sec:2,type:'mc',q:`<small>Voor elk reëel getal a geldt:</small> ${S('a<sup>2</sup>')} = …`,options:['a','−a','|a|','a<sup>2</sup>'],answer:2,reason:'√(a²) = |a|. De hoofdwortel is altijd niet-negatief, ook als a negatief is.'},
+{id:23,sec:2,type:'fill',q:`${S('147')} = …${S('3')}`,answer:'7',reason:'147 = 49 · 3, dus √147 = √49 · √3 = 7√3.'},
+{id:24,sec:2,type:'mc',q:`3${S('2')} · 2${S('8')}`,options:['12','24',`6${S('10')}`,'48'],answer:1,reason:'Vermenigvuldig de coëfficiënten: 3 · 2 = 6. Verder √2 · √8 = √16 = 4. Dus 6 · 4 = 24.'},
+{id:25,sec:3,type:'fill',q:`${P(2,3)} · ${P(2,'−5')} = ${F('1','2<sup>…</sup>')}`,answer:'2',reason:'3 + (−5) = −2. Dus 2⁻² = 1/2².'},
+{id:26,sec:3,type:'mc',q:F(`(${P(3,2)})<sup>3</sup>`,P(3,4)),options:[P(3,5),P(3,2),P(3,14),P(3,0)],answer:1,reason:'De teller wordt 3⁶. Deel door 3⁴ en je krijgt 3².'},
+{id:27,sec:3,type:'fill',q:`${F(S('75'),S('3'))} + ${S('16')} = …`,answer:'9',reason:'√75/√3 = √25 = 5, en √16 = 4. Samen 9.'},
+{id:28,sec:3,type:'mc',q:`(${S('5')} + ${S('5')})<sup>2</sup>`,options:['10',`4${S('5')}`,'20','5'],answer:2,reason:'√5 + √5 = 2√5, en (2√5)² = 4 · 5 = 20.'},
+{id:29,sec:3,type:'fill',q:`(${S('3')})<sup>2</sup> + ${P(2,3)} = …`,answer:'11',reason:'(√3)² = 3 en 2³ = 8. Samen is dit 11.'},
+{id:30,sec:3,type:'mc',q:F(`(${P(2,3)})<sup>2</sup>`,S('64')),options:['2','8','16','64'],answer:1,reason:'(2³)² = 2⁶ = 64 en √64 = 8. Dus 64/8 = 8.'}
+];
+const sections=[{n:1,title:'Machten',desc:'De eigenschappen herkennen en correct toepassen.'},{n:2,title:'Vierkantswortels',desc:'Vereenvoudigen en veelvoorkomende valkuilen herkennen.'},{n:3,title:'Gemengde oefeningen',desc:'Machten en wortels combineren met oog voor je tempo.'}];
+const $=id=>document.getElementById(id);
+const escapeHtml=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const normal=s=>String(s??'').trim().replace(/\s+/g,'').replace(/[−–]/g,'-').replace(',','.');
+const TIME_LIMIT_MS=15*60*1000;
+let state={started:false,submitted:false,autoSubmitted:false,startedAt:0,endedAt:0,timer:null,answers:{},name:'',score:0};
+const letters=['A','B','C','D'];
+function questionHTML(q){const opts=q.type==='mc'?`<div class="answers" role="radiogroup" aria-label="Antwoorden op vraag ${q.id}">${q.options.map((opt,i)=>`<label class="option"><input type="radio" name="question${q.id}" value="${i}"/><span class="opletter">${letters[i]}.</span><span class="math">${opt}</span></label>`).join('')}</div>`:`<label class="answerlabel" for="answer${q.id}">Jouw antwoord (alleen het getal):</label><input class="textinput shortanswer" id="answer${q.id}" type="text" inputmode="text" autocomplete="off" spellcheck="false" placeholder="…"/>`;
+return `<article class="qcard" id="q${q.id}"><div class="qtop"><span class="qid">Vraag ${String(q.id).padStart(2,'0')}</span><span class="qtype">${q.type==='mc'?'Meerkeuze':'Invulvraag'}</span></div><div class="qexpr">${q.q}</div>${opts}<div class="feedback" id="feedback${q.id}" role="status"></div></article>`;}
+function buildQuiz(){ $('questionContainer').innerHTML=sections.map(sec=>`<div class="sectionheading"><div class="numcircle">${sec.n}</div><div><h3>Deel ${sec.n} · ${sec.title}</h3><p>${sec.desc}</p></div></div>`+qs.filter(q=>q.sec===sec.n).map(questionHTML).join('')).join('');
+ $('questionContainer').querySelectorAll('input').forEach(inp=>inp.addEventListener('input',e=>{if(state.submitted)return;if(Date.now()-state.startedAt>=TIME_LIMIT_MS){grade(true);return;}const qid=e.target.name?Number(e.target.name.replace('question','')):Number(e.target.id.replace('answer',''));state.answers[qid]=e.target.value;updateProgress();}));
+}
+function updateProgress(){const c=qs.filter(q=>state.answers[q.id]!==undefined&&String(state.answers[q.id]).trim()!=='').length;$('progressLabel').textContent=`${c} / ${qs.length} ingevuld`;$('progressBar').style.width=`${100*c/qs.length}%`;}
+function elapsed(){return Math.max(0,Math.min(TIME_LIMIT_MS,(state.submitted?state.endedAt:Date.now())-state.startedAt))}
+function formatTime(ms){let s=Math.floor(ms/1000);return `${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`}
+function tick(){if(!state.started)return;const left=Math.max(0,TIME_LIMIT_MS-elapsed());$('timeDisplay').textContent=formatTime(left===0?0:Math.ceil(left/1000)*1000)+' over';$('timeDisplay').classList.toggle('warn',left<=2*60*1000);if(!state.submitted&&Date.now()-state.startedAt>=TIME_LIMIT_MS)grade(true);}
+function start(){if(!$('studentName').value.trim()){alert('Vul eerst je voornaam in.');$('studentName').focus();return;}state={started:true,submitted:false,autoSubmitted:false,startedAt:Date.now(),endedAt:0,timer:null,answers:{},name:$('studentName').value.trim()||'Leerling',score:0};$('intro').hidden=true;$('results').hidden=true;$('quiz').hidden=false;$('finishSection').hidden=false;buildQuiz();updateProgress();tick();state.timer=setInterval(tick,250);window.scrollTo({top:0,behavior:'smooth'});}
+function isCorrect(q){return q.type==='mc'?String(state.answers[q.id]??'')===String(q.answer):normal(state.answers[q.id])===q.answer}
+function answerText(q){const el=document.createElement('div');el.innerHTML=q.type==='mc'?q.options[q.answer]:q.answer;return el.textContent.trim();}
+function plainText(html){const el=document.createElement('div');el.innerHTML=html;return el.textContent.replace(/\s+/g,' ').trim();}
+function grade(auto=false){if(state.submitted)return;auto=auto===true||Date.now()-state.startedAt>=TIME_LIMIT_MS;const empty=qs.filter(q=>state.answers[q.id]===undefined||String(state.answers[q.id]).trim()==='').length;if(!auto&&empty&&!confirm(`Je hebt ${empty} vraag${empty===1?'':'en'} niet ingevuld. Wil je toch indienen?`)){if(Date.now()-state.startedAt>=TIME_LIMIT_MS)grade(true);return;}state.submitted=true;state.autoSubmitted=auto;state.endedAt=auto?state.startedAt+TIME_LIMIT_MS:Date.now();clearInterval(state.timer);tick();state.score=qs.filter(isCorrect).length;qs.forEach(q=>{const root=$('q'+q.id),good=isCorrect(q),fb=$('feedback'+q.id);root.classList.add(good?'correct':'incorrect');fb.className='feedback '+(good?'good':'bad');const chosen=state.answers[q.id]===undefined?'Niet ingevuld':q.type==='mc'?letters[Number(state.answers[q.id])]+' — '+plainText(q.options[Number(state.answers[q.id])]):state.answers[q.id];fb.innerHTML=`<strong>${good?'✓ Juist!':'✗ Nog niet juist.'}</strong> ${good?'':`Juiste antwoord: <strong>${q.type==='mc'?letters[q.answer]+'. ':''}${q.type==='mc'?q.options[q.answer]:escapeHtml(q.answer)}</strong>. `}<div class="explain">${escapeHtml(q.reason)}</div>`;root.querySelectorAll('input').forEach(i=>i.disabled=true);});$('finishSection').hidden=true;$('timeUpNotice').hidden=!state.autoSubmitted;showResults();$('results').hidden=false;$('results').scrollIntoView({behavior:'smooth',block:'start'});}
+function showResults(){const percent=Math.round(state.score/qs.length*100);$('scoreCircle').style.setProperty('--pct',percent+'%');$('scoreNum').textContent=state.score;$('resultName').textContent=`Naam: ${state.name}`;$('resultTime').textContent=`Tijd: ${formatTime(elapsed())} · ${new Date().toLocaleDateString('nl-BE')}`;let advice=percent>=88?'Sterke beheersing van de rekenregels.':percent>=71?'Goed gewerkt! Bekijk je fouten gericht.':percent>=54?'Je bent op weg: herhaal de regels die nog moeilijk zijn.':'Neem de eigenschappen nog eens door en probeer later opnieuw.';$('resultAdvice').textContent=advice;$('breakdown').innerHTML=sections.map(sec=>{let group=qs.filter(q=>q.sec===sec.n),s=group.filter(isCorrect).length;return `<div><span>${sec.title}</span><strong>${s}/${group.length}</strong></div>`}).join('');let wrong=qs.filter(q=>!isCorrect(q));$('mistakeList').innerHTML=wrong.length?wrong.map(q=>`<li><strong>Vraag ${q.id}:</strong> ${escapeHtml(q.reason)}</li>`).join(''):'<li>Alle vragen zijn correct beantwoord. Uitstekend!</li>';}
+function reset(){if(!state.submitted&&!confirm('Wil je opnieuw beginnen? Je huidige antwoorden gaan verloren.'))return;clearInterval(state.timer);state={started:false,submitted:false,autoSubmitted:false,startedAt:0,endedAt:0,timer:null,answers:{},name:'',score:0};$('intro').hidden=false;$('quiz').hidden=true;$('results').hidden=true;$('studentName').focus();window.scrollTo({top:0,behavior:'smooth'});}
+
+/** Maak lokaal een echt PDF-bestand, zonder externe scripts of upload. */
+function pdfSafe(s){return String(s??'').replace(/[\u2013\u2014\u2212]/g,'-').replace(/[\u2018\u2019]/g,"'").replace(/[\u201c\u201d]/g,'"').replace(/\u00b7/g,'·').replace(/[\u2026]/g,'...').replace(/\u221a/g,'sqrt').replace(/\u2260/g,'!=').replace(/[\u2022]/g,'-').replace(/[\u2192]/g,'->').replace(/[\u00d7]/g,'x').replace(/[\u00f7]/g,'/').replace(/[\u2070-\u2079]/g,c=>' ^'+('⁰¹²³⁴⁵⁶⁷⁸⁹'.indexOf(c))).replace(/[\t\r\n]+/g,' ');}
+function pdfEsc(s){let x='';for(const ch of pdfSafe(s)){let c=ch.charCodeAt(0);if(ch==='\\'||ch==='('||ch===')')x+='\\'+ch;else if(c>=32&&c<127)x+=ch;else if(c>=160&&c<=255)x+='\\'+c.toString(8).padStart(3,'0');else if(c===10)x+=' ';else x+='?';}return x;}
+function readableMath(html){const temp=document.createElement('div');temp.innerHTML=html;function walk(n){if(n.nodeType===3)return n.nodeValue||'';if(n.nodeType!==1)return '';if(n.classList.contains('frac'))return '('+walk(n.querySelector('.num'))+') / ('+walk(n.querySelector('.den'))+')';if(n.classList.contains('root'))return 'sqrt('+walk(n.querySelector('.rootbar'))+')';if(n.tagName==='SUP')return '^('+Array.from(n.childNodes).map(walk).join('')+')';return Array.from(n.childNodes).map(walk).join('');}return pdfSafe(walk(temp).replace(/\s+/g,' ').trim());}
+/** Wiskundige formules als echte PDF-vectoren: breukstrepen, worteltekens en exponenten. */
+function layoutPdfMath(html, size=11){
+  const temp=document.createElement('div');temp.innerHTML=html;
+  const ctx=document.createElement('canvas').getContext('2d');
+  const textBox=(value,sz)=>{
+    const text=pdfSafe(value);ctx.font=`${sz}px Helvetica, Arial, sans-serif`;
+    const w=ctx.measureText(text).width;
+    return {w,up:sz*.83,down:sz*.24,draw:(x,y,place)=>place(text,x,y,sz,false)};
+  };
+  function row(nodes,sz){const children=Array.from(nodes).map(n=>box(n,sz)).filter(Boolean);
+    let x=0,up=0,down=0;for(const o of children){x+=o.w;up=Math.max(up,o.up);down=Math.max(down,o.down)}
+    return {w:x,up,down,draw:(left,y,place,line)=>{let pos=left;for(const o of children){o.draw(pos,y,place,line);pos+=o.w}}};
+  }
+  function box(node,sz){
+    if(node.nodeType===3)return textBox(node.nodeValue||'',sz);
+    if(node.nodeType!==1)return null;
+    if(node.classList.contains('frac')){
+      const num=row(node.querySelector('.num').childNodes,sz*.82);
+      const den=row(node.querySelector('.den').childNodes,sz*.82);
+      const w=Math.max(num.w,den.w)+9, numBase=6+num.down, denBase=-(6+den.up);
+      return {w,up:numBase+num.up+2,down:-denBase+den.down+2,
+        draw:(x,y,place,line)=>{num.draw(x+(w-num.w)/2,y+numBase,place,line);den.draw(x+(w-den.w)/2,y+denBase,place,line);line(x+2,y+1,x+w-2,y+1)}};
+    }
+    if(node.classList.contains('root')){
+      const inner=node.querySelector('.rootbar');const child=row(inner.childNodes,sz);
+      const top=Math.max(child.up+2,sz*.93);
+      return {w:child.w+15,up:top+3,down:Math.max(child.down,sz*.29),draw:(x,y,place,line)=>{
+        line(x+1,y+1,x+5,y-2);line(x+5,y-2,x+10,y+top);line(x+10,y+top,x+15+child.w,y+top);
+        child.draw(x+13,y,place,line);
+      }};
+    }
+    if(node.tagName==='SUP'){
+      const c=row(node.childNodes,sz*.68),shift=sz*.56;
+      return {w:c.w+1,up:shift+c.up,down:Math.max(0,c.down-shift),draw:(x,y,place,line)=>c.draw(x+1,y+shift,place,line)};
+    }
+    if(node.tagName==='SMALL')return row(node.childNodes,sz*.78);
+    return row(node.childNodes,sz);
+  }
+  return row(temp.childNodes,size);
+}
+function pdfReport(){
+  if(!state.submitted){alert('Dien eerst de toets in voordat je het pdf-resultaat downloadt.');return;}
+  const PWIDTH=595,PHEIGHT=842, M=45, right=550;
+  const pages=[];
+  let cmds=[], y=734;
+  const rgb=(r,g,b)=>[r,g,b].map(n=>(n/255).toFixed(3)).join(' ');
+  const navy=rgb(21,36,58),teal=rgb(20,147,141),gray=rgb(83,97,113),light=rgb(225,232,240),black=rgb(30,42,58);
+  function addPage(){if(cmds.length)pages.push(cmds.join('\n'));cmds=[];y=734;cmds.push(`${navy} rg 0 774 595 68 re f`);cmds.push(`${teal} rg 0 768 595 6 re f`);place('ASTREM LAB',M,807,16,true,'1 1 1');place('REKENDRIL  /  MACHTEN & WORTELS',M,786,9,false,'0.8 0.92 0.94');}
+  function place(value,x,atY,size=9,bold=false,color=black){cmds.push(`BT /${bold?'F2':'F1'} ${size} Tf ${color} rg 1 0 0 1 ${x.toFixed(1)} ${atY.toFixed(1)} Tm (${pdfEsc(value)}) Tj ET`);}
+  function line(x1,y1,x2,y2,color=light){cmds.push(`${color} RG 0.5 w ${x1} ${y1.toFixed(1)} m ${x2} ${y2.toFixed(1)} l S`);}
+  function wrap(value,max=105){let result=[];let str=pdfSafe(value).replace(/\s+/g,' ').trim();if(!str)return [''];let words=str.split(' '), curr='';for(const w of words){if(!curr)curr=w;else if((curr+' '+w).length<=max)curr+=' '+w;else{result.push(curr);curr=w;}}if(curr)result.push(curr);return result;}
+  function ensure(needed){if(y-needed<60)addPage();}
+  function textLine(s,size=9,bold=false,color=black){ensure(size+8);place(s,M,y,size,bold,color);y-=size+6;}
+  function paragraph(s,size=9,color=gray,max=103){const lines=wrap(s,max);ensure(lines.length*(size+5)+6);for(const l of lines){place(l,M,y,size,false,color);y-=size+5;}y-=5;}
+  function section(title){ensure(37);y-=11;place(title,M,y,12,true,navy);y-=15;line(M,y,right,y);y-=18;}
+  addPage();
+  textLine('RESULTATENBLAD',17,true,navy);y-=5;
+  const date=new Date(state.endedAt||Date.now()).toLocaleDateString('nl-BE');
+  textLine(`Leerling: ${state.name}`,10,true);
+  textLine(`Datum: ${date}    Tijd: ${formatTime(elapsed())}    Maximum: 15:00    Aantal vragen: ${qs.length}`,9,false,gray);
+  textLine(`Ingediend: ${state.autoSubmitted?'automatisch na 15 minuten':'zelf ingediend'}`,9,false,gray);
+  const percentage=Math.round(state.score*100/qs.length);
+  textLine(`Totaalscore: ${state.score} / ${qs.length}  (${percentage}%)`,14,true,teal);
+  section('Score per onderdeel');
+  for(const s of sections){const g=qs.filter(q=>q.sec===s.n);textLine(`${s.title}: ${g.filter(isCorrect).length} / ${g.length}`,10,false);}
+  paragraph('Dit verslag bevat alle gegeven antwoorden en de juiste oplossingen. Het is lokaal op het toestel van de leerling gemaakt. ASTREM Lab ontvangt het bestand niet automatisch.',8,gray,115);
+  section('Antwoorden en verbeteringen');
+  function mathLine(html,x,atY,desiredSize=10.5){
+    let size=desiredSize, math=layoutPdfMath(html,size);
+    if(math.w>490){size*=490/math.w;math=layoutPdfMath(html,size);}
+    const mathPlace=(text,px,py,sz)=>place(text,px,py,sz,false,black);
+    const mathStroke=(x1,y1,x2,y2)=>{cmds.push(`${black} RG 0.95 w ${x1.toFixed(2)} ${y1.toFixed(2)} m ${x2.toFixed(2)} ${y2.toFixed(2)} l S`);};
+    math.draw(x,atY,mathPlace,mathStroke);
+    return math;
+  }
+  function mathMetrics(html,size){let box=layoutPdfMath(html,size);if(box.w>490)box=layoutPdfMath(html,size*490/box.w);return box;}
+  function mathRowHeight(html,size){let box=mathMetrics(html,size);return Math.max(19,box.up+10)+Math.max(17,box.down+12);}
+  function mathRow(label,html,size){
+    let m=mathMetrics(html,size);
+    place(label,M,y,8.3,false,gray);y-=Math.max(19,m.up+10);
+    mathLine(html,M+7,y,size);y-=Math.max(17,m.down+12);
+  }
+  for(const q of qs){
+    const mine=state.answers[q.id]===undefined||String(state.answers[q.id]).trim()===''?'Niet ingevuld':q.type==='mc'?letters[Number(state.answers[q.id])]:state.answers[q.id];
+    const ownMath=q.type==='mc'&&mine!=='Niet ingevuld'?q.options[Number(state.answers[q.id])]:null;
+    const rightMath=q.type==='mc'?q.options[q.answer]:null;
+    const noteLines=!isCorrect(q)?wrap('Uitleg: '+q.reason,105):[];
+    const total=21+mathRowHeight(q.q,10.7)+(ownMath?mathRowHeight(ownMath,10):18)+
+      (!isCorrect(q)?(rightMath?mathRowHeight(rightMath,10):18):0)+noteLines.length*12+26;
+    ensure(total);
+    place(`VRAAG ${q.id}  |  ${isCorrect(q)?'JUIST':'FOUT'}`,M,y,10,true,isCorrect(q)?teal:rgb(170,51,68));y-=21;
+    mathRow('Opgave:',q.q,10.7);
+    if(ownMath)mathRow(`Antwoord leerling: ${mine}`,ownMath,10);
+    else{place(`Antwoord leerling: ${mine}`,M,y,8.8,false,gray);y-=18;}
+    if(!isCorrect(q)){
+      if(rightMath)mathRow(`Juiste antwoord: ${letters[q.answer]}`,rightMath,10);
+      else{place(`Juiste antwoord: ${q.answer}`,M,y,8.8,true,black);y-=18;}
+    }
+    for(const l of noteLines){place(l,M,y,8.1,false,gray);y-=12;}
+    y-=9;line(M,y,right,y);y-=17;
+  }
+
+  pages.push(cmds.join('\n'));
+  // PDF 1.4, WinAnsi fonts. Content streams are escaped to ASCII, so cross-reference offsets are byte-precise.
+  const objects=[];
+  objects.push('<< /Type /Catalog /Pages 2 0 R >>');
+  objects.push('<< /Type /Pages /Kids ['+pages.map((_,i)=>(5+i*2)+' 0 R').join(' ')+'] /Count '+pages.length+' >>');
+  objects.push('<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>');
+  objects.push('<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>');
+  for(let i=0;i<pages.length;i++){
+    const content=pages[i]+`\nBT /F1 8 Tf ${gray} rg 1 0 0 1 ${M} 31 Tm (ASTREM Lab | Resultatenblad | Pagina ${i+1}/${pages.length}) Tj ET`;
+    objects.push('<< /Type /Page /Parent 2 0 R /MediaBox [0 0 '+PWIDTH+' '+PHEIGHT+'] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents '+(6+i*2)+' 0 R >>');
+    objects.push('<< /Length '+content.length+' >>\nstream\n'+content+'\nendstream');
+  }
+  let pdf='%PDF-1.4\n', offsets=[0];
+  for(let i=0;i<objects.length;i++){offsets.push(pdf.length);pdf+=(i+1)+' 0 obj\n'+objects[i]+'\nendobj\n';}
+  let xref=pdf.length;
+  pdf+='xref\n0 '+(objects.length+1)+'\n0000000000 65535 f \n';
+  for(let i=1;i<offsets.length;i++)pdf+=String(offsets[i]).padStart(10,'0')+' 00000 n \n';
+  pdf+='trailer\n<< /Size '+(objects.length+1)+' /Root 1 0 R >>\nstartxref\n'+xref+'\n%%EOF';
+  const a=document.createElement('a'),blob=new Blob([new TextEncoder().encode(pdf)],{type:'application/pdf'});
+  const url=URL.createObjectURL(blob);
+  a.href=url;a.download=`ASTREM_Lab_Rekendril_${state.name.replace(/[^a-z0-9-]/gi,'_').slice(0,30)}_${new Date(state.endedAt).toISOString().slice(0,10)}.pdf`;
+  document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),5000);
+}
+
+async function copy(){const summary=`ASTREM LAB – Rekendril machten & wortels\nLeerling: ${state.name}\nScore: ${state.score}/30\nTijd: ${formatTime(elapsed())}\n`+sections.map(s=>{const g=qs.filter(q=>q.sec===s.n);return `${s.title}: ${g.filter(isCorrect).length}/${g.length}`}).join('\n')+`\nIngediend: ${state.autoSubmitted?'automatisch na 15 minuten':'zelf ingediend'}\nFoute vragen: ${qs.filter(q=>!isCorrect(q)).map(q=>q.id).join(', ')||'geen'}`;try{await navigator.clipboard.writeText(summary);}catch(e){const field=document.createElement('textarea');field.value=summary;document.body.appendChild(field);field.select();document.execCommand('copy');field.remove();}$('copyBtn').textContent='✓ Gekopieerd!';setTimeout(()=>$('copyBtn').textContent='Kopieer samenvatting',2500);}
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&state.started&&!state.submitted)tick();});window.addEventListener('focus',()=>{if(state.started&&!state.submitted)tick();});
+$('startBtn').addEventListener('click',start);$('studentName').addEventListener('keydown',e=>{if(e.key==='Enter')start();});$('submitBtn').addEventListener('click',()=>grade(false));$('resetBeforeBtn').addEventListener('click',reset);$('retryBtn').addEventListener('click',reset);$('downloadBtn').addEventListener('click',pdfReport);$('copyBtn').addEventListener('click',copy);$('printBtn').addEventListener('click',()=>window.print());
+</script>
+</body>
+</html>
